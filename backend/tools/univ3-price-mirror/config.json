@@ -1,0 +1,56 @@
+{
+    "tokens": {
+        "USDC": {
+            "address": "0x23Bd327a5C8f5D7bb9A7854985Bacf93fbb739Ec",
+            "decimals": 6,
+            "symbol": "USDC"
+        },
+        "WETH": {
+            "address": "0x44dF2B9818CBFA04CF3f5aa916CE39De9d8E32bB",
+            "decimals": 18,
+            "symbol": "WETH"
+        },
+        "RUST": {
+            "address": "0xe6A3d2959974A47a6CaaC9a5a899324DEEa0e0c0",
+            "decimals": 18,
+            "symbol": "RUST"
+        }
+    },
+    "pools": [
+        {
+            "base": "WETH",
+            "quote": "USDC",
+            "feeTier": 3000
+        },
+        {
+            "base": "RUST",
+            "quote": "USDC",
+            "feeTier": 3000
+        }
+    ],
+    "liquidityUsd": 10000,
+    "uniswapV3": {
+        "factory": "0x4752ba5DBc23f44D87826276BF6Fd6b1C372aD24",
+        "positionManager": "0x27F971cb582BF9E50F397e4d29a5C7A34f11faA2",
+        "swapRouter": "0x94cC0AaC535CCDB3C01d6787D6413C739ae12bc4",
+        "viewQuoter": "0xE9B1d99EeE6Ad312C6bfa7b061F04D3ACdFBE59C"
+    },
+    "coinGeckoMapping": {
+        "WETH": "ethereum",
+        "ETH": "ethereum",
+        "USDC": "usd-coin",
+        "RUST": "rusty-robot-country-club",
+        "BTC": "bitcoin",
+        "WBTC": "wrapped-bitcoin",
+        "USDT": "tether",
+        "DAI": "dai",
+        "LINK": "chainlink",
+        "UNI": "uniswap",
+        "MATIC": "polygon",
+        "ARB": "arbitrum",
+        "AVAX": "avalanche-2",
+        "SOL": "solana",
+        "ADA": "cardano",
+        "DOT": "polkadot"
+    }
+}

@@ -1,0 +1,1301 @@
+{
+  "address": "0x49b150Aae083523EDa614b18501d777EA423f3b3",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidInitialization",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "listingId",
+          "type": "uint256"
+        }
+      ],
+      "name": "ListingError",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotAllowed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotGildiExchange",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotInitializing",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ParamError",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "version",
+          "type": "uint64"
+        }
+      ],
+      "name": "Initialized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "listingId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "releaseId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "seller",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "quantity",
+          "type": "uint256"
+        }
+      ],
+      "name": "Listed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "listingId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "releaseId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "seller",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "quantity",
+          "type": "uint256"
+        }
+      ],
+      "name": "Modified",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "listingId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "releaseId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "seller",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "quantity",
+          "type": "uint256"
+        }
+      ],
+      "name": "Unlisted",
+      "type": "event"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "fallback"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_releaseId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        }
+      ],
+      "name": "getAvailableBuyQuantity",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_releaseId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getHeadListingId",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_listingId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getListing",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "releaseId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "seller",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "pricePerItem",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "payoutCurrency",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "quantity",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint16",
+              "name": "slippageBps",
+              "type": "uint16"
+            },
+            {
+              "internalType": "uint256",
+              "name": "createdAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "modifiedAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "nextListingId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "prevListingId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "fundsReceiver",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct IGildiExchangeOrderBook.Listing",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_seller",
+          "type": "address"
+        }
+      ],
+      "name": "getListingsOfSeller",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "releaseId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "seller",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "pricePerItem",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "payoutCurrency",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "quantity",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint16",
+              "name": "slippageBps",
+              "type": "uint16"
+            },
+            {
+              "internalType": "uint256",
+              "name": "createdAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "modifiedAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "nextListingId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "prevListingId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "fundsReceiver",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct IGildiExchangeOrderBook.Listing[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_listingId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getNextListingId",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_releaseId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_cursor",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_limit",
+          "type": "uint256"
+        }
+      ],
+      "name": "getOrderedListings",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "releaseId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "seller",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "pricePerItem",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "payoutCurrency",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "quantity",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint16",
+              "name": "slippageBps",
+              "type": "uint16"
+            },
+            {
+              "internalType": "uint256",
+              "name": "createdAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "modifiedAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "nextListingId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "prevListingId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "fundsReceiver",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct IGildiExchangeOrderBook.Listing[]",
+          "name": "orderedListings",
+          "type": "tuple[]"
+        },
+        {
+          "internalType": "uint256",
+          "name": "cursor",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "gildiExchange",
+      "outputs": [
+        {
+          "internalType": "contract IGildiExchange",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "gildiManager",
+      "outputs": [
+        {
+          "internalType": "contract IGildiManager",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_releaseId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_seller",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_pricePerItem",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_quantity",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_payoutCurrency",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_fundsReceiver",
+          "type": "address"
+        },
+        {
+          "internalType": "uint16",
+          "name": "_slippageBps",
+          "type": "uint16"
+        }
+      ],
+      "name": "handleCreateListing",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_listingId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_quantityToBuy",
+          "type": "uint256"
+        }
+      ],
+      "name": "handleDecreaseListingQuantity",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_listingId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_pricePerItem",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_quantity",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_payoutCurrency",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_fundsReceiver",
+          "type": "address"
+        },
+        {
+          "internalType": "uint16",
+          "name": "_slippageBps",
+          "type": "uint16"
+        }
+      ],
+      "name": "handleModifyListing",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_listingId",
+          "type": "uint256"
+        }
+      ],
+      "name": "handleRemoveListing",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_releaseId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_batchSize",
+          "type": "uint256"
+        }
+      ],
+      "name": "handleUnlistReleaseListings",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "processedListings",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_gildiExchange",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_gildiManager",
+          "type": "address"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_releaseId",
+          "type": "uint256"
+        }
+      ],
+      "name": "listedQuantities",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_releaseId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_buyer",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amountToBuy",
+          "type": "uint256"
+        }
+      ],
+      "name": "previewPurchase",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "totalQuantityAvailable",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalPriceInCurrency",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "currency",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "totalPriceUsd",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct IGildiExchangeOrderBook.PurchasePreview",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
+    }
+  ],
+  "transactionHash": "0xfc1528cc4252b00424f7891be0c6d8ad86a7dbaf7a01df6ec9f4cd056529d491",
+  "receipt": {
+    "to": null,
+    "from": "0xdda45D610A204EB5CB204e9d49920F788296C676",
+    "contractAddress": "0x49b150Aae083523EDa614b18501d777EA423f3b3",
+    "transactionIndex": 1,
+    "gasUsed": "2399365",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000800000000000000000000000080000000000000000000000000000000000000000000000000000000000000000000100020000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xbcd6c5ccee7eba150bab69f953dbbb2459ae40f119ee0a16ab324024ee4b27df",
+    "transactionHash": "0xfc1528cc4252b00424f7891be0c6d8ad86a7dbaf7a01df6ec9f4cd056529d491",
+    "logs": [
+      {
+        "transactionIndex": 1,
+        "blockNumber": 33460001,
+        "transactionHash": "0xfc1528cc4252b00424f7891be0c6d8ad86a7dbaf7a01df6ec9f4cd056529d491",
+        "address": "0x49b150Aae083523EDa614b18501d777EA423f3b3",
+        "topics": [
+          "0xc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d2"
+        ],
+        "data": "0x000000000000000000000000000000000000000000000000ffffffffffffffff",
+        "logIndex": 0,
+        "blockHash": "0xbcd6c5ccee7eba150bab69f953dbbb2459ae40f119ee0a16ab324024ee4b27df"
+      }
+    ],
+    "blockNumber": 33460001,
+    "cumulativeGasUsed": "2445485",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "594efa0505e6449b9b54376cc6a6f699",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.24+commit.e11b9ed9\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"InvalidInitialization\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"listingId\",\"type\":\"uint256\"}],\"name\":\"ListingError\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotAllowed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotGildiExchange\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotInitializing\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ParamError\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"version\",\"type\":\"uint64\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"listingId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"releaseId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"quantity\",\"type\":\"uint256\"}],\"name\":\"Listed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"listingId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"releaseId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"quantity\",\"type\":\"uint256\"}],\"name\":\"Modified\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"listingId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"releaseId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"quantity\",\"type\":\"uint256\"}],\"name\":\"Unlisted\",\"type\":\"event\"},{\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_releaseId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_user\",\"type\":\"address\"}],\"name\":\"getAvailableBuyQuantity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_releaseId\",\"type\":\"uint256\"}],\"name\":\"getHeadListingId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_listingId\",\"type\":\"uint256\"}],\"name\":\"getListing\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"releaseId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"pricePerItem\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"payoutCurrency\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"quantity\",\"type\":\"uint256\"},{\"internalType\":\"uint16\",\"name\":\"slippageBps\",\"type\":\"uint16\"},{\"internalType\":\"uint256\",\"name\":\"createdAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"modifiedAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nextListingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"prevListingId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"fundsReceiver\",\"type\":\"address\"}],\"internalType\":\"struct IGildiExchangeOrderBook.Listing\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_seller\",\"type\":\"address\"}],\"name\":\"getListingsOfSeller\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"releaseId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"pricePerItem\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"payoutCurrency\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"quantity\",\"type\":\"uint256\"},{\"internalType\":\"uint16\",\"name\":\"slippageBps\",\"type\":\"uint16\"},{\"internalType\":\"uint256\",\"name\":\"createdAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"modifiedAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nextListingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"prevListingId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"fundsReceiver\",\"type\":\"address\"}],\"internalType\":\"struct IGildiExchangeOrderBook.Listing[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_listingId\",\"type\":\"uint256\"}],\"name\":\"getNextListingId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_releaseId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_cursor\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_limit\",\"type\":\"uint256\"}],\"name\":\"getOrderedListings\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"releaseId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"seller\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"pricePerItem\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"payoutCurrency\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"quantity\",\"type\":\"uint256\"},{\"internalType\":\"uint16\",\"name\":\"slippageBps\",\"type\":\"uint16\"},{\"internalType\":\"uint256\",\"name\":\"createdAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"modifiedAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nextListingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"prevListingId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"fundsReceiver\",\"type\":\"address\"}],\"internalType\":\"struct IGildiExchangeOrderBook.Listing[]\",\"name\":\"orderedListings\",\"type\":\"tuple[]\"},{\"internalType\":\"uint256\",\"name\":\"cursor\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"gildiExchange\",\"outputs\":[{\"internalType\":\"contract IGildiExchange\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"gildiManager\",\"outputs\":[{\"internalType\":\"contract IGildiManager\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_releaseId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_seller\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_pricePerItem\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_quantity\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_payoutCurrency\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_fundsReceiver\",\"type\":\"address\"},{\"internalType\":\"uint16\",\"name\":\"_slippageBps\",\"type\":\"uint16\"}],\"name\":\"handleCreateListing\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_listingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_quantityToBuy\",\"type\":\"uint256\"}],\"name\":\"handleDecreaseListingQuantity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_listingId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_pricePerItem\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_quantity\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_payoutCurrency\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_fundsReceiver\",\"type\":\"address\"},{\"internalType\":\"uint16\",\"name\":\"_slippageBps\",\"type\":\"uint16\"}],\"name\":\"handleModifyListing\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_listingId\",\"type\":\"uint256\"}],\"name\":\"handleRemoveListing\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_releaseId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_batchSize\",\"type\":\"uint256\"}],\"name\":\"handleUnlistReleaseListings\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"processedListings\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_gildiExchange\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_gildiManager\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_releaseId\",\"type\":\"uint256\"}],\"name\":\"listedQuantities\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_releaseId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_buyer\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amountToBuy\",\"type\":\"uint256\"}],\"name\":\"previewPurchase\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"totalQuantityAvailable\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"totalPriceInCurrency\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"currency\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"totalPriceUsd\",\"type\":\"uint256\"}],\"internalType\":\"struct IGildiExchangeOrderBook.PurchasePreview\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}],\"devdoc\":{\"author\":\"Gildi Company\",\"custom:security-contact\":\"security@gildi.io\",\"errors\":{\"InvalidInitialization()\":[{\"details\":\"The contract is already initialized.\"}],\"ListingError(uint256)\":[{\"details\":\"Emitted when a listing ID is invalid or does not match storage data\",\"params\":{\"listingId\":\"The ID that caused the error\"}}],\"NotAllowed()\":[{\"details\":\"Emitted when an operation is not allowed for the caller\"}],\"NotGildiExchange()\":[{\"details\":\"Error thrown when the caller is not the GildiExchange\"}],\"NotInitializing()\":[{\"details\":\"The contract is not initializing.\"}],\"ParamError()\":[{\"details\":\"Emitted when a function parameter is invalid or out-of-range (e.g. zero batchSize, zero price, etc.)\"}]},\"events\":{\"Initialized(uint64)\":{\"details\":\"Triggered when the contract has been initialized or reinitialized.\"},\"Listed(uint256,uint256,address,uint256,uint256)\":{\"params\":{\"listingId\":\"The ID of the listing\",\"price\":\"The price per item\",\"quantity\":\"The quantity listed\",\"releaseId\":\"The ID of the release\",\"seller\":\"The address of the seller\"}},\"Modified(uint256,uint256,address,uint256,uint256)\":{\"params\":{\"listingId\":\"The ID of the listing\",\"price\":\"The new price per item\",\"quantity\":\"The new quantity\",\"releaseId\":\"The ID of the release\",\"seller\":\"The address of the seller\"}},\"Unlisted(uint256,uint256,address,uint256)\":{\"params\":{\"listingId\":\"The ID of the listing\",\"quantity\":\"The quantity unlisted\",\"releaseId\":\"The ID of the release\",\"seller\":\"The address of the seller\"}}},\"kind\":\"dev\",\"methods\":{\"constructor\":{\"custom:oz-upgrades-unsafe-allow\":\"constructor\"},\"getAvailableBuyQuantity(uint256,address)\":{\"params\":{\"_releaseId\":\"The release ID\",\"_user\":\"The user address\"},\"returns\":{\"_0\":\"The available quantity to buy\"}},\"getHeadListingId(uint256)\":{\"params\":{\"_releaseId\":\"The ID of the release\"},\"returns\":{\"_0\":\"The ID of the listing with the lowest price for this release\"}},\"getListing(uint256)\":{\"params\":{\"_listingId\":\"The listing ID\"},\"returns\":{\"_0\":\"The listing\"}},\"getListingsOfSeller(address)\":{\"params\":{\"_seller\":\"The address of the seller\"},\"returns\":{\"_0\":\"An array of listings for the seller\"}},\"getNextListingId(uint256)\":{\"params\":{\"_listingId\":\"The current listing ID\"},\"returns\":{\"_0\":\"The ID of the next listing with a higher price, or 0 if none exists\"}},\"getOrderedListings(uint256,uint256,uint256)\":{\"params\":{\"_cursor\":\"The cursor to start from\",\"_limit\":\"The limit of listings to return\",\"_releaseId\":\"The ID of the release\"},\"returns\":{\"cursor\":\"The cursor to continue from\",\"orderedListings\":\"An array of listings for the release\"}},\"handleCreateListing(uint256,address,uint256,uint256,address,address,uint16)\":{\"details\":\"Takes the slippage setting literally, 0 = no slippage, 10000 = 100%, does not make assumptions about the default, caller must know what they are doing\",\"params\":{\"_payoutCurrency\":\"The payout currency of the listing\",\"_pricePerItem\":\"The price per item\",\"_quantity\":\"The quantity being listed\",\"_releaseId\":\"The ID of the release\",\"_seller\":\"The address of the seller\",\"_slippageBps\":\"Optional slippage protection in basis points (100 = 1%, 500 = 5%)\"}},\"handleDecreaseListingQuantity(uint256,uint256)\":{\"params\":{\"_listingId\":\"The ID of the listing\",\"_quantityToBuy\":\"The amount to reduce from the listing's quantity (if this reduces quantity to 0, the listing will be removed)\"}},\"handleModifyListing(uint256,uint256,uint256,address,address,uint16)\":{\"details\":\"Takes the slippage setting literally, 0 = no slippage, 10000 = 100%, does not make assumptions about the default, caller must know what they are doing\",\"params\":{\"_listingId\":\"The ID of the listing to modify\",\"_payoutCurrency\":\"The new payout currency\",\"_pricePerItem\":\"The new price per item\",\"_quantity\":\"The new quantity (if 0, the listing will be removed)\",\"_slippageBps\":\"Slippage protection in basis points (100 = 1%, 500 = 5%)\"}},\"handleRemoveListing(uint256)\":{\"params\":{\"_listingId\":\"The ID of the listing to cancel\"}},\"handleUnlistReleaseListings(uint256,uint256)\":{\"params\":{\"_batchSize\":\"The batch size\",\"_releaseId\":\"The ID of the release\"},\"returns\":{\"processedListings\":\"The number of listings processed\"}},\"initialize(address,address)\":{\"params\":{\"_gildiExchange\":\"The address of the GildiExchange contract\",\"_gildiManager\":\"The address of the GildiManager contract\"}},\"listedQuantities(uint256)\":{\"params\":{\"_releaseId\":\"The ID of the release\"},\"returns\":{\"_0\":\"The total quantity listed\"}},\"previewPurchase(uint256,address,uint256)\":{\"params\":{\"_amountToBuy\":\"The amount of tokens to buy\",\"_buyer\":\"The address of the buyer\",\"_releaseId\":\"The ID of the release to purchase\"},\"returns\":{\"_0\":\"Preview information for the purchase\"}}},\"stateVariables\":{\"headListingIds\":{\"details\":\"Mapping from release ID to the ID of the listing with the lowest price for that release\"},\"listedQuantitiesMap\":{\"details\":\"Mapping from release ID to the total quantity of tokens listed for that release\"},\"listings\":{\"details\":\"Mapping from listing ID to Listing struct\"},\"nextListingId\":{\"details\":\"The next available listing ID to assign\"},\"sellerListings\":{\"details\":\"Mapping from seller address to an array of their listing IDs\"},\"tailListingIds\":{\"details\":\"Mapping from release ID to the ID of the listing with the highest price for that release\"},\"tokenListings\":{\"details\":\"Mapping from release ID to an array of listing IDs for that release\"}},\"title\":\"Gildi Exchange Order Book\",\"version\":1},\"userdoc\":{\"events\":{\"Listed(uint256,uint256,address,uint256,uint256)\":{\"notice\":\"Emitted when a new listing is created\"},\"Modified(uint256,uint256,address,uint256,uint256)\":{\"notice\":\"Emitted when a listing is modified\"},\"Unlisted(uint256,uint256,address,uint256)\":{\"notice\":\"Emitted when a listing is removed\"}},\"kind\":\"user\",\"methods\":{\"getAvailableBuyQuantity(uint256,address)\":{\"notice\":\"Gets the available buy quantity for a user\"},\"getHeadListingId(uint256)\":{\"notice\":\"Gets the first listing ID (with lowest price) for a specific release\"},\"getListing(uint256)\":{\"notice\":\"Gets a listing by ID\"},\"getListingsOfSeller(address)\":{\"notice\":\"Gets all the listings of a specific seller\"},\"getNextListingId(uint256)\":{\"notice\":\"Gets the next listing ID in the price-ordered linked list\"},\"getOrderedListings(uint256,uint256,uint256)\":{\"notice\":\"Gets all the listings of a specific release, ordered by price\"},\"gildiExchange()\":{\"notice\":\"The GildiExchange contract that this order book is associated with\"},\"gildiManager()\":{\"notice\":\"The GildiManager contract used for token management\"},\"handleCreateListing(uint256,address,uint256,uint256,address,address,uint16)\":{\"notice\":\"Creates a listing\"},\"handleDecreaseListingQuantity(uint256,uint256)\":{\"notice\":\"Decreases a listing's quantity after a purchase\"},\"handleModifyListing(uint256,uint256,uint256,address,address,uint16)\":{\"notice\":\"Modifies an existing listing's price, quantity, and slippage settings\"},\"handleRemoveListing(uint256)\":{\"notice\":\"Removes a listing\"},\"handleUnlistReleaseListings(uint256,uint256)\":{\"notice\":\"Unlists all listings of a release in batches.\"},\"initialize(address,address)\":{\"notice\":\"Initializes the contract\"},\"listedQuantities(uint256)\":{\"notice\":\"Gets the total quantity listed for a specific release\"},\"previewPurchase(uint256,address,uint256)\":{\"notice\":\"Preview a purchase\"}},\"notice\":\"Manages listings and order book functionality for the Gildi Exchange marketplace.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/marketplace/exchange/GildiExchangeOrderBook.sol\":\"GildiExchangeOrderBook\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[],\"viaIR\":true},\"sources\":{\"@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.3.0) (proxy/utils/Initializable.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed\\n * behind a proxy. Since proxied contracts do not make use of a constructor, it's common to move constructor logic to an\\n * external initializer function, usually called `initialize`. It then becomes necessary to protect this initializer\\n * function so it can only be called once. The {initializer} modifier provided by this contract will have this effect.\\n *\\n * The initialization functions use a version number. Once a version number is used, it is consumed and cannot be\\n * reused. This mechanism prevents re-execution of each \\\"step\\\" but allows the creation of new initialization steps in\\n * case an upgrade adds a module that needs to be initialized.\\n *\\n * For example:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```solidity\\n * contract MyToken is ERC20Upgradeable {\\n *     function initialize() initializer public {\\n *         __ERC20_init(\\\"MyToken\\\", \\\"MTK\\\");\\n *     }\\n * }\\n *\\n * contract MyTokenV2 is MyToken, ERC20PermitUpgradeable {\\n *     function initializeV2() reinitializer(2) public {\\n *         __ERC20Permit_init(\\\"MyToken\\\");\\n *     }\\n * }\\n * ```\\n *\\n * TIP: To avoid leaving the proxy in an uninitialized state, the initializer function should be called as early as\\n * possible by providing the encoded function call as the `_data` argument to {ERC1967Proxy-constructor}.\\n *\\n * CAUTION: When used with inheritance, manual care must be taken to not invoke a parent initializer twice, or to ensure\\n * that all initializers are idempotent. This is not verified automatically as constructors are by Solidity.\\n *\\n * [CAUTION]\\n * ====\\n * Avoid leaving a contract uninitialized.\\n *\\n * An uninitialized contract can be taken over by an attacker. This applies to both a proxy and its implementation\\n * contract, which may impact the proxy. To prevent the implementation contract from being used, you should invoke\\n * the {_disableInitializers} function in the constructor to automatically lock it when it is deployed:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```\\n * /// @custom:oz-upgrades-unsafe-allow constructor\\n * constructor() {\\n *     _disableInitializers();\\n * }\\n * ```\\n * ====\\n */\\nabstract contract Initializable {\\n    /**\\n     * @dev Storage of the initializable contract.\\n     *\\n     * It's implemented on a custom ERC-7201 namespace to reduce the risk of storage collisions\\n     * when using with upgradeable contracts.\\n     *\\n     * @custom:storage-location erc7201:openzeppelin.storage.Initializable\\n     */\\n    struct InitializableStorage {\\n        /**\\n         * @dev Indicates that the contract has been initialized.\\n         */\\n        uint64 _initialized;\\n        /**\\n         * @dev Indicates that the contract is in the process of being initialized.\\n         */\\n        bool _initializing;\\n    }\\n\\n    // keccak256(abi.encode(uint256(keccak256(\\\"openzeppelin.storage.Initializable\\\")) - 1)) & ~bytes32(uint256(0xff))\\n    bytes32 private constant INITIALIZABLE_STORAGE = 0xf0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00;\\n\\n    /**\\n     * @dev The contract is already initialized.\\n     */\\n    error InvalidInitialization();\\n\\n    /**\\n     * @dev The contract is not initializing.\\n     */\\n    error NotInitializing();\\n\\n    /**\\n     * @dev Triggered when the contract has been initialized or reinitialized.\\n     */\\n    event Initialized(uint64 version);\\n\\n    /**\\n     * @dev A modifier that defines a protected initializer function that can be invoked at most once. In its scope,\\n     * `onlyInitializing` functions can be used to initialize parent contracts.\\n     *\\n     * Similar to `reinitializer(1)`, except that in the context of a constructor an `initializer` may be invoked any\\n     * number of times. This behavior in the constructor can be useful during testing and is not expected to be used in\\n     * production.\\n     *\\n     * Emits an {Initialized} event.\\n     */\\n    modifier initializer() {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        // Cache values to avoid duplicated sloads\\n        bool isTopLevelCall = !$._initializing;\\n        uint64 initialized = $._initialized;\\n\\n        // Allowed calls:\\n        // - initialSetup: the contract is not in the initializing state and no previous version was\\n        //                 initialized\\n        // - construction: the contract is initialized at version 1 (no reinitialization) and the\\n        //                 current contract is just being deployed\\n        bool initialSetup = initialized == 0 && isTopLevelCall;\\n        bool construction = initialized == 1 && address(this).code.length == 0;\\n\\n        if (!initialSetup && !construction) {\\n            revert InvalidInitialization();\\n        }\\n        $._initialized = 1;\\n        if (isTopLevelCall) {\\n            $._initializing = true;\\n        }\\n        _;\\n        if (isTopLevelCall) {\\n            $._initializing = false;\\n            emit Initialized(1);\\n        }\\n    }\\n\\n    /**\\n     * @dev A modifier that defines a protected reinitializer function that can be invoked at most once, and only if the\\n     * contract hasn't been initialized to a greater version before. In its scope, `onlyInitializing` functions can be\\n     * used to initialize parent contracts.\\n     *\\n     * A reinitializer may be used after the original initialization step. This is essential to configure modules that\\n     * are added through upgrades and that require initialization.\\n     *\\n     * When `version` is 1, this modifier is similar to `initializer`, except that functions marked with `reinitializer`\\n     * cannot be nested. If one is invoked in the context of another, execution will revert.\\n     *\\n     * Note that versions can jump in increments greater than 1; this implies that if multiple reinitializers coexist in\\n     * a contract, executing them in the right order is up to the developer or operator.\\n     *\\n     * WARNING: Setting the version to 2**64 - 1 will prevent any future reinitialization.\\n     *\\n     * Emits an {Initialized} event.\\n     */\\n    modifier reinitializer(uint64 version) {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        if ($._initializing || $._initialized >= version) {\\n            revert InvalidInitialization();\\n        }\\n        $._initialized = version;\\n        $._initializing = true;\\n        _;\\n        $._initializing = false;\\n        emit Initialized(version);\\n    }\\n\\n    /**\\n     * @dev Modifier to protect an initialization function so that it can only be invoked by functions with the\\n     * {initializer} and {reinitializer} modifiers, directly or indirectly.\\n     */\\n    modifier onlyInitializing() {\\n        _checkInitializing();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Reverts if the contract is not in an initializing state. See {onlyInitializing}.\\n     */\\n    function _checkInitializing() internal view virtual {\\n        if (!_isInitializing()) {\\n            revert NotInitializing();\\n        }\\n    }\\n\\n    /**\\n     * @dev Locks the contract, preventing any future reinitialization. This cannot be part of an initializer call.\\n     * Calling this in the constructor of a contract will prevent that contract from being initialized or reinitialized\\n     * to any version. It is recommended to use this to lock implementation contracts that are designed to be called\\n     * through proxies.\\n     *\\n     * Emits an {Initialized} event the first time it is successfully executed.\\n     */\\n    function _disableInitializers() internal virtual {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        if ($._initializing) {\\n            revert InvalidInitialization();\\n        }\\n        if ($._initialized != type(uint64).max) {\\n            $._initialized = type(uint64).max;\\n            emit Initialized(type(uint64).max);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the highest version that has been initialized. See {reinitializer}.\\n     */\\n    function _getInitializedVersion() internal view returns (uint64) {\\n        return _getInitializableStorage()._initialized;\\n    }\\n\\n    /**\\n     * @dev Returns `true` if the contract is currently initializing. See {onlyInitializing}.\\n     */\\n    function _isInitializing() internal view returns (bool) {\\n        return _getInitializableStorage()._initializing;\\n    }\\n\\n    /**\\n     * @dev Pointer to storage slot. Allows integrators to override it with a custom storage location.\\n     *\\n     * NOTE: Consider following the ERC-7201 formula to derive storage locations.\\n     */\\n    function _initializableStorageSlot() internal pure virtual returns (bytes32) {\\n        return INITIALIZABLE_STORAGE;\\n    }\\n\\n    /**\\n     * @dev Returns a pointer to the storage namespace.\\n     */\\n    // solhint-disable-next-line var-name-mixedcase\\n    function _getInitializableStorage() private pure returns (InitializableStorage storage $) {\\n        bytes32 slot = _initializableStorageSlot();\\n        assembly {\\n            $.slot := slot\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xdb4d24ee2c087c391d587cd17adfe5b3f9d93b3110b1388c2ab6c7c0ad1dcd05\",\"license\":\"MIT\"},\"@openzeppelin/contracts/access/IAccessControl.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.4.0) (access/IAccessControl.sol)\\n\\npragma solidity >=0.8.4;\\n\\n/**\\n * @dev External interface of AccessControl declared to support ERC-165 detection.\\n */\\ninterface IAccessControl {\\n    /**\\n     * @dev The `account` is missing a role.\\n     */\\n    error AccessControlUnauthorizedAccount(address account, bytes32 neededRole);\\n\\n    /**\\n     * @dev The caller of a function is not the expected one.\\n     *\\n     * NOTE: Don't confuse with {AccessControlUnauthorizedAccount}.\\n     */\\n    error AccessControlBadConfirmation();\\n\\n    /**\\n     * @dev Emitted when `newAdminRole` is set as ``role``'s admin role, replacing `previousAdminRole`\\n     *\\n     * `DEFAULT_ADMIN_ROLE` is the starting admin for all roles, despite\\n     * {RoleAdminChanged} not being emitted to signal this.\\n     */\\n    event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole);\\n\\n    /**\\n     * @dev Emitted when `account` is granted `role`.\\n     *\\n     * `sender` is the account that originated the contract call. This account bears the admin role (for the granted role).\\n     * Expected in cases where the role was granted using the internal {AccessControl-_grantRole}.\\n     */\\n    event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender);\\n\\n    /**\\n     * @dev Emitted when `account` is revoked `role`.\\n     *\\n     * `sender` is the account that originated the contract call:\\n     *   - if using `revokeRole`, it is the admin role bearer\\n     *   - if using `renounceRole`, it is the role bearer (i.e. `account`)\\n     */\\n    event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender);\\n\\n    /**\\n     * @dev Returns `true` if `account` has been granted `role`.\\n     */\\n    function hasRole(bytes32 role, address account) external view returns (bool);\\n\\n    /**\\n     * @dev Returns the admin role that controls `role`. See {grantRole} and\\n     * {revokeRole}.\\n     *\\n     * To change a role's admin, use {AccessControl-_setRoleAdmin}.\\n     */\\n    function getRoleAdmin(bytes32 role) external view returns (bytes32);\\n\\n    /**\\n     * @dev Grants `role` to `account`.\\n     *\\n     * If `account` had not been already granted `role`, emits a {RoleGranted}\\n     * event.\\n     *\\n     * Requirements:\\n     *\\n     * - the caller must have ``role``'s admin role.\\n     */\\n    function grantRole(bytes32 role, address account) external;\\n\\n    /**\\n     * @dev Revokes `role` from `account`.\\n     *\\n     * If `account` had been granted `role`, emits a {RoleRevoked} event.\\n     *\\n     * Requirements:\\n     *\\n     * - the caller must have ``role``'s admin role.\\n     */\\n    function revokeRole(bytes32 role, address account) external;\\n\\n    /**\\n     * @dev Revokes `role` from the calling account.\\n     *\\n     * Roles are often managed via {grantRole} and {revokeRole}: this function's\\n     * purpose is to provide a mechanism for accounts to lose their privileges\\n     * if they are compromised (such as when a trusted device is misplaced).\\n     *\\n     * If the calling account had been granted `role`, emits a {RoleRevoked}\\n     * event.\\n     *\\n     * Requirements:\\n     *\\n     * - the caller must be `callerConfirmation`.\\n     */\\n    function renounceRole(bytes32 role, address callerConfirmation) external;\\n}\\n\",\"keccak256\":\"0xbff9f59c84e5337689161ce7641c0ef8e872d6a7536fbc1f5133f128887aba3c\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC1155/IERC1155.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.4.0) (token/ERC1155/IERC1155.sol)\\n\\npragma solidity >=0.6.2;\\n\\nimport {IERC165} from \\\"../../utils/introspection/IERC165.sol\\\";\\n\\n/**\\n * @dev Required interface of an ERC-1155 compliant contract, as defined in the\\n * https://eips.ethereum.org/EIPS/eip-1155[ERC].\\n */\\ninterface IERC1155 is IERC165 {\\n    /**\\n     * @dev Emitted when `value` amount of tokens of type `id` are transferred from `from` to `to` by `operator`.\\n     */\\n    event TransferSingle(address indexed operator, address indexed from, address indexed to, uint256 id, uint256 value);\\n\\n    /**\\n     * @dev Equivalent to multiple {TransferSingle} events, where `operator`, `from` and `to` are the same for all\\n     * transfers.\\n     */\\n    event TransferBatch(\\n        address indexed operator,\\n        address indexed from,\\n        address indexed to,\\n        uint256[] ids,\\n        uint256[] values\\n    );\\n\\n    /**\\n     * @dev Emitted when `account` grants or revokes permission to `operator` to transfer their tokens, according to\\n     * `approved`.\\n     */\\n    event ApprovalForAll(address indexed account, address indexed operator, bool approved);\\n\\n    /**\\n     * @dev Emitted when the URI for token type `id` changes to `value`, if it is a non-programmatic URI.\\n     *\\n     * If an {URI} event was emitted for `id`, the standard\\n     * https://eips.ethereum.org/EIPS/eip-1155#metadata-extensions[guarantees] that `value` will equal the value\\n     * returned by {IERC1155MetadataURI-uri}.\\n     */\\n    event URI(string value, uint256 indexed id);\\n\\n    /**\\n     * @dev Returns the value of tokens of token type `id` owned by `account`.\\n     */\\n    function balanceOf(address account, uint256 id) external view returns (uint256);\\n\\n    /**\\n     * @dev xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {balanceOf}.\\n     *\\n     * Requirements:\\n     *\\n     * - `accounts` and `ids` must have the same length.\\n     */\\n    function balanceOfBatch(\\n        address[] calldata accounts,\\n        uint256[] calldata ids\\n    ) external view returns (uint256[] memory);\\n\\n    /**\\n     * @dev Grants or revokes permission to `operator` to transfer the caller's tokens, according to `approved`,\\n     *\\n     * Emits an {ApprovalForAll} event.\\n     *\\n     * Requirements:\\n     *\\n     * - `operator` cannot be the zero address.\\n     */\\n    function setApprovalForAll(address operator, bool approved) external;\\n\\n    /**\\n     * @dev Returns true if `operator` is approved to transfer ``account``'s tokens.\\n     *\\n     * See {setApprovalForAll}.\\n     */\\n    function isApprovedForAll(address account, address operator) external view returns (bool);\\n\\n    /**\\n     * @dev Transfers a `value` amount of tokens of type `id` from `from` to `to`.\\n     *\\n     * WARNING: This function can potentially allow a reentrancy attack when transferring tokens\\n     * to an untrusted contract, when invoking {IERC1155Receiver-onERC1155Received} on the receiver.\\n     * Ensure to follow the checks-effects-interactions pattern and consider employing\\n     * reentrancy guards when interacting with untrusted contracts.\\n     *\\n     * Emits a {TransferSingle} event.\\n     *\\n     * Requirements:\\n     *\\n     * - `to` cannot be the zero address.\\n     * - If the caller is not `from`, it must have been approved to spend ``from``'s tokens via {setApprovalForAll}.\\n     * - `from` must have a balance of tokens of type `id` of at least `value` amount.\\n     * - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155Received} and return the\\n     * acceptance magic value.\\n     */\\n    function safeTransferFrom(address from, address to, uint256 id, uint256 value, bytes calldata data) external;\\n\\n    /**\\n     * @dev xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {safeTransferFrom}.\\n     *\\n     * WARNING: This function can potentially allow a reentrancy attack when transferring tokens\\n     * to an untrusted contract, when invoking {IERC1155Receiver-onERC1155BatchReceived} on the receiver.\\n     * Ensure to follow the checks-effects-interactions pattern and consider employing\\n     * reentrancy guards when interacting with untrusted contracts.\\n     *\\n     * Emits either a {TransferSingle} or a {TransferBatch} event, depending on the length of the array arguments.\\n     *\\n     * Requirements:\\n     *\\n     * - `ids` and `values` must have the same length.\\n     * - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155BatchReceived} and return the\\n     * acceptance magic value.\\n     */\\n    function safeBatchTransferFrom(\\n        address from,\\n        address to,\\n        uint256[] calldata ids,\\n        uint256[] calldata values,\\n        bytes calldata data\\n    ) external;\\n}\\n\",\"keccak256\":\"0xf189f9b417fe1931e1ab706838aff1128528694a9fcdb5ff7665197f2ca57d09\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.4.0) (token/ERC20/IERC20.sol)\\n\\npragma solidity >=0.4.16;\\n\\n/**\\n * @dev Interface of the ERC-20 standard as defined in the ERC.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n\\n    /**\\n     * @dev Returns the value of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the value of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from the caller's account to `to`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address to, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets a `value` amount of tokens as the allowance of `spender` over the\\n     * caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 value) external returns (bool);\\n\\n    /**\\n     * @dev Moves a `value` amount of tokens from `from` to `to` using the\\n     * allowance mechanism. `value` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(address from, address to, uint256 value) external returns (bool);\\n}\\n\",\"keccak256\":\"0x74ed01eb66b923d0d0cfe3be84604ac04b76482a55f9dd655e1ef4d367f95bc2\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.1) (utils/Context.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/introspection/IERC165.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.4.0) (utils/introspection/IERC165.sol)\\n\\npragma solidity >=0.4.16;\\n\\n/**\\n * @dev Interface of the ERC-165 standard, as defined in the\\n * https://eips.ethereum.org/EIPS/eip-165[ERC].\\n *\\n * Implementers can declare support of contract interfaces, which can then be\\n * queried by others ({ERC165Checker}).\\n *\\n * For an implementation, see {ERC165}.\\n */\\ninterface IERC165 {\\n    /**\\n     * @dev Returns true if this contract implements the interface defined by\\n     * `interfaceId`. See the corresponding\\n     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[ERC section]\\n     * to learn more about how these ids are created.\\n     *\\n     * This function call must use less than 30 000 gas.\\n     */\\n    function supportsInterface(bytes4 interfaceId) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x8891738ffe910f0cf2da09566928589bf5d63f4524dd734fd9cedbac3274dd5c\",\"license\":\"MIT\"},\"contracts/interfaces/manager/IGildiManager.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\n// Created for Soonami Venturethon prototype only.\\n// No redistribution, modification, or commercial use without prior written consent.\\n// Copyright (c) 2025 Patrick Fischer. All rights reserved.\\npragma solidity 0.8.24;\\n\\nimport '@openzeppelin/contracts/token/ERC1155/IERC1155.sol';\\n\\n/// @title IGildiManager\\n/// @notice Interface for the Gildi Manager.\\n/// @custom:security-contact security@gildi.io\\n/// @author Patrick Fischer (Pathin) > https://pathin.me\\ninterface IGildiManager is IERC165 {\\n    /// @notice A user share.\\n    struct UserShare {\\n        /// @notice The user address.\\n        address user;\\n        /// @notice The number shares owned by the user.\\n        uint256 shares;\\n    }\\n\\n    /// @notice A report of the shares owned by a user in a specific time period.\\n    struct SharesReport {\\n        /// @notice The token ID.\\n        uint256 tokenId;\\n        /// @notice The start timestamp of the report.\\n        uint256 start;\\n        /// @notice The end timestamp of the report.\\n        uint256 end;\\n        /// @notice The total number of shares owned by all users.\\n        uint256 totalNumberOfShares;\\n        /// @notice The shares owned by each user.\\n        UserShare[] userShares;\\n        /// @notice Info for Pagination, if there are more results.\\n        bool hasMore;\\n        /// @notice Next cursor for Pagination.\\n        uint256 nextCursor;\\n    }\\n\\n    struct TokenBalance {\\n        uint256 tokenId;\\n        uint256 amount;\\n        uint256 lockedAmount;\\n    }\\n\\n    /// @notice A GILDI RWA release.\\n    struct RWARelease {\\n        /// @notice The token ID of the release (equal to release id).\\n        uint256 tokenId;\\n        /// @notice If the release is locked.\\n        bool locked;\\n        /// @notice When the release was unlocked.\\n        uint256 unlockedAt;\\n        /// @notice If the release is in the initial sale.\\n        bool inInitialSale;\\n        /// @notice The total number of shares.\\n        uint256 totalShares;\\n        /// @notice The number of unassigned shares.\\n        uint256 unassignedShares;\\n        /// @notice The number of burned shares.\\n        uint256 burnedShares;\\n        /// @notice The release is deleting.\\n        bool deleting;\\n        /// @notice The number of shares deleted.\\n        uint256 deletedShares;\\n        /// @notice The timestamp of the creation.\\n        uint256 createdAt;\\n    }\\n\\n    /// @notice Fetches all the release IDs.\\n    /// @return An array of all the release IDs.\\n    function getAllReleaseIds() external view returns (uint256[] memory);\\n\\n    /// @notice Create a new release.\\n    /// @param _releaseId The ID of the Royalty Rights Token / release.\\n    /// @param _amount The amount of the token.\\n    /// @param _ownershipTrackingTimePeriod The time period in which we aggregate the shares owned by a user.\\n    function createNewRelease(uint256 _releaseId, uint256 _amount, uint256 _ownershipTrackingTimePeriod) external;\\n\\n    /// @notice Assigns the user shares to a royalty rights release in a batch operation.\\n    /// @param _releaseId The ID of the Royalty Rights Token / release.\\n    /// @param _sharesBatch The shares to assign.\\n    /// @dev The shares are assigned in a batch to prevent gas limit issues.\\n    function assignShares(uint256 _releaseId, UserShare[] calldata _sharesBatch) external;\\n\\n    /// @notice Starts the initial sale of a release.\\n    /// @param _releaseId The ID of the Royalty Rights Token / release.\\n    function startInitialSale(uint256 _releaseId) external;\\n\\n    /// @notice Cancels the initial sale of a release.\\n    /// @param _releaseId The ID of the Royalty Rights Token / release.\\n    function cancelInitialSale(uint256 _releaseId) external;\\n\\n    /// @notice Ends the initial sale of a release.\\n    /// @param _releaseId The ID of the Royalty Rights Token / release.\\n    function endInitialSale(uint256 _releaseId) external;\\n\\n    /// @notice Check if a release exists.\\n    /// @param _releaseId The ID of the Royalty Rights Token / release.\\n    /// @return True if the release exists, false otherwise.\\n    function releaseExists(uint256 _releaseId) external view returns (bool);\\n\\n    /// @notice Deletes a release in batches.\\n    /// @param _releaseId The ID of the Royalty Rights Token / release.\\n    /// @param _batchSizeOwners The number of owners to delete in a batch.\\n    /// @dev Batch deletion is used to prevent gas limit issues.\\n    function batchDeleteRelease(uint256 _releaseId, uint256 _batchSizeOwners) external;\\n\\n    /// @notice Unlocks a release.\\n    /// @param _releaseId The ID of the Royalty Rights Token / release.\\n    function unlockRelease(uint256 _releaseId) external;\\n\\n    /// @notice Deposits royalty rights tokens into the manager.\\n    /// @param _tokenId The ID of the Royalty Rights Token / release.\\n    /// @param _account The account to deposit the tokens to.\\n    /// @param _amount The amount of tokens to deposit.\\n    function deposit(uint256 _tokenId, address _account, uint256 _amount) external;\\n\\n    /// @notice Withdraws royalty rights tokens from the manager.\\n    /// @param _tokenId The ID of the Royalty Rights Token / release.\\n    /// @param _account The account to withdraw the tokens from.\\n    /// @param _amount The amount of tokens to withdraw.\\n    function withdraw(uint256 _tokenId, address _account, uint256 _amount) external;\\n\\n    /// @notice Locks tokens for a user.\\n    /// @param _account The account to lock the tokens for.\\n    /// @param _tokenId The ID of the Royalty Rights Token / release.\\n    /// @param _amountToLock The amount of tokens to lock.\\n    function lockTokens(address _account, uint256 _tokenId, uint256 _amountToLock) external;\\n\\n    /// @notice Unlocks tokens for a user.\\n    /// @param _account The account to unlock the tokens for.\\n    /// @param _tokenId The ID of the Royalty Rights Token / release.\\n    /// @param _amountToUnlock The amount of tokens to unlock.\\n    function unlockTokens(address _account, uint256 _tokenId, uint256 _amountToUnlock) external;\\n\\n    /// @notice Transfers ownership of a release's shares to another user.\\n    /// @param _tokenId The ID of the Royalty Rights Token / release.\\n    /// @param _from The address of the current owner.\\n    /// @param _to The address of the new owner.\\n    /// @param _amount The amount of shares to transfer.\\n    function transferOwnership(uint256 _tokenId, address _from, address _to, uint256 _amount) external;\\n\\n    /// @notice Transfers ownership of a release's shares to another user during the initial sale.\\n    /// @param _tokenId The ID of the Royalty Rights Token / release.\\n    /// @param _from The address of the current owner.\\n    /// @param _to The address of the new owner.\\n    /// @param _amount The amount of shares to transfer.\\n    function transferOwnershipInitialSale(uint256 _tokenId, address _from, address _to, uint256 _amount) external;\\n\\n    /// @notice Gets a release by its ID.\\n    /// @param _releaseId The release ID.\\n    /// @return The release.\\n    function getReleaseById(uint256 _releaseId) external view returns (RWARelease memory);\\n\\n    /// @notice Checks if the release is locked.\\n    /// @param _releaseId The release ID.\\n    /// @return True if the release is locked, false otherwise.\\n    function isLocked(uint256 _releaseId) external view returns (bool);\\n\\n    /// @notice Returns if the release is in the initial sale.\\n    /// @param _releaseId The release ID.\\n    /// @return True if the release is in the initial sale, false otherwise.\\n    function isInInitialSale(uint256 _releaseId) external view returns (bool);\\n\\n    /// @notice Fetches the available balance of a user for a specific token.\\n    /// @param _tokenId The token ID.\\n    /// @param _account The account to fetch the balance for.\\n    /// @return The available balance of the user for the token.\\n    function getAvailableBalance(uint256 _tokenId, address _account) external view returns (uint256);\\n\\n    /// @notice Fetch the shares of a release owned by a user in a specific time period paginated.\\n    /// @param _releaseId The release ID.\\n    /// @param _start The start timestamp.\\n    /// @param _end The end timestamp (exclusive).\\n    /// @param _cursor The cursor for pagination.\\n    /// @param _limit The limit for pagination.\\n    function fetchSharesInPeriod(\\n        uint256 _releaseId,\\n        uint256 _start,\\n        uint256 _end,\\n        uint256 _cursor,\\n        uint256 _limit\\n    ) external view returns (SharesReport memory);\\n\\n    /// @notice Fetches the balance of a user for all tokens.\\n    /// @param _account The account to fetch the balance for.\\n    function balanceOf(address _account) external view returns (TokenBalance[] memory);\\n\\n    /// @notice Fetches the balance of a user for a specific token.\\n    /// @param _tokenId The token ID.\\n    /// @param _account The account to fetch the balance for.\\n    function balanceOf(uint256 _tokenId, address _account) external view returns (TokenBalance memory);\\n\\n    /// @notice Checks if the release is fully assigned.\\n    function isFullyAssigned(uint256 _releaseId) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x8d005682185f1eb885e73880eb7259a70aaba04c43c7c447ba872b8171101f51\",\"license\":\"UNLICENSED\"},\"contracts/interfaces/marketplace/exchange/IGildiExchange.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\n// Created for Soonami Venturethon prototype only.\\n// No redistribution, modification, or commercial use without prior written consent.\\n// Copyright (c) 2025 Patrick Fischer. All rights reserved.\\npragma solidity 0.8.24;\\n\\nimport {IAccessControl} from '@openzeppelin/contracts/access/IAccessControl.sol';\\nimport {IERC20} from '@openzeppelin/contracts/token/ERC20/IERC20.sol';\\nimport {IGildiManager} from '../../manager/IGildiManager.sol';\\nimport {IGildiPriceOracle} from '../../oracles/price/IGildiPriceOracle.sol';\\nimport {IGildiExchangeOrderBook} from './IGildiExchangeOrderBook.sol';\\nimport {IGildiExchangeFundManager} from './IGildiExchangeFundManager.sol';\\nimport {IGildiExchangePaymentProcessor} from './IGildiExchangePaymentProcessor.sol';\\nimport {IGildiExchangePaymentAggregator} from './IGildiExchangePaymentAggregator.sol';\\n\\n/// @title IGildiExchange\\n/// @notice Interface for the Gildi Exchange.\\n/// @custom:security-contact security@gildi.io\\n/// @author Gildi Company\\ninterface IGildiExchange is IAccessControl {\\n    /// @notice Represents a fee/burn receiver with an address and a basis points value and the currency to receive in.\\n    struct Receiver {\\n        /// @dev The address that receives the fee\\n        address receiverAddress;\\n        /// @dev The currency in which the fee is paid\\n        address payoutCurrency;\\n        /// @dev The value in basis points\\n        uint16 value;\\n    }\\n\\n    /// @notice Represents a top-level fee distribution with an address and optional sub-fee receivers.\\n    struct FeeDistribution {\\n        /// @dev The primary fee receiver\\n        Receiver feeReceiver;\\n        /// @dev Used to distribute a portion of the parent fee, e.g., burn a fraction\\n        Receiver[] subFeeReceivers;\\n    }\\n\\n    /// @notice Application environment settings\\n    struct AppEnvironment {\\n        /// @dev Application settings including dependencies\\n        AppSettings settings;\\n        /// @dev The basis points denominator for percentage calculations\\n        uint16 basisPoints;\\n        /// @dev The admin role identifier\\n        bytes32 adminRole;\\n        /// @dev The marketplace manager role identifier\\n        bytes32 marketplaceManagerRole;\\n        /// @dev The claimer role identifier\\n        bytes32 claimerRole;\\n    }\\n\\n    /// @notice Application settings\\n    struct AppSettings {\\n        /// @dev The number of decimals for price asking\\n        uint8 priceAskDecimals;\\n        /// @dev The fee distribution structure\\n        FeeDistribution[] fees;\\n        /// @dev The marketplace currency\\n        IERC20 marketplaceCurrency;\\n        /// @dev The maximum number of buys per transaction\\n        uint256 maxBuyPerTransaction;\\n        /// @dev The Gildi manager interface\\n        IGildiManager gildiManager;\\n        /// @dev The order book interface\\n        IGildiExchangeOrderBook orderBook;\\n        /// @dev The price oracle interface\\n        IGildiPriceOracle gildiPriceOracle;\\n        /// @dev The fund manager interface\\n        IGildiExchangeFundManager fundManager;\\n        /// @dev The payment processor interface\\n        IGildiExchangePaymentProcessor paymentProcessor;\\n        /// @dev The payment aggregator interface\\n        IGildiExchangePaymentAggregator paymentAggregator;\\n    }\\n\\n    /// @notice Purchases tokens of a release\\n    /// @dev Sweeps the floor\\n    /// @param _releaseId The ID of the release\\n    /// @param _amount The amount of tokens to purchase\\n    /// @param _maxTotalPrice The maximum total price to spend in Marketplace Currency\\n    /// @param _beneficiary The address to send the tokens to\\n    /// @param _isProxyOperation Whether the operation is a proxy operation\\n    /// @return amountSpent The amount of Marketplace Currency spent\\n    /// @return amountUsdSpent The amount spent in USD\\n    function purchase(\\n        uint256 _releaseId,\\n        uint256 _amount,\\n        uint256 _maxTotalPrice,\\n        address _beneficiary,\\n        bool _isProxyOperation\\n    ) external returns (uint256 amountSpent, uint256 amountUsdSpent);\\n\\n    /// @notice Transfer a token in the context of the Gildi Exchange\\n    /// @param _from The address to transfer from\\n    /// @param _to The address to transfer to\\n    /// @param _value The amount to transfer\\n    /// @param _amountCurrency The currency of the amount\\n    function transferTokenInContext(address _from, address _to, uint256 _value, address _amountCurrency) external;\\n\\n    /// @notice Tries to burn a token in the context of the Gildi Exchange\\n    /// @param _from The address to burn from\\n    /// @param _value The amount to burn\\n    /// @param _amountCurrency The currency of the amount\\n    /// @return Whether the burn was successful\\n    function tryBurnTokenInContext(address _from, uint256 _value, address _amountCurrency) external returns (bool);\\n\\n    /// @notice Gets the price needed to pay in marketplace currency to buy `_amountToBuy` units of `_releaseId`.\\n    /// @param _releaseId The ID of the release\\n    /// @param _amountToBuy The amount of tokens to buy\\n    /// @param _buyer The address of the buyer (optional)\\n    /// @return totalPriceInCurrency The total cost in marketplace currency\\n    /// @return asset The asset the price is in\\n    /// @return totalPriceUsd The total price in USD (using exchange's priceAskDecimals)\\n    function quotePricePreview(\\n        uint256 _releaseId,\\n        uint256 _amountToBuy,\\n        address _buyer\\n    ) external view returns (uint256 totalPriceInCurrency, address asset, uint256 totalPriceUsd);\\n\\n    /// @notice Checks if a release is currently in its initial sale period\\n    /// @param _releaseId The ID of the release\\n    /// @return True if the release is in active initial sale, false otherwise\\n    function isInInitialSale(uint256 _releaseId) external view returns (bool);\\n\\n    /// @notice Returns the app environment.\\n    /// @return appEnvironment The app environment\\n    function getAppEnvironment() external view returns (AppEnvironment memory);\\n\\n    /// @notice Gets the active marketplace asset for a release\\n    /// @param _releaseId The ID of the release\\n    /// @return The address of the active marketplace asset for the release\\n    function getActiveMarketplaceReleaseAsset(uint256 _releaseId) external view returns (address);\\n\\n    /// @notice Get the fees of a specific release\\n    /// @param _releaseId The ID of the release\\n    /// @return An array of fee distributions for the release\\n    function getReleaseFees(uint256 _releaseId) external view returns (FeeDistribution[] memory);\\n\\n    /// @notice Get a list of release IDs\\n    /// @param _activeOnly Whether or not to only return active releases\\n    /// @return activeReleases An array of release IDs\\n    function getReleaseIds(bool _activeOnly) external view returns (uint256[] memory);\\n\\n    /// @notice Creates a listing with default slippage\\n    /// @param _releaseId The ID of the release\\n    /// @param _seller The address of the seller\\n    /// @param _pricePerItem The price per item in USD\\n    /// @param _quantity The quantity being listed\\n    /// @param _fundsReceiver The address to receive funds from the sale (if address(0), defaults to seller)\\n    /// @param _payoutCurrency The currency the seller wants to receive payment in\\n    function createListing(\\n        uint256 _releaseId,\\n        address _seller,\\n        uint256 _pricePerItem,\\n        uint256 _quantity,\\n        address _payoutCurrency,\\n        address _fundsReceiver\\n    ) external;\\n\\n    /// @notice Creates a listing with custom slippage\\n    /// @param _releaseId The ID of the release\\n    /// @param _seller The address of the seller\\n    /// @param _pricePerItem The price per item in USD\\n    /// @param _quantity The quantity being listed\\n    /// @param _payoutCurrency The currency the seller wants to receive payment in\\n    /// @param _fundsReceiver The address to receive funds from the sale (if address(0), defaults to seller)\\n    /// @param _slippageBps Slippage tolerance in basis points\\n    function createListing(\\n        uint256 _releaseId,\\n        address _seller,\\n        uint256 _pricePerItem,\\n        uint256 _quantity,\\n        address _payoutCurrency,\\n        address _fundsReceiver,\\n        uint16 _slippageBps\\n    ) external;\\n\\n    /// @notice Modifies a listing with default slippage\\n    /// @param _listingId The ID of the listing to modify\\n    /// @param _newPricePerItem The new price per item in USD\\n    /// @param _newQuantity The new quantity (if 0, the listing will be removed)\\n    /// @param _payoutCurrency The new payout currency\\n    /// @param _fundsReceiver The address to receive funds from the sale (if address(0), defaults to seller)\\n    function modifyListing(\\n        uint256 _listingId,\\n        uint256 _newPricePerItem,\\n        uint256 _newQuantity,\\n        address _payoutCurrency,\\n        address _fundsReceiver\\n    ) external;\\n\\n    /// @notice Modifies a listing with custom slippage\\n    /// @param _listingId The ID of the listing to modify\\n    /// @param _newPricePerItem The new price per item in USD\\n    /// @param _newQuantity The new quantity (if 0, the listing will be removed)\\n    /// @param _payoutCurrency The new payout currency\\n    /// @param _fundsReceiver The address to receive funds from the sale (if address(0), defaults to seller)\\n    /// @param _slippageBps Slippage tolerance in basis points\\n    function modifyListing(\\n        uint256 _listingId,\\n        uint256 _newPricePerItem,\\n        uint256 _newQuantity,\\n        address _payoutCurrency,\\n        address _fundsReceiver,\\n        uint16 _slippageBps\\n    ) external;\\n\\n    /// @notice Cancels a listing by ID\\n    /// @param _listingId The ID of the listing to cancel\\n    function cancelListing(uint256 _listingId) external;\\n}\\n\",\"keccak256\":\"0xf4475d33b4e6336e4e20e4ada436887f5ac28e99a391a63d93dbed0e4895d25b\",\"license\":\"UNLICENSED\"},\"contracts/interfaces/marketplace/exchange/IGildiExchangeFundManager.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\n// Created for Soonami Venturethon prototype only.\\n// No redistribution, modification, or commercial use without prior written consent.\\n// Copyright (c) 2025 Patrick Fischer. All rights reserved.\\npragma solidity 0.8.24;\\n\\n/// @title Gildi Exchange Fund Manager Interface\\n/// @notice Interface for the Gildi Exchange Fund Manager contract.\\n/// @custom:security-contact security@gildi.io\\n/// @author Patrick Fischer (Pathin) > https://pathin.me\\ninterface IGildiExchangeFundManager {\\n    // ========== Structs ==========\\n\\n    /// @notice Represents an fund entry storing the buyer, operator, fundParticipant, and value in Marketplace Currency.\\n    struct Fund {\\n        /// @dev Entity receiving the tokens (beneficiary)\\n        address buyer;\\n        /// @dev Entity that executed the transaction\\n        address operator;\\n        /// @dev Entity with funds in fund (seller or fee recipient)\\n        address fundParticipant;\\n        /// @dev Whether this was executed through a proxy\\n        bool isProxyOperation;\\n        /// @dev Amount in Marketplace Currency\\n        FundAmount amount;\\n        /// @dev Payout currency\\n        address payoutCurrency;\\n    }\\n\\n    /// @notice Represents an amount of tokens in a specific currency\\n    struct FundAmount {\\n        /// @dev The amount of tokens\\n        uint256 value;\\n        /// @dev The address of the currency token\\n        address currencyAddress;\\n    }\\n\\n    // ========== View Functions ==========\\n\\n    /// @notice Checks if a release has any funds\\n    /// @param _releaseId The ID of the release\\n    /// @return True if the release has funds, false otherwise\\n    function releaseHasFunds(uint256 _releaseId) external view returns (bool);\\n\\n    // ========== Non-View Functions ==========\\n\\n    /// @notice Adds funds to fund for a participant\\n    /// @param _releaseId The ID of the release\\n    /// @param _participant The address of the fund participant\\n    /// @param _buyer The address of the buyer\\n    /// @param _operator The address of the operator\\n    /// @param _isProxyOperation Whether this is a proxy operation\\n    /// @param _amount The amount to add to fund\\n    /// @param _amountCurrency The currency of the fund amount\\n    /// @param _payoutCurrency The currency to payout in\\n    function handleAddToFund(\\n        uint256 _releaseId,\\n        address _participant,\\n        address _buyer,\\n        address _operator,\\n        bool _isProxyOperation,\\n        uint256 _amount,\\n        address _amountCurrency,\\n        address _payoutCurrency\\n    ) external;\\n\\n    /// @notice Cancels funds for a release in batches\\n    /// @param _releaseId The ID of the release\\n    /// @param _batchSize The number of funds to process in this batch\\n    /// @return processed The number of funds processed\\n    function handleCancelReleaseFunds(uint256 _releaseId, uint256 _batchSize) external returns (uint256 processed);\\n\\n    /// @notice Claims funds for a participant of a release with custom slippage\\n    /// @param _releaseId The ID of the release\\n    /// @param _fundParticipant The address of the fund participant\\n    /// @param _slippageBps Slippage tolerance in basis points (100 = 1%, 500 = 5%)\\n    function claimFunds(uint256 _releaseId, address _fundParticipant, uint16 _slippageBps) external;\\n\\n    /// @notice Claims funds for a participant of a release with default slippage (5%)\\n    /// @param _releaseId The ID of the release\\n    /// @param _fundParticipant The address of the fund participant\\n    function claimFunds(uint256 _releaseId, address _fundParticipant) external;\\n\\n    /// @notice Claims all funds for a participant across all releases with custom slippage\\n    /// @param _fundParticipant The address of the fund participant\\n    /// @param _slippageBps Slippage tolerance in basis points (100 = 1%, 500 = 5%)\\n    function claimAllFunds(address _fundParticipant, uint16 _slippageBps) external;\\n\\n    /// @notice Claims all funds for a participant across all releases with default slippage (5%)\\n    /// @param _fundParticipant The address of the fund participant\\n    function claimAllFunds(address _fundParticipant) external;\\n}\\n\",\"keccak256\":\"0xeeb65068f4ef93ddff2766e77d514855844ab3402fe8eb2908aacf756af7fc48\",\"license\":\"UNLICENSED\"},\"contracts/interfaces/marketplace/exchange/IGildiExchangeOrderBook.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\n// Created for Soonami Venturethon prototype only.\\n// No redistribution, modification, or commercial use without prior written consent.\\n// Copyright (c) 2025 Patrick Fischer. All rights reserved.\\npragma solidity 0.8.24;\\n\\n/// @title IGildiExchangeOrderBook\\n/// @notice Interface for the Gildi Exchange Order Book, which manages listings and provides order book functionality for the marketplace.\\n/// @custom:security-contact security@gildi.io\\n/// @author Gildi Company\\ninterface IGildiExchangeOrderBook {\\n    /// @notice Represents a listing in the order book for a specific token release.\\n    struct Listing {\\n        /// @dev A unique identifier for the listing.\\n        uint256 id;\\n        /// @dev The ID of the token release being listed.\\n        uint256 releaseId;\\n        /// @dev The address of the seller who created the listing.\\n        address seller;\\n        /// @dev The price per item in USD.\\n        uint256 pricePerItem;\\n        /// @dev The currency in which the seller wants to receive payment (if different from the active release marketplace currency, a swap will be performed).\\n        address payoutCurrency;\\n        /// @dev The quantity of tokens being listed.\\n        uint256 quantity;\\n        /// @dev Slippage protection in basis points (100 = 1%, 500 = 5%), 0 means no slippage allowed.\\n        uint16 slippageBps;\\n        /// @dev The block timestamp when the listing was created (UNIX timestamp).\\n        uint256 createdAt;\\n        /// @dev The block timestamp when the listing was last modified (UNIX timestamp).\\n        uint256 modifiedAt;\\n        /// @dev The ID of the next listing in the linked list (ordered by price).\\n        uint256 nextListingId;\\n        /// @dev The ID of the previous listing in the linked list (ordered by price).\\n        uint256 prevListingId;\\n        /// @dev Optional address to receive funds from the sale.\\n        address fundsReceiver; // If address(0), defaults to seller\\n    }\\n\\n    /// @notice Contains preview information for a potential purchase.\\n    struct PurchasePreview {\\n        /// @dev The total quantity available for purchase.\\n        uint256 totalQuantityAvailable;\\n        /// @dev The total price in marketplace currency.\\n        uint256 totalPriceInCurrency;\\n        /// @dev The address of the currency used for the purchase.\\n        address currency;\\n        /// @dev The total price in USD (using exchange's priceAskDecimals).\\n        uint256 totalPriceUsd;\\n    }\\n\\n    // ========== View Functions ==========\\n\\n    /// @notice Gets a listing by ID\\n    /// @param _listingId The listing ID\\n    /// @return The listing\\n    function getListing(uint256 _listingId) external view returns (Listing memory);\\n\\n    /// @notice Gets all the listings of a specific seller\\n    /// @param _seller The address of the seller\\n    /// @return An array of listings for the seller\\n    function getListingsOfSeller(address _seller) external view returns (Listing[] memory);\\n\\n    /// @notice Gets all the listings of a specific release, ordered by price\\n    /// @param _releaseId The ID of the release\\n    /// @param _cursor The cursor to start from\\n    /// @param _limit The limit of listings to return\\n    /// @return orderedListings An array of listings for the release\\n    /// @return cursor The cursor to continue from\\n    function getOrderedListings(\\n        uint256 _releaseId,\\n        uint256 _cursor,\\n        uint256 _limit\\n    ) external view returns (Listing[] memory orderedListings, uint256 cursor);\\n\\n    /// @notice Gets the available buy quantity for a user\\n    /// @param _releaseId The release ID\\n    /// @param _user The user address\\n    /// @return The available quantity to buy\\n    function getAvailableBuyQuantity(uint256 _releaseId, address _user) external view returns (uint256);\\n\\n    /// @notice Preview a purchase\\n    /// @param _releaseId The ID of the release to purchase\\n    /// @param _buyer The address of the buyer\\n    /// @param _amountToBuy The amount of tokens to buy\\n    /// @return Preview information for the purchase\\n    function previewPurchase(\\n        uint256 _releaseId,\\n        address _buyer,\\n        uint256 _amountToBuy\\n    ) external view returns (PurchasePreview memory);\\n\\n    /// @notice Gets the first listing ID (with lowest price) for a specific release\\n    /// @param _releaseId The ID of the release\\n    /// @return The ID of the listing with the lowest price for this release\\n    function getHeadListingId(uint256 _releaseId) external view returns (uint256);\\n\\n    /// @notice Gets the next listing ID in the price-ordered linked list\\n    /// @param _listingId The current listing ID\\n    /// @return The ID of the next listing with a higher price, or 0 if none exists\\n    function getNextListingId(uint256 _listingId) external view returns (uint256);\\n\\n    /// @notice Gets the total quantity listed for a specific release\\n    /// @param _releaseId The ID of the release\\n    /// @return The total quantity listed\\n    function listedQuantities(uint256 _releaseId) external view returns (uint256);\\n\\n    // ========== Non-View Functions ==========\\n\\n    /// @notice Creates a listing\\n    /// @param _releaseId The ID of the release\\n    /// @param _seller The address of the seller\\n    /// @param _pricePerItem The price per item\\n    /// @param _quantity The quantity being listed\\n    /// @param _payoutCurrency The payout currency of the listing\\n    /// @param _slippageBps Optional slippage protection in basis points (100 = 1%, 500 = 5%)\\n    /// @dev Takes the slippage setting literally, 0 = no slippage, 10000 = 100%, does not make assumptions about the default, caller must know what they are doing\\n    function handleCreateListing(\\n        uint256 _releaseId,\\n        address _seller,\\n        uint256 _pricePerItem,\\n        uint256 _quantity,\\n        address _payoutCurrency,\\n        address _fundsReceiver,\\n        uint16 _slippageBps\\n    ) external;\\n\\n    /// @notice Modifies an existing listing's price, quantity, and slippage settings\\n    /// @param _listingId The ID of the listing to modify\\n    /// @param _pricePerItem The new price per item\\n    /// @param _quantity The new quantity (if 0, the listing will be removed)\\n    /// @param _payoutCurrency The new payout currency\\n    /// @param _slippageBps Slippage protection in basis points (100 = 1%, 500 = 5%)\\n    /// @dev Takes the slippage setting literally, 0 = no slippage, 10000 = 100%, does not make assumptions about the default, caller must know what they are doing\\n    function handleModifyListing(\\n        uint256 _listingId,\\n        uint256 _pricePerItem,\\n        uint256 _quantity,\\n        address _payoutCurrency,\\n        address _fundsReceiver,\\n        uint16 _slippageBps\\n    ) external;\\n\\n    /// @notice Removes a listing\\n    /// @param _listingId The ID of the listing to cancel\\n    function handleRemoveListing(uint256 _listingId) external;\\n\\n    /// @notice Decreases a listing's quantity after a purchase\\n    /// @param _listingId The ID of the listing\\n    /// @param _quantityToBuy The amount to reduce from the listing's quantity (if this reduces quantity to 0, the listing will be removed)\\n    function handleDecreaseListingQuantity(uint256 _listingId, uint256 _quantityToBuy) external;\\n\\n    /// @notice Unlists all listings of a release in batches.\\n    /// @param _releaseId The ID of the release\\n    /// @param _batchSize The batch size\\n    /// @return processedListings The number of listings processed\\n    function handleUnlistReleaseListings(\\n        uint256 _releaseId,\\n        uint256 _batchSize\\n    ) external returns (uint256 processedListings);\\n}\\n\",\"keccak256\":\"0x0b0980096f2c0300d5980fe93e83b91ba69062043ac6b17a0d36f598b6532c81\",\"license\":\"UNLICENSED\"},\"contracts/interfaces/marketplace/exchange/IGildiExchangePaymentAggregator.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\n// Created for Soonami Venturethon prototype only.\\n// No redistribution, modification, or commercial use without prior written consent.\\n// Copyright (c) 2025 Patrick Fischer. All rights reserved.\\npragma solidity 0.8.24;\\n\\nimport './IGildiExchangeSwapAdapter.sol';\\nimport './IGildiExchange.sol';\\n\\n/// @title IGildiExchangePaymentAggregator\\n/// @notice Interface for marketplace payment operations including swap functionality\\n/// @custom:security-contact security@gildi.io\\n/// @author Gildi Company\\ninterface IGildiExchangePaymentAggregator {\\n    /// @notice Executes a swap out operation to convert source tokens to a target token.\\n    /// @param _amount The amount of source tokens to swap.\\n    /// @param _sourceCurrency The address of the source token.\\n    /// @param _targetToken The token to swap to.\\n    /// @param _minTargetAmount The minimum amount of target tokens to receive (slippage protection).\\n    /// @param _recipient The recipient of the target tokens.\\n    /// @return targetReceived The amount of target tokens received.\\n    function swapOut(\\n        uint256 _amount,\\n        address _sourceCurrency,\\n        address _targetToken,\\n        uint256 _minTargetAmount,\\n        address _recipient\\n    ) external returns (uint256 targetReceived);\\n\\n    /// @notice Previews a swap out operation to check if there's a valid route and estimate the output amount.\\n    /// @param _amount The amount of source tokens to swap.\\n    /// @param _sourceCurrency The address of the source token.\\n    /// @param _targetToken The token to swap to.\\n    /// @return hasValidRoute Whether there's a valid route for the swap.\\n    /// @return expectedTargetAmount The expected amount of target tokens to receive.\\n    /// @return bestRoute The best route for the swap.\\n    function previewSwapOut(\\n        uint256 _amount,\\n        address _sourceCurrency,\\n        address _targetToken\\n    )\\n        external\\n        view\\n        returns (\\n            bool hasValidRoute,\\n            uint256 expectedTargetAmount,\\n            IGildiExchangeSwapAdapter.QuoteRoute memory bestRoute\\n        );\\n\\n    /// @notice Executes the purchase payment flow.\\n    /// @param _releaseId The release ID.\\n    /// @param _amount The amount to purchase.\\n    /// @param _sourceToken The token used for payment (address(0) means native).\\n    /// @param _sourceMaxAmount Maximum amount of _sourceToken to spend.\\n    /// @return amountUsdSpent The amount spent in USD\\n    function purchase(\\n        uint256 _releaseId,\\n        uint256 _amount,\\n        address _sourceToken,\\n        uint256 _sourceMaxAmount\\n    ) external payable returns (uint256 amountUsdSpent);\\n\\n    /// @notice Estimates the amount of `_sourceToken` required to get `_amount` of `_releaseId` for `_buyer` of the marketplace token and returns the current best route.\\n    /// @param _releaseId The release ID.\\n    /// @param _amount The amount of the release.\\n    /// @param _buyer The buyer of the release.\\n    /// @param _sourceToken The token to swap from.\\n    /// @return sourceNeeded The amount of `_sourceToken` required.\\n    /// @return releaseCurrency The active martketplace currency of the release.\\n    /// @return quoteRoute The route of the quote.\\n    /// @return totalPriceUsd The total price in USD (using exchange's priceAskDecimals).\\n    function estimatePurchase(\\n        uint256 _releaseId,\\n        uint256 _amount,\\n        address _buyer,\\n        address _sourceToken\\n    )\\n        external\\n        view\\n        returns (\\n            uint256 sourceNeeded,\\n            address releaseCurrency,\\n            IGildiExchangeSwapAdapter.QuoteRoute memory quoteRoute,\\n            uint256 totalPriceUsd\\n        );\\n\\n    /// @notice Returns the GildiExchange contract instance.\\n    /// @return The GildiExchange contract.\\n    function getGildiExchange() external view returns (IGildiExchange);\\n}\\n\",\"keccak256\":\"0x5f693a99735cda261ab7a91c04e2948ceef2564327f47b374d02d9a4e66be226\",\"license\":\"UNLICENSED\"},\"contracts/interfaces/marketplace/exchange/IGildiExchangePaymentProcessor.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\n// Created for Soonami Venturethon prototype only.\\n// No redistribution, modification, or commercial use without prior written consent.\\n// Copyright (c) 2025 Patrick Fischer. All rights reserved.\\npragma solidity 0.8.24;\\n\\nimport {IGildiExchange} from './IGildiExchange.sol';\\n\\n/// @title IGildiExchangePaymentProcessor\\n/// @notice Interface for the Gildi Exchange Payment Processor.\\n/// @custom:security-contact security@gildi.io\\n/// @author Gildi Company\\ninterface IGildiExchangePaymentProcessor {\\n    /// @notice Gets the price feed ID for a currency\\n    /// @param _currency The currency address\\n    /// @return The price feed ID\\n    function getPriceFeedId(address _currency) external view returns (bytes32);\\n\\n    /// @notice Converts a price in USD to the equivalent amount in the specified currency\\n    /// @param _priceInUSD The price in USD to convert\\n    /// @param _currency The address of the currency to convert to\\n    /// @return The equivalent amount in the specified currency\\n    function quoteInCurrency(uint256 _priceInUSD, address _currency) external view returns (uint256);\\n\\n    /// @notice Processes payment with fees.\\n    ///      Calculates fees, transfers funds to fee recipients, and optionally creates funds\\n    /// @param _releaseId The ID of the release\\n    /// @param _buyer The address of the buyer\\n    /// @param _seller The address of the seller\\n    /// @param _value The value to process fees for\\n    /// @param _amountCurrency The currency of the amount\\n    /// @param _createFund Whether to create an fund\\n    /// @param _operator The address of the operator\\n    /// @param _listingId The ID of the listing\\n    /// @param _isProxyOperation Whether this is a proxy operation\\n    /// @param _listingPayoutCurrency The currency to payout in from the listing\\n    function handleProcessPaymentWithFees(\\n        uint256 _releaseId,\\n        address _buyer,\\n        address _seller,\\n        uint256 _value,\\n        address _amountCurrency,\\n        bool _createFund,\\n        address _operator,\\n        bool _isProxyOperation,\\n        uint256 _listingId,\\n        address _listingPayoutCurrency,\\n        uint16 _slippageBps\\n    ) external;\\n}\\n\",\"keccak256\":\"0x2a73ddb220645ad27344e5927a358d45abe2d83db524b8fd6f839c56036e56ea\",\"license\":\"UNLICENSED\"},\"contracts/interfaces/marketplace/exchange/IGildiExchangeSwapAdapter.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\n// Created for Soonami Venturethon prototype only.\\n// No redistribution, modification, or commercial use without prior written consent.\\n// Copyright (c) 2025 Patrick Fischer. All rights reserved.\\npragma solidity 0.8.24;\\n\\n/// @title IGildiExchangeSwapAdapter\\n/// @notice Interface for a DEX/aggregator adapter that can\\n///         quote & swap from a user\\u2019s source token -> marketplace token\\n///         in an \\\"exact out\\\" fashion.\\n/// @custom:security-contact security@gildi.io\\n/// @author Gildi Company\\ninterface IGildiExchangeSwapAdapter {\\n    /// @notice The route of the quote\\n    /// @param marketplaceAdapter The address of the marketplace adapter\\n    /// @param route The path of the quote\\n    /// @param fees The fees of the quote\\n    /// @param amounts The amounts of the quote\\n    /// @param virtualAmountsWithoutSlippage The virtual amounts of the quote without slippage\\n    struct QuoteRoute {\\n        address marketplaceAdapter;\\n        address[] route;\\n        uint128[] fees;\\n        uint128[] amounts;\\n        uint128[] virtualAmountsWithoutSlippage;\\n    }\\n\\n    /// @notice The quote for a swap in\\n    /// @param sourceTokenRequired The amount of source token required\\n    /// @param rawQuoteData The raw quote data\\n    /// @param quoteRoute The quote route\\n    /// @param validRoute Whether the route is valid\\n    struct SwapInQuote {\\n        uint256 sourceTokenRequired;\\n        bytes rawQuoteData;\\n        QuoteRoute quoteRoute;\\n        bool validRoute;\\n    }\\n\\n    /// @notice The quote for a swap out\\n    /// @param targetTokenOut The target token\\n    /// @param rawQuoteData The raw quote data\\n    /// @param quoteRoute The quote route\\n    /// @param validRoute Whether the route is valid\\n    struct SwapOutQuote {\\n        uint256 targetTokenOut;\\n        bytes rawQuoteData;\\n        QuoteRoute quoteRoute;\\n        bool validRoute;\\n    }\\n\\n    /// @notice Quotes the amount of `_sourceToken` required to get `_marketplaceAmountDesired` of `_marketplaceToken`.\\n    /// @param _sourceToken The token to swap from.\\n    /// @param _marketplaceToken The token to swap to.\\n    /// @param _marketplaceAmountDesired The amount of `_marketplaceToken` desired.\\n    /// @return quote The swap in quote containing required source token amount, quote data and route information\\n    function quoteSwapIn(\\n        address _sourceToken,\\n        address _marketplaceToken,\\n        uint256 _marketplaceAmountDesired\\n    ) external view returns (SwapInQuote memory quote);\\n\\n    /// @notice Performs an \\\"exact out\\\" swap to get `_marketplaceAmount` of `_marketplaceToken`.\\n    /// @param _sourceToken The token to swap from.\\n    /// @param _marketplaceToken The token to swap to.\\n    /// @param _sourceAmountMax The max `_sourceToken` we can spend (slippage buffer).\\n    /// @param _marketplaceAmount The exact marketplace tokens we want out.\\n    /// @param _to The recipient of the marketplace tokens.\\n    /// @param _quoteData The data previously returned by `quoteSwapIn`.\\n    function swapIn(\\n        address _sourceToken,\\n        address _marketplaceToken,\\n        uint256 _sourceAmountMax,\\n        uint256 _marketplaceAmount,\\n        address _to,\\n        bytes calldata _quoteData\\n    ) external returns (uint256 sourceSpent);\\n\\n    /// @notice Quotes the amount of `_targetToken` you can get by providing `_sourceAmount` of `_sourceToken`.\\n    /// @param _sourceToken The token to swap from.\\n    /// @param _targetToken The token to swap to.\\n    /// @param _sourceAmount The amount of `_sourceToken` available.\\n    /// @return quote The quote.\\n    function quoteSwapOut(\\n        address _sourceToken,\\n        address _targetToken,\\n        uint256 _sourceAmount\\n    ) external view returns (SwapOutQuote memory quote);\\n\\n    /// @notice Performs an \\\"exact in\\\" swap to convert `_sourceAmount` of `_sourceToken` into `_targetToken`.\\n    /// @param _sourceToken The token to swap from.\\n    /// @param _targetToken The token to swap to.\\n    /// @param _sourceAmount The exact amount of `_sourceToken` to swap.\\n    /// @param _minTargetAmount The minimum amount of `_targetToken` to receive (slippage protection).\\n    /// @param _to The recipient of the target tokens.\\n    /// @param _quoteData The data previously returned by `quoteSwapOut`.\\n    function swapOut(\\n        address _sourceToken,\\n        address _targetToken,\\n        uint256 _sourceAmount,\\n        uint256 _minTargetAmount,\\n        address _to,\\n        bytes calldata _quoteData\\n    ) external returns (uint256 targetReceived);\\n}\\n\",\"keccak256\":\"0x05e5faabc9b83ea2065e796a915d917eaf2d0a9906dfaf78ae6e2e4868a7e7c6\",\"license\":\"UNLICENSED\"},\"contracts/interfaces/oracles/price/IGildiPriceOracle.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\n// Created for Soonami Venturethon prototype only.\\n// No redistribution, modification, or commercial use without prior written consent.\\n// Copyright (c) 2025 Patrick Fischer. All rights reserved.\\n\\npragma solidity 0.8.24;\\n\\nimport './IGildiPriceResolver.sol';\\n\\n/// @title Gildi Price Oracle Interface\\n/// @notice Interface for the consumer-facing Gildi Price Oracle\\n/// @custom:security-contact security@gildi.io\\n/// @author Gildi Company\\ninterface IGildiPriceOracle is IGildiPriceResolver {\\n    /// @notice Represents an asset in the system\\n    struct Asset {\\n        /// @dev Unique identifier for the asset\\n        uint256 id;\\n        /// @dev The asset's symbol (e.g., BTC, ETH)\\n        string symbol;\\n        /// @dev The asset's full name\\n        string name;\\n    }\\n\\n    /// @notice Information about a trading pair\\n    struct PairInfo {\\n        /// @dev Unique identifier for the pair\\n        bytes32 pairId;\\n        /// @dev The base asset in the pair\\n        Asset baseAsset;\\n        /// @dev The quote asset in the pair\\n        Asset quoteAsset;\\n    }\\n\\n    /// @dev Thrown when an invalid pair ID is provided\\n    error InvalidPairId();\\n\\n    /// @notice Adds a pair using asset IDs\\n    /// @param _baseAssetId The ID of the base asset\\n    /// @param _quoteAssetId The ID of the quote asset\\n    /// @param _resolver The resolver contract for the asset pair\\n    function addPair(uint256 _baseAssetId, uint256 _quoteAssetId, IGildiPriceResolver _resolver) external;\\n\\n    /// @notice Retrieves the resolver for a specific asset pair\\n    /// @param _pairId The identifier of the asset pair\\n    function getResolver(bytes32 _pairId) external view returns (IGildiPriceResolver resolver);\\n\\n    /// @notice Fetches a list of all registered pairs in \\\"BASE/QUOTE\\\" string form\\n    /// @return An array of registered pairs\\n    function getPairs() external view returns (PairInfo[] memory);\\n\\n    /// @notice Adds a new asset\\n    /// @param _symbol The symbol of the asset\\n    /// @param _name The name of the asset\\n    /// @return The ID of the newly added asset\\n    function addAsset(string memory _symbol, string memory _name) external returns (uint256);\\n\\n    /// @notice Returns all registered assets\\n    /// @return An array of registered assets\\n    function getAssets() external view returns (Asset[] memory);\\n\\n    /// @notice Returns an asset by ID\\n    /// @param _assetId The ID of the asset\\n    /// @return The asset details\\n    function getAssetById(uint256 _assetId) external view returns (Asset memory);\\n\\n    /// @notice Returns pairs that use the specified asset ID as quote\\n    /// @param _quoteAssetId The ID of the quote asset\\n    /// @return An array of registered pairs\\n    function getPairsByQuoteAsset(uint256 _quoteAssetId) external view returns (string[] memory);\\n\\n    /// @notice Retrieves price data by numeric IDs\\n    /// @param _baseAssetId The ID of the base asset\\n    /// @param _quoteAssetId The ID of the quote asset\\n    /// @return The price data for the asset pair\\n    function getPriceById(uint256 _baseAssetId, uint256 _quoteAssetId) external view returns (PriceData memory);\\n\\n    /// @notice Checks if a pair with the given ID exists\\n    /// @param _pairId The identifier of the asset pair\\n    /// @return True if the pair exists\\n    function pairExistsById(bytes32 _pairId) external view returns (bool);\\n}\\n\",\"keccak256\":\"0x6c406a4d51283a3acb73db7da552e9d22df34f34b7f8f3f772ba04b844419ddd\",\"license\":\"UNLICENSED\"},\"contracts/interfaces/oracles/price/IGildiPriceResolver.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\n// Created for Soonami Venturethon prototype only.\\n// No redistribution, modification, or commercial use without prior written consent.\\n// Copyright (c) 2025 Patrick Fischer. All rights reserved.\\n\\npragma solidity 0.8.24;\\n\\n/// @title Gildi Price Resolver Interface\\n/// @notice Interface that all price resolvers must implement\\n/// @custom:security-contact security@gildi.io\\n/// @author Patrick Fischer\\ninterface IGildiPriceResolver {\\n    /// @notice Price data struct\\n    struct PriceData {\\n        /// @notice The price of the base asset in terms of the quote asset\\n        uint256 price;\\n        /// @notice The number of decimals for the price\\n        uint8 decimals;\\n        /// @notice The UNIX timestamp when the price was last updated\\n        uint256 timestamp;\\n    }\\n\\n    /// @notice Retrieves the price data for a given pair ID\\n    /// @param pairId The identifier of the asset pair\\n    /// @return price The price data for the asset pair\\n    function getPrice(bytes32 pairId) external view returns (PriceData memory price);\\n\\n    /// @notice Retrieves the price data for a given pair ID, with a maximum age\\n    /// @param pairId The identifier of the asset pair\\n    /// @param age The maximum age of the price data in seconds\\n    function getPriceNoOlderThan(bytes32 pairId, uint256 age) external view returns (PriceData memory priceData);\\n}\\n\",\"keccak256\":\"0x82a4c66f173ce75a38cdc50d75c806f13fe99ed53bc3f1458fb50348dcf77b75\",\"license\":\"UNLICENSED\"},\"contracts/libraries/marketplace/exchange/SharedErrors.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\n// Created for Soonami Venturethon prototype only.\\n// No redistribution, modification, or commercial use without prior written consent.\\n// Copyright (c) 2025 Patrick Fischer. All rights reserved.\\npragma solidity 0.8.24;\\n\\n/// @title SharedErrors\\n/// @notice Common error definitions shared across Gildi Exchange contracts\\n/// @dev This library consolidates error definitions to avoid duplication\\n/// @custom:security-contact security@gildi.io\\n/// @author Gildi Company\\nlibrary SharedErrors {\\n    /// @dev Emitted when a function parameter is invalid or out-of-range (e.g. zero batchSize, zero price, etc.)\\n    error ParamError();\\n\\n    /// @dev Emitted when an operation is not allowed for the caller\\n    error NotAllowed();\\n\\n    /// @dev Emitted when the caller is invalid\\n    error InvalidCaller();\\n\\n    /// @dev Emitted when a listing ID is invalid or does not match storage data\\n    /// @param listingId The ID that caused the error\\n    error ListingError(uint256 listingId);\\n}\\n\",\"keccak256\":\"0x77bb837a7be810836ef7bcb9a94e0224aa9fd24b5c868114da1be91a30cf515b\",\"license\":\"UNLICENSED\"},\"contracts/marketplace/exchange/GildiExchangeOrderBook.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\n// Created for Soonami Venturethon prototype only.\\n// No redistribution, modification, or commercial use without prior written consent.\\n// Copyright (c) 2025 Patrick Fischer. All rights reserved.\\npragma solidity 0.8.24;\\n\\nimport {Initializable} from '@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol';\\nimport {IGildiExchange} from '../../interfaces/marketplace/exchange/IGildiExchange.sol';\\nimport {IGildiExchangeOrderBook} from '../../interfaces/marketplace/exchange/IGildiExchangeOrderBook.sol';\\nimport {IGildiManager} from '../../interfaces/manager/IGildiManager.sol';\\nimport {Context} from '@openzeppelin/contracts/utils/Context.sol';\\nimport {SharedErrors} from '../../libraries/marketplace/exchange/SharedErrors.sol';\\n\\n/// @title Gildi Exchange Order Book\\n/// @notice Manages listings and order book functionality for the Gildi Exchange marketplace.\\n/// @custom:security-contact security@gildi.io\\n/// @author Gildi Company\\ncontract GildiExchangeOrderBook is Initializable, Context, IGildiExchangeOrderBook {\\n    // ========== Events ==========\\n    /// @notice Emitted when a new listing is created\\n    /// @param listingId The ID of the listing\\n    /// @param releaseId The ID of the release\\n    /// @param seller The address of the seller\\n    /// @param price The price per item\\n    /// @param quantity The quantity listed\\n    event Listed(\\n        uint256 indexed listingId,\\n        uint256 indexed releaseId,\\n        address indexed seller,\\n        uint256 price,\\n        uint256 quantity\\n    );\\n\\n    /// @notice Emitted when a listing is removed\\n    /// @param listingId The ID of the listing\\n    /// @param releaseId The ID of the release\\n    /// @param seller The address of the seller\\n    /// @param quantity The quantity unlisted\\n    event Unlisted(uint256 indexed listingId, uint256 indexed releaseId, address indexed seller, uint256 quantity);\\n\\n    /// @notice Emitted when a listing is modified\\n    /// @param listingId The ID of the listing\\n    /// @param releaseId The ID of the release\\n    /// @param seller The address of the seller\\n    /// @param price The new price per item\\n    /// @param quantity The new quantity\\n    event Modified(\\n        uint256 indexed listingId,\\n        uint256 indexed releaseId,\\n        address indexed seller,\\n        uint256 price,\\n        uint256 quantity\\n    );\\n\\n    // ========== Errors ==========\\n    /// @dev Error thrown when the caller is not the GildiExchange\\n    error NotGildiExchange();\\n\\n    // ========== Storage Variables ==========\\n    /// @notice The GildiExchange contract that this order book is associated with\\n    IGildiExchange public gildiExchange;\\n    /// @notice The GildiManager contract used for token management\\n    IGildiManager public gildiManager;\\n\\n    /// @dev The next available listing ID to assign\\n    uint256 private nextListingId;\\n    /// @dev Mapping from listing ID to Listing struct\\n    mapping(uint256 => Listing) private listings;\\n    /// @dev Mapping from release ID to an array of listing IDs for that release\\n    mapping(uint256 => uint256[]) private tokenListings;\\n    /// @dev Mapping from seller address to an array of their listing IDs\\n    mapping(address => uint256[]) private sellerListings;\\n    /// @dev Mapping from release ID to the ID of the listing with the lowest price for that release\\n    mapping(uint256 => uint256) private headListingIds;\\n    /// @dev Mapping from release ID to the ID of the listing with the highest price for that release\\n    mapping(uint256 => uint256) private tailListingIds;\\n    /// @dev Mapping from release ID to the total quantity of tokens listed for that release\\n    mapping(uint256 => uint256) private listedQuantitiesMap;\\n\\n    /// @notice Ensures that only the GildiExchange contract can call this function\\n    modifier onlyGildiExchange() {\\n        if (msg.sender != address(gildiExchange)) {\\n            revert NotGildiExchange();\\n        }\\n        _;\\n    }\\n\\n    // ========== Constructor and Initializer ==========\\n\\n    /// @custom:oz-upgrades-unsafe-allow constructor\\n    constructor() {\\n        _disableInitializers();\\n    }\\n\\n    /// @notice Initializes the contract\\n    /// @param _gildiExchange The address of the GildiExchange contract\\n    /// @param _gildiManager The address of the GildiManager contract\\n    function initialize(address _gildiExchange, address _gildiManager) external initializer {\\n        gildiExchange = IGildiExchange(_gildiExchange);\\n        gildiManager = IGildiManager(_gildiManager);\\n        nextListingId = 1;\\n    }\\n\\n    // ========== External View Functions ==========\\n\\n    /// @inheritdoc IGildiExchangeOrderBook\\n    function getListing(uint256 _listingId) external view override returns (Listing memory) {\\n        return listings[_listingId];\\n    }\\n\\n    /// @inheritdoc IGildiExchangeOrderBook\\n    function getListingsOfSeller(address _seller) external view override returns (Listing[] memory) {\\n        uint256[] storage listingIds = sellerListings[_seller];\\n        Listing[] memory result = new Listing[](listingIds.length);\\n\\n        for (uint256 i = 0; i < listingIds.length; i++) {\\n            result[i] = listings[listingIds[i]];\\n        }\\n\\n        return result;\\n    }\\n\\n    /// @inheritdoc IGildiExchangeOrderBook\\n    function getOrderedListings(\\n        uint256 _releaseId,\\n        uint256 _cursor,\\n        uint256 _limit\\n    ) external view override returns (Listing[] memory orderedListings, uint256 cursor) {\\n        // 1. Sort the listings\\n        uint256[] memory sortedListingIds = new uint256[](tokenListings[_releaseId].length);\\n        uint256 count = 0;\\n        uint256 currentId = headListingIds[_releaseId];\\n\\n        while (currentId != 0) {\\n            sortedListingIds[count] = currentId;\\n            count++;\\n            currentId = listings[currentId].nextListingId;\\n        }\\n\\n        // 2. Determine the number of listings to return\\n        uint256 remaining = (count > _cursor) ? count - _cursor : 0;\\n        uint256 resultSize = remaining < _limit ? remaining : _limit;\\n\\n        // 3. Get the listings\\n        Listing[] memory result = new Listing[](resultSize);\\n        uint256 resultIndex = 0;\\n\\n        for (uint256 i = _cursor; i < count && resultIndex < resultSize; i++) {\\n            result[resultIndex] = listings[sortedListingIds[i]];\\n            resultIndex++;\\n        }\\n\\n        // If all listings are retrieved, set nextCursor to the sortedIndex\\n        uint256 nextCursor = _cursor + resultSize;\\n        if (nextCursor >= count) {\\n            nextCursor = count;\\n        }\\n\\n        return (result, nextCursor);\\n    }\\n\\n    /// @inheritdoc IGildiExchangeOrderBook\\n    function getAvailableBuyQuantity(uint256 _releaseId, address _user) external view override returns (uint256) {\\n        // Subtract user's listed tokens from the total available to avoid self-purchases\\n        uint256 qty = listedQuantitiesMap[_releaseId];\\n\\n        for (uint256 i = 0; i < sellerListings[_user].length; i++) {\\n            if (listings[sellerListings[_user][i]].releaseId == _releaseId) {\\n                qty -= listings[sellerListings[_user][i]].quantity;\\n            }\\n        }\\n\\n        return qty;\\n    }\\n\\n    /// @inheritdoc IGildiExchangeOrderBook\\n    function previewPurchase(\\n        uint256 _releaseId,\\n        address _buyer,\\n        uint256 _amountToBuy\\n    ) external view override returns (PurchasePreview memory) {\\n        IGildiExchange.AppEnvironment memory $ = gildiExchange.getAppEnvironment();\\n\\n        uint256 remainingToBuy = _amountToBuy;\\n        uint256 totalPriceInMarketplaceCurrency = 0;\\n        uint256 totalPriceUsd = 0;\\n        uint256 totalAvailable = 0;\\n\\n        uint256 current = headListingIds[_releaseId];\\n\\n        address releaseAsset = gildiExchange.getActiveMarketplaceReleaseAsset(_releaseId);\\n        while (current != 0 && remainingToBuy > 0) {\\n            Listing storage listing = listings[current];\\n\\n            // Skip listing if the seller *is* the buyer\\n            if (listing.seller == _buyer) {\\n                current = listing.nextListingId;\\n                continue;\\n            }\\n\\n            // Take as many tokens from this listing as we can\\n            uint256 localQty = listing.quantity;\\n            if (localQty == 0) {\\n                // listing is empty; move on\\n                current = listing.nextListingId;\\n                continue;\\n            }\\n\\n            // chunk = min(remainingToBuy, localQty)\\n            uint256 chunk = (localQty >= remainingToBuy) ? remainingToBuy : localQty;\\n\\n            uint256 mcPricePerItem = $.settings.paymentProcessor.quoteInCurrency(listing.pricePerItem, releaseAsset);\\n\\n            // add this chunk's cost to totals\\n            totalPriceInMarketplaceCurrency += (mcPricePerItem * chunk);\\n            totalPriceUsd += (listing.pricePerItem * chunk); // pricePerItem is in USD with priceAskDecimals\\n            totalAvailable += chunk;\\n\\n            // reduce remaining\\n            remainingToBuy -= chunk;\\n\\n            // Move on to next listing\\n            current = listing.nextListingId;\\n        }\\n\\n        return\\n            PurchasePreview({\\n                totalQuantityAvailable: totalAvailable,\\n                totalPriceInCurrency: totalPriceInMarketplaceCurrency,\\n                currency: releaseAsset,\\n                totalPriceUsd: totalPriceUsd\\n            });\\n    }\\n\\n    /// @inheritdoc IGildiExchangeOrderBook\\n    function getHeadListingId(uint256 _releaseId) external view override returns (uint256) {\\n        return headListingIds[_releaseId];\\n    }\\n\\n    /// @inheritdoc IGildiExchangeOrderBook\\n    function getNextListingId(uint256 _listingId) external view override returns (uint256) {\\n        return listings[_listingId].nextListingId;\\n    }\\n\\n    /// @inheritdoc IGildiExchangeOrderBook\\n    function listedQuantities(uint256 _releaseId) external view override returns (uint256) {\\n        return listedQuantitiesMap[_releaseId];\\n    }\\n\\n    // ========== External Non-View Functions ==========\\n\\n    /// @inheritdoc IGildiExchangeOrderBook\\n    function handleCreateListing(\\n        uint256 _releaseId,\\n        address _seller,\\n        uint256 _pricePerItem,\\n        uint256 _quantity,\\n        address _payoutCurrency,\\n        address _fundsReceiver,\\n        uint16 _slippageBps\\n    ) external override onlyGildiExchange {\\n        if (_quantity == 0) {\\n            revert SharedErrors.ParamError();\\n        }\\n\\n        gildiManager.lockTokens(_seller, _releaseId, _quantity);\\n\\n        uint256 listingId = nextListingId;\\n        nextListingId++;\\n\\n        Listing memory newListing = Listing({\\n            id: listingId,\\n            releaseId: _releaseId,\\n            seller: _seller,\\n            pricePerItem: _pricePerItem,\\n            payoutCurrency: _payoutCurrency,\\n            quantity: _quantity,\\n            createdAt: block.timestamp,\\n            modifiedAt: block.timestamp,\\n            nextListingId: 0,\\n            prevListingId: 0,\\n            slippageBps: _slippageBps,\\n            fundsReceiver: _fundsReceiver\\n        });\\n\\n        listings[listingId] = newListing;\\n\\n        // Insert the listing into the correct position based on price\\n        _insertListingInOrder(_releaseId, listingId, _pricePerItem);\\n\\n        listedQuantitiesMap[_releaseId] += newListing.quantity;\\n        sellerListings[_seller].push(listingId);\\n        tokenListings[_releaseId].push(listingId);\\n\\n        emit Listed(listingId, _releaseId, _seller, _pricePerItem, _quantity);\\n    }\\n\\n    /// @inheritdoc IGildiExchangeOrderBook\\n    function handleModifyListing(\\n        uint256 _listingId,\\n        uint256 _pricePerItem,\\n        uint256 _quantity,\\n        address _payoutCurrency,\\n        address _fundsReceiver,\\n        uint16 _slippageBps\\n    ) external override onlyGildiExchange {\\n        Listing storage listing = listings[_listingId];\\n\\n        if (listing.id != _listingId) {\\n            revert SharedErrors.ListingError(_listingId);\\n        }\\n\\n        if (_quantity == 0) {\\n            handleRemoveListing(_listingId);\\n            return;\\n        }\\n\\n        uint256 oldQuantity = listing.quantity;\\n        uint256 newQuantity = _quantity;\\n\\n        if (newQuantity < oldQuantity) {\\n            uint256 difference = oldQuantity - newQuantity;\\n            gildiManager.unlockTokens(listing.seller, listing.releaseId, difference);\\n            listedQuantitiesMap[listing.releaseId] -= difference;\\n        } else if (newQuantity > oldQuantity) {\\n            uint256 difference = newQuantity - oldQuantity;\\n\\n            gildiManager.lockTokens(listing.seller, listing.releaseId, difference);\\n            listedQuantitiesMap[listing.releaseId] += difference;\\n        }\\n\\n        // Remove the listing from the linked list\\n        _clearListingFromLinkedList(_listingId);\\n\\n        // Update the listing with new price and quantity\\n        listing.pricePerItem = _pricePerItem;\\n        listing.quantity = newQuantity;\\n        listing.modifiedAt = block.timestamp;\\n        listing.slippageBps = _slippageBps;\\n        listing.payoutCurrency = _payoutCurrency;\\n        listing.fundsReceiver = _fundsReceiver;\\n\\n        // Re-insert into the correct position based on new price\\n        _insertListingInOrder(listing.releaseId, listing.id, listing.pricePerItem);\\n\\n        emit Modified(_listingId, listing.releaseId, listing.seller, _pricePerItem, _quantity);\\n    }\\n\\n    /// @inheritdoc IGildiExchangeOrderBook\\n    function handleRemoveListing(uint256 _listingId) public override onlyGildiExchange {\\n        Listing memory listing = listings[_listingId];\\n        if (listing.id != _listingId) {\\n            revert SharedErrors.ListingError(_listingId);\\n        }\\n\\n        if (listing.quantity > 0) {\\n            gildiManager.unlockTokens(listing.seller, listing.releaseId, listing.quantity);\\n        }\\n\\n        _clearListingFromLinkedList(_listingId);\\n\\n        uint256[] storage sellerArray = sellerListings[listing.seller];\\n        for (uint256 i = 0; i < sellerArray.length; i++) {\\n            if (sellerArray[i] == _listingId) {\\n                sellerArray[i] = sellerArray[sellerArray.length - 1];\\n                sellerArray.pop();\\n                break;\\n            }\\n        }\\n\\n        listedQuantitiesMap[listing.releaseId] -= listing.quantity;\\n\\n        uint256[] storage listingArray = tokenListings[listing.releaseId];\\n        for (uint256 i = 0; i < listingArray.length; i++) {\\n            if (listingArray[i] == _listingId) {\\n                listingArray[i] = listingArray[listingArray.length - 1];\\n                listingArray.pop();\\n                break;\\n            }\\n        }\\n\\n        emit Unlisted(listing.id, listing.releaseId, listing.seller, listing.quantity);\\n\\n        delete listings[_listingId];\\n    }\\n\\n    /// @inheritdoc IGildiExchangeOrderBook\\n    function handleDecreaseListingQuantity(\\n        uint256 _listingId,\\n        uint256 _quantityToBuy\\n    ) external override onlyGildiExchange {\\n        Listing storage listing = listings[_listingId];\\n\\n        if (listing.id != _listingId) {\\n            revert SharedErrors.ListingError(_listingId);\\n        }\\n\\n        if (_quantityToBuy > listing.quantity) {\\n            revert SharedErrors.ParamError();\\n        }\\n\\n        listing.quantity -= _quantityToBuy;\\n        listedQuantitiesMap[listing.releaseId] -= _quantityToBuy;\\n        listing.modifiedAt = block.timestamp;\\n\\n        if (listing.quantity == 0) {\\n            handleRemoveListing(_listingId);\\n        }\\n    }\\n\\n    /// @inheritdoc IGildiExchangeOrderBook\\n    function handleUnlistReleaseListings(\\n        uint256 _releaseId,\\n        uint256 _batchSize\\n    ) external override onlyGildiExchange returns (uint256 processedListings) {\\n        uint256[] storage listingIds = tokenListings[_releaseId];\\n        while (processedListings < _batchSize && listingIds.length > 0) {\\n            // Process from the end of listings to avoid shifting elements\\n            uint256 listingId = listingIds[listingIds.length - 1];\\n            handleRemoveListing(listingId); // This will also emit the event and handle book-keeping\\n            processedListings++;\\n        }\\n\\n        return (processedListings);\\n    }\\n\\n    // ========== Internal Functions ==========\\n\\n    /// @dev Clear a listing from the linked list\\n    /// @param _listingId The ID of the listing to clear\\n    function _clearListingFromLinkedList(uint256 _listingId) internal {\\n        Listing storage listing = listings[_listingId];\\n\\n        // If the listing is the head\\n        if (headListingIds[listing.releaseId] == _listingId) {\\n            headListingIds[listing.releaseId] = listing.nextListingId;\\n        }\\n\\n        // If the listing is the tail\\n        if (tailListingIds[listing.releaseId] == _listingId) {\\n            tailListingIds[listing.releaseId] = listing.prevListingId;\\n        }\\n\\n        // Update neighbors\\n        if (listing.prevListingId != 0) {\\n            listings[listing.prevListingId].nextListingId = listing.nextListingId;\\n        }\\n\\n        if (listing.nextListingId != 0) {\\n            listings[listing.nextListingId].prevListingId = listing.prevListingId;\\n        }\\n\\n        listing.nextListingId = 0;\\n        listing.prevListingId = 0;\\n    }\\n\\n    /// @dev Insert a listing into the correct position in the linked list based on price\\n    /// @param _releaseId The ID of the release\\n    /// @param _listingId The ID of the listing\\n    /// @param _pricePerItem The price per item\\n    function _insertListingInOrder(uint256 _releaseId, uint256 _listingId, uint256 _pricePerItem) internal {\\n        if (headListingIds[_releaseId] == 0) {\\n            headListingIds[_releaseId] = _listingId;\\n            tailListingIds[_releaseId] = _listingId;\\n            return;\\n        }\\n\\n        if (_pricePerItem < listings[headListingIds[_releaseId]].pricePerItem) {\\n            listings[_listingId].nextListingId = headListingIds[_releaseId];\\n            listings[headListingIds[_releaseId]].prevListingId = _listingId;\\n            headListingIds[_releaseId] = _listingId;\\n        } else if (_pricePerItem >= listings[tailListingIds[_releaseId]].pricePerItem) {\\n            listings[_listingId].prevListingId = tailListingIds[_releaseId];\\n            listings[tailListingIds[_releaseId]].nextListingId = _listingId;\\n            tailListingIds[_releaseId] = _listingId;\\n        } else {\\n            uint256 current = headListingIds[_releaseId];\\n            while (current != 0) {\\n                if (listings[current].pricePerItem > _pricePerItem) {\\n                    listings[_listingId].nextListingId = current;\\n                    listings[_listingId].prevListingId = listings[current].prevListingId;\\n                    listings[listings[current].prevListingId].nextListingId = _listingId;\\n                    listings[current].prevListingId = _listingId;\\n                    break;\\n                }\\n                current = listings[current].nextListingId;\\n            }\\n        }\\n    }\\n\\n    // ---------------------------------------------------------------------------\\n    // Fallback functions\\n    // ---------------------------------------------------------------------------\\n\\n    /// @notice Fallback function to prevent direct Ether transfers\\n    fallback() external payable {\\n        revert SharedErrors.NotAllowed();\\n    }\\n\\n    /// @notice Fallback function to prevent direct Ether transfers\\n    receive() external payable {\\n        revert SharedErrors.NotAllowed();\\n    }\\n}\\n\",\"keccak256\":\"0xf84de5b4bdf4c4d5241cfed81e6fae296f2db01fa3ef3ec6a322acb4920d5c5c\",\"license\":\"UNLICENSED\"}},\"version\":1}",
+  "bytecode": "0x608080604052346100b8577ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a009081549060ff8260401c166100a957506001600160401b036002600160401b031982821601610064575b6040516129ee90816100be8239f35b6001600160401b031990911681179091556040519081527fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d290602090a1388080610055565b63f92ee8a960e01b8152600490fd5b600080fdfe6101006040526004361015610039575b361561002757604051631eb49d6d60e11b8152600490fd5b604051631eb49d6d60e11b8152600490fd5b60006080526080513560e01c8063107a274a14611ca457806340538bf214611b7b578063485cc95514611a245780634b3f3b4a1461180c57806352fa313e146117de5780635cad88701461110b578063727ea566146110da578063b7b8514614610e00578063b9344ea514610abf578063c7fd86d014610a95578063cfd24ba514610a37578063d4d5347f14610a0c578063e544e41c14610933578063ea9e580214610560578063f16a1eed146105325763fa8d346b0361000f57346104db5761010236611e81565b608051546001600160a01b0316330361050b5760808051928352600460205251604090205b81831080610528575b1561051d57805460001981019081116104205761014d9082611fd9565b9054608051549194916001600160a01b0316330361050b57808560031b1c608051526003602052604060805120926040519361018885611e97565b80548086526001820154602087015260028201546001600160a01b0390811660408801526003808401546060890152600484015482166080890152600584015460a0890152600684015461ffff1660c0890152600784015460e089015260088401546101008901526009840154610120890152600a840154610140890152600b90930154166101608701529087901b83901c036104ee5760a084015180610456575b50610239828760031b1c6128f0565b60018060a01b03604085015116608051526005602052604060805120946080515b8654808210156104495761026e8289611fd9565b868b60031b1c91549060031b1c14610289575060010161025a565b806000999596979892939919810111610420576102e0926102c26102b46102db936000190185611fd9565b90549060031b1c9184611fd9565b90919082549060031b91821b91600019901b1916179055565b612111565b60a08501516020860151608051526008602052610304604060805120918254612040565b90556020850151608051526004602052604060805120956080515b87548082101561043857610333828a611fd9565b878760031b1c91549060031b1c1461034e575060010161031f565b9594939296919786600019810111610420576102db61037b926102c26102b46104199a6000190185611fd9565b8051602082015190600080516020612999833981519152602060a0600180821b03604087015116950151604051908152a460031b1c608051526003602052604060805120600081556000600182015560805160028201556000600382015560805160048201556000600582015560805160068201556000600782015560006008820155600060098201556000600a820155600b60805191015561201b565b9190610127565b634e487b7160e01b6080515260116004526024608051fd5b50509550939061041993929161037b565b50509591929394506102e0565b60015460408601516020870151926001600160a01b0391821692909116803b156104db5760405163cd3877df60e01b81526080516001600160a01b0390941660048201526024810194909452604484019190915282908180606481010391608051905af180156104e1571561022a576104ce90611ee4565b6080516104db573861022a565b60805180fd5b6040513d608051823e3d90fd5b6024868360405191631dd5343d60e31b835260031b1c6004820152fd5b604051637ac8704360e11b8152600490fd5b602083604051908152f35b5080541515610130565b346104db5760203660031901126104db57600435608051526008602052602060406080512054604051908152f35b346104db5761056e36611e81565b608051546001600160a01b0316330361050b57816080515260036020526040608051208281540361091a576005810191825480821161090857816105b191612040565b835560018201546080515260086020526105d2604060805120918254612040565b905560084291015554156105e7575b60805180f35b608051546001600160a01b0316330361050b5780608051526003602052604060805120816040519161061883611e97565b80548084526001820154602085015260028201546001600160a01b03908116604086015260038301546060860152600483015481166080860152600583015460a0860152600683015461ffff1660c0860152600783015460e086015260088301546101008601526009830154610120860152600a830154610140860152600b90920154909116610160840152036108ef5760a08101518061086a575b506106be826128f0565b60018060a01b03604082015116608051526005602052604060805120906080515b82548082101561086157846106f48386611fd9565b90549060031b1c1461070957506001016106df565b9192909160001981019081116104205761072d926102c26102b46102db9385611fd9565b60a08101516020820151608051526008602052610751604060805120918254612040565b90556020810151608051526004602052604060805120906080515b82548082101561085857846107818386611fd9565b90549060031b1c14610796575060010161076c565b8060009492939419810111610420576107bd926102c26102b46102db936000190185611fd9565b8051602082015190600080516020612999833981519152602060a0600180821b03604087015116950151604051908152a4608051526003602052604060805120600081556000600182015560805160028201556000600382015560805160048201556000600582015560805160068201556000600782015560006008820155600060098201556000600a820155600b608051910155806105e1565b505090506107bd565b5050905061072d565b60015460408301516020840151926001600160a01b0391821692909116803b156104db5760405163cd3877df60e01b81526080516001600160a01b0390941660048201526024810194909452604484019190915282908180606481010391608051905af180156104e157156106b4576108e290611ee4565b6080516104db57826106b4565b604051631dd5343d60e31b815260048101839052602490fd5b604051633ee76a8d60e11b8152600490fd5b604051631dd5343d60e31b815260048101849052602490fd5b346104db5760403660031901126104db5760043561094f611e13565b6080805183905260086020908152905160408120549193926001600160a01b031691905b826080515260058086526040608051208054831015610a02578261099691611fd9565b9054600391821b1c608051528087528560016040608051200154146109c0575b5050600101610973565b926109fa916001939486608051528189526109e086604060805120611fd9565b905490821b1c608051528852604060805120015490612040565b9190866109b6565b8684604051908152f35b346104db576080513660031901126104db57608051546040516001600160a01b039091168152602090f35b346104db5760c03660031901126104db576064356001600160a01b038082168203610a9057610a64611e29565b60a4359161ffff83168303610a90576080515416330361050b576105e192604435602435600435612151565b600080fd5b346104db576080513660031901126104db576001546040516001600160a01b039091168152602090f35b346104db576020806003193601126104db57608051546001600160a01b0316330361050b576004356080515260039081815260406080512060405190610b0482611e97565b805480835260018201548484015260028201546001600160a01b03908116604085015285830154606085015260048084015482166080860152600584015460a0860152600684015461ffff1660c0860152600784015460e086015260088401546101008601526009840154610120860152600a840154610140860152600b9093015416610160840152903503610de75760a081015180610d63575b50610bab6004356128f0565b60018060a01b036040820151166080515260058252604060805120916080515b835480821015610d5957610bdf8286611fd9565b600435915490881b1c14610bf65750600101610bcb565b6000949192939419810190811161042057610c28926102c2610c1b6102db9385611fd9565b905490891b1c9184611fd9565b60a0820151818301516080515260088252610c4a604060805120918254612040565b9055808201516080515260048152604060805120906080515b82548581831015610d4e5750610c798285611fd9565b600435915490881b1c14610c905750600101610c63565b93919284600019810111610420576102db610cb7926102c2610c1b89986000190185611fd9565b805182820151906000805160206129998339815191528460a0600180821b03604087015116950151604051908152a46004356080515252600060406080512091818355816001840155608051600284015582015560805160048201556000600582015560805160068201556000600782015560006008820155600060098201556000600a820155600b608051910155608051608051f35b949293505050610cb7565b5050909150610c28565b600154604083015184840151926001600160a01b0391821692909116803b156104db5760405163cd3877df60e01b81526080516001600160a01b0390941660048201526024810194909452604484019190915282908180606481010391608051905af180156104e15715610b9f57610dda90611ee4565b6080516104db5783610b9f565b6024604051631dd5343d60e31b81526004356004820152fd5b346104db5760e03660031901126104db57610e19611e13565b610e21611e29565b60a43591906001600160a01b03831683036104db5760c4359061ffff821682036104db57608051546001600160a01b0316330361050b5760643515610908576001546001600160a01b0316803b156104db5760405163a25983e560e01b8152608080516001600160a01b0387166004808501919091523560248401526064803560448501529151929390928492918391905af180156104e1576110cb575b5060025493610ecd8561201b565b60025560405191610edd83611e97565b858352600435602084015260018060a01b0385166040840152604435606084015260018060a01b0316608083015261ffff60a083019360643585521660c08301524260e08301524261010083015260805161012083015260805161014083015260018060a01b0316610160820152836080515260036020526040608051208151815560208201516001820155600b600282019160018060a01b03604085015116926bffffffffffffffffffffffff60a01b9384825416179055606084015160038201556004810160018060a01b0360808601511684825416179055845160058201556006810161ffff60c08601511661ffff1982541617905560e0840151600782015561010084015160088201556101208401516009820155610140840151600a820155019161016060018060a01b03910151169082541617905561102760443584600435612787565b5160043560805152600860205261104560406080512091825461204d565b905560018060a01b038116608051526005602052611068826040608051206120e7565b600435608051526004602052611083826040608051206120e7565b604051906044358252606435602083015260018060a01b0316917f1e9d45789795021c76ee4b02700b847667a4f82249aed1f3a7d92b7806d1087e604060043593a460805180f35b6110d490611ee4565b84610ebf565b346104db5760203660031901126104db57600435608051526003602052602060096040608051200154604051908152f35b346104db5760603660031901126104db57611124611e13565b60a05260405161113381611ec9565b608051815260805160208201526080516040820152606060805191015260018060a01b03608051541660c052604051639662022560e01b81526080518160048160c0515afa9081156104e157608051916113bc575b50604435906080519060805192608051600435608051526006602052604060805120549460405195636c493fa160e11b8752600435600488015260208760248160c0515afa9687156104e15760805197611380575b50929190925b80151580611377575b15611323576080515260036020526040608051209260018060a01b0360a0511660018060a01b0360028601541614611317576005840154801561130a578381106113055750825b855161010001516003860154604051633e535d2f60e11b8152600481018290526001600160a01b038b811660248301529199909492909160209186916044918391165afa9384156104e157608051946112cd575b50826112b481936112a8836112ae6112ba966112a86112c09a60099c6120d4565b9061204d565b9d6120d4565b9561204d565b94612040565b9301545b929190926111e3565b935091906020843d6020116112fd575b816112ea60209383611ef7565b810103126104db57925192909182611287565b3d91506112dd565b611233565b50909192600901546112c4565b909192600901546112c4565b608082858989606060405161133781611ec9565b85815260208101928352604081019360018060a01b031684520192835260405193845251602084015260018060a01b039051166040830152516060820152f35b508215156111ec565b9096506020813d6020116113b4575b8161139c60209383611ef7565b810103126104db576113ad9061205a565b95876111dd565b3d915061138f565b90503d9081608051823e6113d08282611ef7565b60208183810103126104db5780516001600160401b0381116104db5760a081830184840103126104db57604051928360a08101106001600160401b0360a0860111176117c65760a084016040528183015160e0526001600160401b0360e051116104db5761014060e0518385010182850103126104db576101e0840160a0850181106001600160401b038211176117c65760405260e051828401015160ff811681036104db5760a0850152602060e051838501010151906001600160401b0382116104db57808401601f8360e05186880101010112156104db578160e051848601010151906114be82611f72565b926114cc6040519485611ef7565b828452602084019180870160208560051b8460e0518a8c0101010101116104db5760208260e051888a01010101925b60208560051b8460e0518a8c0101010101841061165457505050505060c084015260e05182820101604001516001600160a01b03811681036104db5760e084810191909152805183830190810160600151610100860152905101608001516001600160a01b03811681036104db5761012084015260e0518282010160a001516001600160a01b03811681036104db5761014084015260e0518282010160c001516001600160a01b03811681036104db5761016084015260e080518383010101516001600160a01b03811681036104db5761018084015260e0518282010161010001516001600160a01b03811681036104db576101a084015260e051828201016101200151916001600160a01b03831683036104db576080926101c085015260a08401845261162d60208383010161206e565b60208501520160408181015190840152606080820151908401520151608082015281611188565b83516001600160401b0381116104db576080601f1982868c8c60e0519101010101858c010301126104db57604051908160408101106001600160401b036040840111176117c6576116bd89602083888e604088016040528981019460e05191010101010161207d565b825260e051898b010185018101608001516001600160401b0381116104db5789603f8284898f8a81019560e0519101010101010112156104db578960208284898f8560e05191010101010101519161171483611f72565b936117226040519586611ef7565b8385528d6040602087019484848d8d86019560608b029460e0519101010101010101116104db578d928d8a604085858360e051868b010101010101925b8b604060608a028888868c8960e0519101010101010101851061179e5750505050505050505060209282849392848094015281520194019390506114fb565b604093926060602089946117b58a958d018a61207d565b81520196019592509293505061175f565b634e487b7160e01b6080515260416004526024608051fd5b346104db5760203660031901126104db57600435608051526006602052602060406080512054604051908152f35b346104db576060806003193601126104db5760043560243590604435816080515260209060048252604060805120549461184586611f72565b956118536040519788611ef7565b808752611862601f1991611f72565b01368488013760805193608051526006916006845260406080512054805b6119f55750858511156119ec576118978686612040565b905b808210156119e45750955b6118ad87611f89565b946080519787985b828a10806119db575b1561199c57611990611996916118d48c87612007565b51608051526003808a5260406080512090600b604051926118f484611e97565b8054845260018101548d85015260028101546001600160a01b039081166040860152928101548b850152600481015483166080850152600581015460a08501528b81015461ffff1660c0850152600781015460e085015260088101546101008501526009810154610120850152600a81015461014085015201541661016082015261197f828c612007565b5261198a818b612007565b5061201b565b9961201b565b986118b5565b6119cb8888856119ac868e61204d565b90808210156119d3575b50604051938493604085526040850190611e3f565b918301520390f35b9050846119b6565b508181106118be565b9050956118a4565b60805190611899565b948086611a05611a0b938b612007565b5261201b565b9460805152600384526009604060805120015480611880565b346104db5760403660031901126104db57611a3d611dfd565b611a45611e13565b7ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a009081549260ff8460401c1615916001600160401b03851694851580611b74575b60018097149081611b6a575b159081611b61575b50611b4f5767ffffffffffffffff1981168617855583611b30575b5060805180546001600160a01b03199081166001600160a01b039485161790915585541691161783556002839055611aed5760805180f35b805468ff0000000000000000191690556040519081527fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d290602090a180806105e1565b68ffffffffffffffffff19166801000000000000000117845585611ab5565b60405163f92ee8a960e01b8152600490fd5b90501587611a9a565b303b159150611a92565b5083611a86565b346104db576020806003193601126104db576001600160a01b039081611b9f611dfd565b1660805152600580825260406080512092835491611bbc83611f89565b946080515b848110611bdf5760405186815280611bdb8189018a611e3f565b0390f35b80611bec60019284611fd9565b9054600391821b1c6080515280885285600b60406080512060405193611c1185611e97565b81548552868201548c86015283600283015416604086015281015460608501528260048201541660808501528781015460a085015261ffff60068201541660c0850152600781015460e085015260088101546101008501526009810154610120850152600a810154610140850152015416610160820152611c92828a612007565b52611c9d8189612007565b5001611bc1565b346104db5760203660031901126104db57611cbd611f18565b5060043560805152600360205261018060406080512060405190611ce082611e97565b8054825260018101546020830152600b60018060a01b039182600282015416604085015260038101546060850152826004820154166080850152600581015460a085015261ffff60068201541660c0850152600781015460e085015260088101546101008501526009810154610120850152600a810154610140850152015416610160820152611d736040518092611d75565bf35b8051825260208101516020830152604081015160018060a01b0380911660408401526060820151606084015280608083015116608084015260a082015160a084015261ffff60c08301511660c084015260e082015160e08401526101008083015190840152610120808301519084015261014080830151908401526101608092015116910152565b600435906001600160a01b0382168203610a9057565b602435906001600160a01b0382168203610a9057565b608435906001600160a01b0382168203610a9057565b90815180825260208080930193019160005b828110611e5f575050505090565b909192938261018082611e756001948951611d75565b01950193929101611e51565b6040906003190112610a90576004359060243590565b61018081019081106001600160401b03821117611eb357604052565b634e487b7160e01b600052604160045260246000fd5b608081019081106001600160401b03821117611eb357604052565b6001600160401b038111611eb357604052565b90601f801991011681019081106001600160401b03821117611eb357604052565b60405190611f2582611e97565b816101606000918281528260208201528260408201528260608201528260808201528260a08201528260c08201528260e08201528261010082015282610120820152826101408201520152565b6001600160401b038111611eb35760051b60200190565b90611f9382611f72565b611fa06040519182611ef7565b8281528092611fb1601f1991611f72565b019060005b828110611fc257505050565b602090611fcd611f18565b82828501015201611fb6565b8054821015611ff15760005260206000200190600090565b634e487b7160e01b600052603260045260246000fd5b8051821015611ff15760209160051b010190565b600019811461202a5760010190565b634e487b7160e01b600052601160045260246000fd5b9190820391821161202a57565b9190820180921161202a57565b51906001600160a01b0382168203610a9057565b519061ffff82168203610a9057565b9190826060910312610a9057604051606081018181106001600160401b03821117611eb35760405260406120cf8183956120b68161205a565b85526120c46020820161205a565b60208601520161206e565b910152565b8181029291811591840414171561202a57565b9081549168010000000000000000831015611eb357826102c291600161210f95018155611fd9565b565b805490811561213b576000199182019161212b8383611fd9565b909182549160031b1b1916905555565b634e487b7160e01b600052603160045260246000fd5b91959490600096838852600394602096868852604094858b20978789540361276f5784156123fe57600589019b8c54868181106000146122eb5761219491612040565b6001805460028d0154918d01805493949390926001600160a01b039283169216823b156122e7578c5163cd3877df60e01b81526001600160a01b039190911660048201526024810191909152604481018590529083908290606490829084905af180156122dd576122c5575b50928c9d9e926122428b7f03e25477b1dc4274373a7929466a81230ed4d559f0cd576121d6bea4aac88ebc9d9e9f9460088d968d995483525220918254612040565b90555b61224e8c6128f0565b8c0155554260088a015561ffff60068a01911661ffff19825416179055600488019160018060a01b0392836bffffffffffffffffffffffff60a01b92168282541617905582600b8a019216908254161790556002600188016122b48582548b5490612787565b5497015416968351928352820152a4565b6122cf8391611ee4565b6122d95738612200565b5080fd5b8b513d85823e3d90fd5b8480fd5b8110612322575b50507f03e25477b1dc4274373a7929466a81230ed4d559f0cd576121d6bea4aac88ebc9798999a9b868692612245565b61232c9087612040565b6001805460028d0154918d01805493949390926001600160a01b039283169216823b156122e7578c5163a25983e560e01b81526001600160a01b039190911660048201526024810191909152604481018590529083908290606490829084905af180156122dd576123ea575b50928c9d9e926123da8b7f03e25477b1dc4274373a7929466a81230ed4d559f0cd576121d6bea4aac88ebc9d9e9f9460088d968d99548352522091825461204d565b90559250819d9c9b9a99506122f2565b6123f48391611ee4565b6122d95738612398565b8b54979b996001600160a01b039950979096955088163303935061275f925050505786855281835280852092815197889461243886611e97565b80548087526001978883015490858901918252848160028601541693888b019485528986015460608c015260049a838c88015416608082015261016084600b60058a01549960a085019a8b5261ffff60068201541660c0860152600781015460e086015260088101546101008601526009810154610120860152600a81015461014086015201541691015203612748578351806126ca575b506124da856128f0565b808351168b526005865289878c20818d905b61265a575b505050835182518c526008875261250c888d20918254612040565b905581518b52888652868b209c8b8b5b61259c575b508b9c9d509388969293600b9c9a99946000805160206129998339815191528560009b98958c9a9651935194511694518951908152a4885252852095818755860155836002860155840155820155600060058201558260068201556000600782015560006008820155600060098201556000600a8201550155565b8e5480821015612654578f6125b2838a92611fd9565b9054908d1b1c146125c657508b018b61251c565b9d9e9192939495969798999a9b9c9d600019810190811161264157946000805160206129998339815191528f9c99949a600b9f9e9c98939660009c612629878f9d988f9c9b6102c28e61261d899f6102db95611fd9565b9054911b1c9184611fd9565b95999c5095995050509397509398999b8e9d50612521565b634e487b7160e01b8f5260118d5260248ffd5b50612521565b8154808210156126c457888c6126708486611fd9565b9054911b1c1461268357508201826124ec565b9192509060001981019081116126b15782916102c28c61261d6102db946126a997611fd9565b8938806124f1565b634e487b7160e01b8e5260118c5260248efd5b506124f1565b818b54168285511690845191813b15612744578a5163cd3877df60e01b81526001600160a01b03909116818e01908152602081019390935260408301939093528d9183919082908490829060600103925af1801561273a57156124d057612733909b919b611ee4565b99386124d0565b88513d8e823e3d90fd5b8e80fd5b8651631dd5343d60e31b8152808a01869052602490fd5b51637ac8704360e11b8152600490fd5b8651631dd5343d60e31b815260048101899052602490fd5b919091600090808252600690602090828252604094868686208054156128e457505083835285852054855260039081845281878720015481106000146127fc57508185528383528585205487865281845260098787200155818552838352858520548552825285600a86862001558352522055565b909192938386526007855286862054865282855282878720015482101560001461285b575050906007929181855283835285852054878652818452600a8787200155818552838352858520548552825285600986862001558352522055565b90928596979552835285852054805b612878575b50505050505050565b80865281845282828888200154116128985750858520600901548061286a565b94925050508181949294526009928084848420015580825284600a948585852001548285528686862001558284528585852001548452848420015581522001553880808080808061286f565b55505060079052502055565b6000908082526003602052604082209060018201805484526006602052604084208281541461298b575b505483526007602052604083209081541461297e575b50816009600a830192835480612965575b500180548061294f57505555565b83549083526003602052600a6040842001555555565b8282015490845260036020528260408520015538612941565b600a820154905538612930565b600984015490553861291a56fe381688c7e132c3df74f88650a504a39f1d591ab9a54bbe57fa80b41a40289e75a2646970667358221220c7306e1aa17e4a87a9af7ff3adc1f67699d319a629507f40749943f54024c6af64736f6c63430008180033",
+  "deployedBytecode": "0x6101006040526004361015610039575b361561002757604051631eb49d6d60e11b8152600490fd5b604051631eb49d6d60e11b8152600490fd5b60006080526080513560e01c8063107a274a14611ca457806340538bf214611b7b578063485cc95514611a245780634b3f3b4a1461180c57806352fa313e146117de5780635cad88701461110b578063727ea566146110da578063b7b8514614610e00578063b9344ea514610abf578063c7fd86d014610a95578063cfd24ba514610a37578063d4d5347f14610a0c578063e544e41c14610933578063ea9e580214610560578063f16a1eed146105325763fa8d346b0361000f57346104db5761010236611e81565b608051546001600160a01b0316330361050b5760808051928352600460205251604090205b81831080610528575b1561051d57805460001981019081116104205761014d9082611fd9565b9054608051549194916001600160a01b0316330361050b57808560031b1c608051526003602052604060805120926040519361018885611e97565b80548086526001820154602087015260028201546001600160a01b0390811660408801526003808401546060890152600484015482166080890152600584015460a0890152600684015461ffff1660c0890152600784015460e089015260088401546101008901526009840154610120890152600a840154610140890152600b90930154166101608701529087901b83901c036104ee5760a084015180610456575b50610239828760031b1c6128f0565b60018060a01b03604085015116608051526005602052604060805120946080515b8654808210156104495761026e8289611fd9565b868b60031b1c91549060031b1c14610289575060010161025a565b806000999596979892939919810111610420576102e0926102c26102b46102db936000190185611fd9565b90549060031b1c9184611fd9565b90919082549060031b91821b91600019901b1916179055565b612111565b60a08501516020860151608051526008602052610304604060805120918254612040565b90556020850151608051526004602052604060805120956080515b87548082101561043857610333828a611fd9565b878760031b1c91549060031b1c1461034e575060010161031f565b9594939296919786600019810111610420576102db61037b926102c26102b46104199a6000190185611fd9565b8051602082015190600080516020612999833981519152602060a0600180821b03604087015116950151604051908152a460031b1c608051526003602052604060805120600081556000600182015560805160028201556000600382015560805160048201556000600582015560805160068201556000600782015560006008820155600060098201556000600a820155600b60805191015561201b565b9190610127565b634e487b7160e01b6080515260116004526024608051fd5b50509550939061041993929161037b565b50509591929394506102e0565b60015460408601516020870151926001600160a01b0391821692909116803b156104db5760405163cd3877df60e01b81526080516001600160a01b0390941660048201526024810194909452604484019190915282908180606481010391608051905af180156104e1571561022a576104ce90611ee4565b6080516104db573861022a565b60805180fd5b6040513d608051823e3d90fd5b6024868360405191631dd5343d60e31b835260031b1c6004820152fd5b604051637ac8704360e11b8152600490fd5b602083604051908152f35b5080541515610130565b346104db5760203660031901126104db57600435608051526008602052602060406080512054604051908152f35b346104db5761056e36611e81565b608051546001600160a01b0316330361050b57816080515260036020526040608051208281540361091a576005810191825480821161090857816105b191612040565b835560018201546080515260086020526105d2604060805120918254612040565b905560084291015554156105e7575b60805180f35b608051546001600160a01b0316330361050b5780608051526003602052604060805120816040519161061883611e97565b80548084526001820154602085015260028201546001600160a01b03908116604086015260038301546060860152600483015481166080860152600583015460a0860152600683015461ffff1660c0860152600783015460e086015260088301546101008601526009830154610120860152600a830154610140860152600b90920154909116610160840152036108ef5760a08101518061086a575b506106be826128f0565b60018060a01b03604082015116608051526005602052604060805120906080515b82548082101561086157846106f48386611fd9565b90549060031b1c1461070957506001016106df565b9192909160001981019081116104205761072d926102c26102b46102db9385611fd9565b60a08101516020820151608051526008602052610751604060805120918254612040565b90556020810151608051526004602052604060805120906080515b82548082101561085857846107818386611fd9565b90549060031b1c14610796575060010161076c565b8060009492939419810111610420576107bd926102c26102b46102db936000190185611fd9565b8051602082015190600080516020612999833981519152602060a0600180821b03604087015116950151604051908152a4608051526003602052604060805120600081556000600182015560805160028201556000600382015560805160048201556000600582015560805160068201556000600782015560006008820155600060098201556000600a820155600b608051910155806105e1565b505090506107bd565b5050905061072d565b60015460408301516020840151926001600160a01b0391821692909116803b156104db5760405163cd3877df60e01b81526080516001600160a01b0390941660048201526024810194909452604484019190915282908180606481010391608051905af180156104e157156106b4576108e290611ee4565b6080516104db57826106b4565b604051631dd5343d60e31b815260048101839052602490fd5b604051633ee76a8d60e11b8152600490fd5b604051631dd5343d60e31b815260048101849052602490fd5b346104db5760403660031901126104db5760043561094f611e13565b6080805183905260086020908152905160408120549193926001600160a01b031691905b826080515260058086526040608051208054831015610a02578261099691611fd9565b9054600391821b1c608051528087528560016040608051200154146109c0575b5050600101610973565b926109fa916001939486608051528189526109e086604060805120611fd9565b905490821b1c608051528852604060805120015490612040565b9190866109b6565b8684604051908152f35b346104db576080513660031901126104db57608051546040516001600160a01b039091168152602090f35b346104db5760c03660031901126104db576064356001600160a01b038082168203610a9057610a64611e29565b60a4359161ffff83168303610a90576080515416330361050b576105e192604435602435600435612151565b600080fd5b346104db576080513660031901126104db576001546040516001600160a01b039091168152602090f35b346104db576020806003193601126104db57608051546001600160a01b0316330361050b576004356080515260039081815260406080512060405190610b0482611e97565b805480835260018201548484015260028201546001600160a01b03908116604085015285830154606085015260048084015482166080860152600584015460a0860152600684015461ffff1660c0860152600784015460e086015260088401546101008601526009840154610120860152600a840154610140860152600b9093015416610160840152903503610de75760a081015180610d63575b50610bab6004356128f0565b60018060a01b036040820151166080515260058252604060805120916080515b835480821015610d5957610bdf8286611fd9565b600435915490881b1c14610bf65750600101610bcb565b6000949192939419810190811161042057610c28926102c2610c1b6102db9385611fd9565b905490891b1c9184611fd9565b60a0820151818301516080515260088252610c4a604060805120918254612040565b9055808201516080515260048152604060805120906080515b82548581831015610d4e5750610c798285611fd9565b600435915490881b1c14610c905750600101610c63565b93919284600019810111610420576102db610cb7926102c2610c1b89986000190185611fd9565b805182820151906000805160206129998339815191528460a0600180821b03604087015116950151604051908152a46004356080515252600060406080512091818355816001840155608051600284015582015560805160048201556000600582015560805160068201556000600782015560006008820155600060098201556000600a820155600b608051910155608051608051f35b949293505050610cb7565b5050909150610c28565b600154604083015184840151926001600160a01b0391821692909116803b156104db5760405163cd3877df60e01b81526080516001600160a01b0390941660048201526024810194909452604484019190915282908180606481010391608051905af180156104e15715610b9f57610dda90611ee4565b6080516104db5783610b9f565b6024604051631dd5343d60e31b81526004356004820152fd5b346104db5760e03660031901126104db57610e19611e13565b610e21611e29565b60a43591906001600160a01b03831683036104db5760c4359061ffff821682036104db57608051546001600160a01b0316330361050b5760643515610908576001546001600160a01b0316803b156104db5760405163a25983e560e01b8152608080516001600160a01b0387166004808501919091523560248401526064803560448501529151929390928492918391905af180156104e1576110cb575b5060025493610ecd8561201b565b60025560405191610edd83611e97565b858352600435602084015260018060a01b0385166040840152604435606084015260018060a01b0316608083015261ffff60a083019360643585521660c08301524260e08301524261010083015260805161012083015260805161014083015260018060a01b0316610160820152836080515260036020526040608051208151815560208201516001820155600b600282019160018060a01b03604085015116926bffffffffffffffffffffffff60a01b9384825416179055606084015160038201556004810160018060a01b0360808601511684825416179055845160058201556006810161ffff60c08601511661ffff1982541617905560e0840151600782015561010084015160088201556101208401516009820155610140840151600a820155019161016060018060a01b03910151169082541617905561102760443584600435612787565b5160043560805152600860205261104560406080512091825461204d565b905560018060a01b038116608051526005602052611068826040608051206120e7565b600435608051526004602052611083826040608051206120e7565b604051906044358252606435602083015260018060a01b0316917f1e9d45789795021c76ee4b02700b847667a4f82249aed1f3a7d92b7806d1087e604060043593a460805180f35b6110d490611ee4565b84610ebf565b346104db5760203660031901126104db57600435608051526003602052602060096040608051200154604051908152f35b346104db5760603660031901126104db57611124611e13565b60a05260405161113381611ec9565b608051815260805160208201526080516040820152606060805191015260018060a01b03608051541660c052604051639662022560e01b81526080518160048160c0515afa9081156104e157608051916113bc575b50604435906080519060805192608051600435608051526006602052604060805120549460405195636c493fa160e11b8752600435600488015260208760248160c0515afa9687156104e15760805197611380575b50929190925b80151580611377575b15611323576080515260036020526040608051209260018060a01b0360a0511660018060a01b0360028601541614611317576005840154801561130a578381106113055750825b855161010001516003860154604051633e535d2f60e11b8152600481018290526001600160a01b038b811660248301529199909492909160209186916044918391165afa9384156104e157608051946112cd575b50826112b481936112a8836112ae6112ba966112a86112c09a60099c6120d4565b9061204d565b9d6120d4565b9561204d565b94612040565b9301545b929190926111e3565b935091906020843d6020116112fd575b816112ea60209383611ef7565b810103126104db57925192909182611287565b3d91506112dd565b611233565b50909192600901546112c4565b909192600901546112c4565b608082858989606060405161133781611ec9565b85815260208101928352604081019360018060a01b031684520192835260405193845251602084015260018060a01b039051166040830152516060820152f35b508215156111ec565b9096506020813d6020116113b4575b8161139c60209383611ef7565b810103126104db576113ad9061205a565b95876111dd565b3d915061138f565b90503d9081608051823e6113d08282611ef7565b60208183810103126104db5780516001600160401b0381116104db5760a081830184840103126104db57604051928360a08101106001600160401b0360a0860111176117c65760a084016040528183015160e0526001600160401b0360e051116104db5761014060e0518385010182850103126104db576101e0840160a0850181106001600160401b038211176117c65760405260e051828401015160ff811681036104db5760a0850152602060e051838501010151906001600160401b0382116104db57808401601f8360e05186880101010112156104db578160e051848601010151906114be82611f72565b926114cc6040519485611ef7565b828452602084019180870160208560051b8460e0518a8c0101010101116104db5760208260e051888a01010101925b60208560051b8460e0518a8c0101010101841061165457505050505060c084015260e05182820101604001516001600160a01b03811681036104db5760e084810191909152805183830190810160600151610100860152905101608001516001600160a01b03811681036104db5761012084015260e0518282010160a001516001600160a01b03811681036104db5761014084015260e0518282010160c001516001600160a01b03811681036104db5761016084015260e080518383010101516001600160a01b03811681036104db5761018084015260e0518282010161010001516001600160a01b03811681036104db576101a084015260e051828201016101200151916001600160a01b03831683036104db576080926101c085015260a08401845261162d60208383010161206e565b60208501520160408181015190840152606080820151908401520151608082015281611188565b83516001600160401b0381116104db576080601f1982868c8c60e0519101010101858c010301126104db57604051908160408101106001600160401b036040840111176117c6576116bd89602083888e604088016040528981019460e05191010101010161207d565b825260e051898b010185018101608001516001600160401b0381116104db5789603f8284898f8a81019560e0519101010101010112156104db578960208284898f8560e05191010101010101519161171483611f72565b936117226040519586611ef7565b8385528d6040602087019484848d8d86019560608b029460e0519101010101010101116104db578d928d8a604085858360e051868b010101010101925b8b604060608a028888868c8960e0519101010101010101851061179e5750505050505050505060209282849392848094015281520194019390506114fb565b604093926060602089946117b58a958d018a61207d565b81520196019592509293505061175f565b634e487b7160e01b6080515260416004526024608051fd5b346104db5760203660031901126104db57600435608051526006602052602060406080512054604051908152f35b346104db576060806003193601126104db5760043560243590604435816080515260209060048252604060805120549461184586611f72565b956118536040519788611ef7565b808752611862601f1991611f72565b01368488013760805193608051526006916006845260406080512054805b6119f55750858511156119ec576118978686612040565b905b808210156119e45750955b6118ad87611f89565b946080519787985b828a10806119db575b1561199c57611990611996916118d48c87612007565b51608051526003808a5260406080512090600b604051926118f484611e97565b8054845260018101548d85015260028101546001600160a01b039081166040860152928101548b850152600481015483166080850152600581015460a08501528b81015461ffff1660c0850152600781015460e085015260088101546101008501526009810154610120850152600a81015461014085015201541661016082015261197f828c612007565b5261198a818b612007565b5061201b565b9961201b565b986118b5565b6119cb8888856119ac868e61204d565b90808210156119d3575b50604051938493604085526040850190611e3f565b918301520390f35b9050846119b6565b508181106118be565b9050956118a4565b60805190611899565b948086611a05611a0b938b612007565b5261201b565b9460805152600384526009604060805120015480611880565b346104db5760403660031901126104db57611a3d611dfd565b611a45611e13565b7ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a009081549260ff8460401c1615916001600160401b03851694851580611b74575b60018097149081611b6a575b159081611b61575b50611b4f5767ffffffffffffffff1981168617855583611b30575b5060805180546001600160a01b03199081166001600160a01b039485161790915585541691161783556002839055611aed5760805180f35b805468ff0000000000000000191690556040519081527fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d290602090a180806105e1565b68ffffffffffffffffff19166801000000000000000117845585611ab5565b60405163f92ee8a960e01b8152600490fd5b90501587611a9a565b303b159150611a92565b5083611a86565b346104db576020806003193601126104db576001600160a01b039081611b9f611dfd565b1660805152600580825260406080512092835491611bbc83611f89565b946080515b848110611bdf5760405186815280611bdb8189018a611e3f565b0390f35b80611bec60019284611fd9565b9054600391821b1c6080515280885285600b60406080512060405193611c1185611e97565b81548552868201548c86015283600283015416604086015281015460608501528260048201541660808501528781015460a085015261ffff60068201541660c0850152600781015460e085015260088101546101008501526009810154610120850152600a810154610140850152015416610160820152611c92828a612007565b52611c9d8189612007565b5001611bc1565b346104db5760203660031901126104db57611cbd611f18565b5060043560805152600360205261018060406080512060405190611ce082611e97565b8054825260018101546020830152600b60018060a01b039182600282015416604085015260038101546060850152826004820154166080850152600581015460a085015261ffff60068201541660c0850152600781015460e085015260088101546101008501526009810154610120850152600a810154610140850152015416610160820152611d736040518092611d75565bf35b8051825260208101516020830152604081015160018060a01b0380911660408401526060820151606084015280608083015116608084015260a082015160a084015261ffff60c08301511660c084015260e082015160e08401526101008083015190840152610120808301519084015261014080830151908401526101608092015116910152565b600435906001600160a01b0382168203610a9057565b602435906001600160a01b0382168203610a9057565b608435906001600160a01b0382168203610a9057565b90815180825260208080930193019160005b828110611e5f575050505090565b909192938261018082611e756001948951611d75565b01950193929101611e51565b6040906003190112610a90576004359060243590565b61018081019081106001600160401b03821117611eb357604052565b634e487b7160e01b600052604160045260246000fd5b608081019081106001600160401b03821117611eb357604052565b6001600160401b038111611eb357604052565b90601f801991011681019081106001600160401b03821117611eb357604052565b60405190611f2582611e97565b816101606000918281528260208201528260408201528260608201528260808201528260a08201528260c08201528260e08201528261010082015282610120820152826101408201520152565b6001600160401b038111611eb35760051b60200190565b90611f9382611f72565b611fa06040519182611ef7565b8281528092611fb1601f1991611f72565b019060005b828110611fc257505050565b602090611fcd611f18565b82828501015201611fb6565b8054821015611ff15760005260206000200190600090565b634e487b7160e01b600052603260045260246000fd5b8051821015611ff15760209160051b010190565b600019811461202a5760010190565b634e487b7160e01b600052601160045260246000fd5b9190820391821161202a57565b9190820180921161202a57565b51906001600160a01b0382168203610a9057565b519061ffff82168203610a9057565b9190826060910312610a9057604051606081018181106001600160401b03821117611eb35760405260406120cf8183956120b68161205a565b85526120c46020820161205a565b60208601520161206e565b910152565b8181029291811591840414171561202a57565b9081549168010000000000000000831015611eb357826102c291600161210f95018155611fd9565b565b805490811561213b576000199182019161212b8383611fd9565b909182549160031b1b1916905555565b634e487b7160e01b600052603160045260246000fd5b91959490600096838852600394602096868852604094858b20978789540361276f5784156123fe57600589019b8c54868181106000146122eb5761219491612040565b6001805460028d0154918d01805493949390926001600160a01b039283169216823b156122e7578c5163cd3877df60e01b81526001600160a01b039190911660048201526024810191909152604481018590529083908290606490829084905af180156122dd576122c5575b50928c9d9e926122428b7f03e25477b1dc4274373a7929466a81230ed4d559f0cd576121d6bea4aac88ebc9d9e9f9460088d968d995483525220918254612040565b90555b61224e8c6128f0565b8c0155554260088a015561ffff60068a01911661ffff19825416179055600488019160018060a01b0392836bffffffffffffffffffffffff60a01b92168282541617905582600b8a019216908254161790556002600188016122b48582548b5490612787565b5497015416968351928352820152a4565b6122cf8391611ee4565b6122d95738612200565b5080fd5b8b513d85823e3d90fd5b8480fd5b8110612322575b50507f03e25477b1dc4274373a7929466a81230ed4d559f0cd576121d6bea4aac88ebc9798999a9b868692612245565b61232c9087612040565b6001805460028d0154918d01805493949390926001600160a01b039283169216823b156122e7578c5163a25983e560e01b81526001600160a01b039190911660048201526024810191909152604481018590529083908290606490829084905af180156122dd576123ea575b50928c9d9e926123da8b7f03e25477b1dc4274373a7929466a81230ed4d559f0cd576121d6bea4aac88ebc9d9e9f9460088d968d99548352522091825461204d565b90559250819d9c9b9a99506122f2565b6123f48391611ee4565b6122d95738612398565b8b54979b996001600160a01b039950979096955088163303935061275f925050505786855281835280852092815197889461243886611e97565b80548087526001978883015490858901918252848160028601541693888b019485528986015460608c015260049a838c88015416608082015261016084600b60058a01549960a085019a8b5261ffff60068201541660c0860152600781015460e086015260088101546101008601526009810154610120860152600a81015461014086015201541691015203612748578351806126ca575b506124da856128f0565b808351168b526005865289878c20818d905b61265a575b505050835182518c526008875261250c888d20918254612040565b905581518b52888652868b209c8b8b5b61259c575b508b9c9d509388969293600b9c9a99946000805160206129998339815191528560009b98958c9a9651935194511694518951908152a4885252852095818755860155836002860155840155820155600060058201558260068201556000600782015560006008820155600060098201556000600a8201550155565b8e5480821015612654578f6125b2838a92611fd9565b9054908d1b1c146125c657508b018b61251c565b9d9e9192939495969798999a9b9c9d600019810190811161264157946000805160206129998339815191528f9c99949a600b9f9e9c98939660009c612629878f9d988f9c9b6102c28e61261d899f6102db95611fd9565b9054911b1c9184611fd9565b95999c5095995050509397509398999b8e9d50612521565b634e487b7160e01b8f5260118d5260248ffd5b50612521565b8154808210156126c457888c6126708486611fd9565b9054911b1c1461268357508201826124ec565b9192509060001981019081116126b15782916102c28c61261d6102db946126a997611fd9565b8938806124f1565b634e487b7160e01b8e5260118c5260248efd5b506124f1565b818b54168285511690845191813b15612744578a5163cd3877df60e01b81526001600160a01b03909116818e01908152602081019390935260408301939093528d9183919082908490829060600103925af1801561273a57156124d057612733909b919b611ee4565b99386124d0565b88513d8e823e3d90fd5b8e80fd5b8651631dd5343d60e31b8152808a01869052602490fd5b51637ac8704360e11b8152600490fd5b8651631dd5343d60e31b815260048101899052602490fd5b919091600090808252600690602090828252604094868686208054156128e457505083835285852054855260039081845281878720015481106000146127fc57508185528383528585205487865281845260098787200155818552838352858520548552825285600a86862001558352522055565b909192938386526007855286862054865282855282878720015482101560001461285b575050906007929181855283835285852054878652818452600a8787200155818552838352858520548552825285600986862001558352522055565b90928596979552835285852054805b612878575b50505050505050565b80865281845282828888200154116128985750858520600901548061286a565b94925050508181949294526009928084848420015580825284600a948585852001548285528686862001558284528585852001548452848420015581522001553880808080808061286f565b55505060079052502055565b6000908082526003602052604082209060018201805484526006602052604084208281541461298b575b505483526007602052604083209081541461297e575b50816009600a830192835480612965575b500180548061294f57505555565b83549083526003602052600a6040842001555555565b8282015490845260036020528260408520015538612941565b600a820154905538612930565b600984015490553861291a56fe381688c7e132c3df74f88650a504a39f1d591ab9a54bbe57fa80b41a40289e75a2646970667358221220c7306e1aa17e4a87a9af7ff3adc1f67699d319a629507f40749943f54024c6af64736f6c63430008180033",
+  "devdoc": {
+    "author": "Gildi Company",
+    "custom:security-contact": "security@gildi.io",
+    "errors": {
+      "InvalidInitialization()": [
+        {
+          "details": "The contract is already initialized."
+        }
+      ],
+      "ListingError(uint256)": [
+        {
+          "details": "Emitted when a listing ID is invalid or does not match storage data",
+          "params": {
+            "listingId": "The ID that caused the error"
+          }
+        }
+      ],
+      "NotAllowed()": [
+        {
+          "details": "Emitted when an operation is not allowed for the caller"
+        }
+      ],
+      "NotGildiExchange()": [
+        {
+          "details": "Error thrown when the caller is not the GildiExchange"
+        }
+      ],
+      "NotInitializing()": [
+        {
+          "details": "The contract is not initializing."
+        }
+      ],
+      "ParamError()": [
+        {
+          "details": "Emitted when a function parameter is invalid or out-of-range (e.g. zero batchSize, zero price, etc.)"
+        }
+      ]
+    },
+    "events": {
+      "Initialized(uint64)": {
+        "details": "Triggered when the contract has been initialized or reinitialized."
+      },
+      "Listed(uint256,uint256,address,uint256,uint256)": {
+        "params": {
+          "listingId": "The ID of the listing",
+          "price": "The price per item",
+          "quantity": "The quantity listed",
+          "releaseId": "The ID of the release",
+          "seller": "The address of the seller"
+        }
+      },
+      "Modified(uint256,uint256,address,uint256,uint256)": {
+        "params": {
+          "listingId": "The ID of the listing",
+          "price": "The new price per item",
+          "quantity": "The new quantity",
+          "releaseId": "The ID of the release",
+          "seller": "The address of the seller"
+        }
+      },
+      "Unlisted(uint256,uint256,address,uint256)": {
+        "params": {
+          "listingId": "The ID of the listing",
+          "quantity": "The quantity unlisted",
+          "releaseId": "The ID of the release",
+          "seller": "The address of the seller"
+        }
+      }
+    },
+    "kind": "dev",
+    "methods": {
+      "constructor": {
+        "custom:oz-upgrades-unsafe-allow": "constructor"
+      },
+      "getAvailableBuyQuantity(uint256,address)": {
+        "params": {
+          "_releaseId": "The release ID",
+          "_user": "The user address"
+        },
+        "returns": {
+          "_0": "The available quantity to buy"
+        }
+      },
+      "getHeadListingId(uint256)": {
+        "params": {
+          "_releaseId": "The ID of the release"
+        },
+        "returns": {
+          "_0": "The ID of the listing with the lowest price for this release"
+        }
+      },
+      "getListing(uint256)": {
+        "params": {
+          "_listingId": "The listing ID"
+        },
+        "returns": {
+          "_0": "The listing"
+        }
+      },
+      "getListingsOfSeller(address)": {
+        "params": {
+          "_seller": "The address of the seller"
+        },
+        "returns": {
+          "_0": "An array of listings for the seller"
+        }
+      },
+      "getNextListingId(uint256)": {
+        "params": {
+          "_listingId": "The current listing ID"
+        },
+        "returns": {
+          "_0": "The ID of the next listing with a higher price, or 0 if none exists"
+        }
+      },
+      "getOrderedListings(uint256,uint256,uint256)": {
+        "params": {
+          "_cursor": "The cursor to start from",
+          "_limit": "The limit of listings to return",
+          "_releaseId": "The ID of the release"
+        },
+        "returns": {
+          "cursor": "The cursor to continue from",
+          "orderedListings": "An array of listings for the release"
+        }
+      },
+      "handleCreateListing(uint256,address,uint256,uint256,address,address,uint16)": {
+        "details": "Takes the slippage setting literally, 0 = no slippage, 10000 = 100%, does not make assumptions about the default, caller must know what they are doing",
+        "params": {
+          "_payoutCurrency": "The payout currency of the listing",
+          "_pricePerItem": "The price per item",
+          "_quantity": "The quantity being listed",
+          "_releaseId": "The ID of the release",
+          "_seller": "The address of the seller",
+          "_slippageBps": "Optional slippage protection in basis points (100 = 1%, 500 = 5%)"
+        }
+      },
+      "handleDecreaseListingQuantity(uint256,uint256)": {
+        "params": {
+          "_listingId": "The ID of the listing",
+          "_quantityToBuy": "The amount to reduce from the listing's quantity (if this reduces quantity to 0, the listing will be removed)"
+        }
+      },
+      "handleModifyListing(uint256,uint256,uint256,address,address,uint16)": {
+        "details": "Takes the slippage setting literally, 0 = no slippage, 10000 = 100%, does not make assumptions about the default, caller must know what they are doing",
+        "params": {
+          "_listingId": "The ID of the listing to modify",
+          "_payoutCurrency": "The new payout currency",
+          "_pricePerItem": "The new price per item",
+          "_quantity": "The new quantity (if 0, the listing will be removed)",
+          "_slippageBps": "Slippage protection in basis points (100 = 1%, 500 = 5%)"
+        }
+      },
+      "handleRemoveListing(uint256)": {
+        "params": {
+          "_listingId": "The ID of the listing to cancel"
+        }
+      },
+      "handleUnlistReleaseListings(uint256,uint256)": {
+        "params": {
+          "_batchSize": "The batch size",
+          "_releaseId": "The ID of the release"
+        },
+        "returns": {
+          "processedListings": "The number of listings processed"
+        }
+      },
+      "initialize(address,address)": {
+        "params": {
+          "_gildiExchange": "The address of the GildiExchange contract",
+          "_gildiManager": "The address of the GildiManager contract"
+        }
+      },
+      "listedQuantities(uint256)": {
+        "params": {
+          "_releaseId": "The ID of the release"
+        },
+        "returns": {
+          "_0": "The total quantity listed"
+        }
+      },
+      "previewPurchase(uint256,address,uint256)": {
+        "params": {
+          "_amountToBuy": "The amount of tokens to buy",
+          "_buyer": "The address of the buyer",
+          "_releaseId": "The ID of the release to purchase"
+        },
+        "returns": {
+          "_0": "Preview information for the purchase"
+        }
+      }
+    },
+    "stateVariables": {
+      "headListingIds": {
+        "details": "Mapping from release ID to the ID of the listing with the lowest price for that release"
+      },
+      "listedQuantitiesMap": {
+        "details": "Mapping from release ID to the total quantity of tokens listed for that release"
+      },
+      "listings": {
+        "details": "Mapping from listing ID to Listing struct"
+      },
+      "nextListingId": {
+        "details": "The next available listing ID to assign"
+      },
+      "sellerListings": {
+        "details": "Mapping from seller address to an array of their listing IDs"
+      },
+      "tailListingIds": {
+        "details": "Mapping from release ID to the ID of the listing with the highest price for that release"
+      },
+      "tokenListings": {
+        "details": "Mapping from release ID to an array of listing IDs for that release"
+      }
+    },
+    "title": "Gildi Exchange Order Book",
+    "version": 1
+  },
+  "userdoc": {
+    "events": {
+      "Listed(uint256,uint256,address,uint256,uint256)": {
+        "notice": "Emitted when a new listing is created"
+      },
+      "Modified(uint256,uint256,address,uint256,uint256)": {
+        "notice": "Emitted when a listing is modified"
+      },
+      "Unlisted(uint256,uint256,address,uint256)": {
+        "notice": "Emitted when a listing is removed"
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "getAvailableBuyQuantity(uint256,address)": {
+        "notice": "Gets the available buy quantity for a user"
+      },
+      "getHeadListingId(uint256)": {
+        "notice": "Gets the first listing ID (with lowest price) for a specific release"
+      },
+      "getListing(uint256)": {
+        "notice": "Gets a listing by ID"
+      },
+      "getListingsOfSeller(address)": {
+        "notice": "Gets all the listings of a specific seller"
+      },
+      "getNextListingId(uint256)": {
+        "notice": "Gets the next listing ID in the price-ordered linked list"
+      },
+      "getOrderedListings(uint256,uint256,uint256)": {
+        "notice": "Gets all the listings of a specific release, ordered by price"
+      },
+      "gildiExchange()": {
+        "notice": "The GildiExchange contract that this order book is associated with"
+      },
+      "gildiManager()": {
+        "notice": "The GildiManager contract used for token management"
+      },
+      "handleCreateListing(uint256,address,uint256,uint256,address,address,uint16)": {
+        "notice": "Creates a listing"
+      },
+      "handleDecreaseListingQuantity(uint256,uint256)": {
+        "notice": "Decreases a listing's quantity after a purchase"
+      },
+      "handleModifyListing(uint256,uint256,uint256,address,address,uint16)": {
+        "notice": "Modifies an existing listing's price, quantity, and slippage settings"
+      },
+      "handleRemoveListing(uint256)": {
+        "notice": "Removes a listing"
+      },
+      "handleUnlistReleaseListings(uint256,uint256)": {
+        "notice": "Unlists all listings of a release in batches."
+      },
+      "initialize(address,address)": {
+        "notice": "Initializes the contract"
+      },
+      "listedQuantities(uint256)": {
+        "notice": "Gets the total quantity listed for a specific release"
+      },
+      "previewPurchase(uint256,address,uint256)": {
+        "notice": "Preview a purchase"
+      }
+    },
+    "notice": "Manages listings and order book functionality for the Gildi Exchange marketplace.",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 18920,
+        "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+        "label": "gildiExchange",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_contract(IGildiExchange)12307"
+      },
+      {
+        "astId": 18924,
+        "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+        "label": "gildiManager",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_contract(IGildiManager)12034"
+      },
+      {
+        "astId": 18927,
+        "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+        "label": "nextListingId",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 18933,
+        "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+        "label": "listings",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_uint256,t_struct(Listing)12451_storage)"
+      },
+      {
+        "astId": 18939,
+        "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+        "label": "tokenListings",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_mapping(t_uint256,t_array(t_uint256)dyn_storage)"
+      },
+      {
+        "astId": 18945,
+        "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+        "label": "sellerListings",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)"
+      },
+      {
+        "astId": 18950,
+        "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+        "label": "headListingIds",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_mapping(t_uint256,t_uint256)"
+      },
+      {
+        "astId": 18955,
+        "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+        "label": "tailListingIds",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_mapping(t_uint256,t_uint256)"
+      },
+      {
+        "astId": 18960,
+        "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+        "label": "listedQuantitiesMap",
+        "offset": 0,
+        "slot": "8",
+        "type": "t_mapping(t_uint256,t_uint256)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_uint256)dyn_storage": {
+        "base": "t_uint256",
+        "encoding": "dynamic_array",
+        "label": "uint256[]",
+        "numberOfBytes": "32"
+      },
+      "t_contract(IGildiExchange)12307": {
+        "encoding": "inplace",
+        "label": "contract IGildiExchange",
+        "numberOfBytes": "20"
+      },
+      "t_contract(IGildiManager)12034": {
+        "encoding": "inplace",
+        "label": "contract IGildiManager",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_uint256)dyn_storage"
+      },
+      "t_mapping(t_uint256,t_array(t_uint256)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => uint256[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_uint256)dyn_storage"
+      },
+      "t_mapping(t_uint256,t_struct(Listing)12451_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct IGildiExchangeOrderBook.Listing)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Listing)12451_storage"
+      },
+      "t_mapping(t_uint256,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_struct(Listing)12451_storage": {
+        "encoding": "inplace",
+        "label": "struct IGildiExchangeOrderBook.Listing",
+        "members": [
+          {
+            "astId": 12417,
+            "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+            "label": "id",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 12420,
+            "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+            "label": "releaseId",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 12423,
+            "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+            "label": "seller",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_address"
+          },
+          {
+            "astId": 12426,
+            "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+            "label": "pricePerItem",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 12429,
+            "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+            "label": "payoutCurrency",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_address"
+          },
+          {
+            "astId": 12432,
+            "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+            "label": "quantity",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 12435,
+            "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+            "label": "slippageBps",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint16"
+          },
+          {
+            "astId": 12438,
+            "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+            "label": "createdAt",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 12441,
+            "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+            "label": "modifiedAt",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 12444,
+            "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+            "label": "nextListingId",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 12447,
+            "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+            "label": "prevListingId",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 12450,
+            "contract": "contracts/marketplace/exchange/GildiExchangeOrderBook.sol:GildiExchangeOrderBook",
+            "label": "fundsReceiver",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_address"
+          }
+        ],
+        "numberOfBytes": "384"
+      },
+      "t_uint16": {
+        "encoding": "inplace",
+        "label": "uint16",
+        "numberOfBytes": "2"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
