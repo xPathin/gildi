@@ -1,19 +1,18 @@
 {
-  "tabWidth": 4,
+  "tabWidth": 2,
   "useTabs": false,
-  "plugins": [
-    "prettier-plugin-solidity"
-  ],
+  "semi": true,
+  "singleQuote": true,
+  "quoteProps": "as-needed",
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "printWidth": 80,
+  "plugins": ["prettier-plugin-svelte"],
   "overrides": [
     {
-      "files": "*.sol",
+      "files": "*.svelte",
       "options": {
-        "printWidth": 120,
-        "tabWidth": 4,
-        "useTabs": false,
-        "singleQuote": true,
-        "bracketSpacing": false,
-        "explicitTypes": "always"
+        "parser": "svelte"
       }
     }
   ]

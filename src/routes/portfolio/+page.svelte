@@ -1,26 +1,26 @@
 <script lang="ts">
-  import { businesses } from "$lib/data/businesses";
-  import Button from "$lib/components/Button.svelte";
+  import { businesses } from '$lib/data/businesses';
+  import Button from '$lib/components/Button.svelte';
 
   // Mock portfolio data - in real app this would come from user's account
   const portfolioHoldings = [
     {
-      businessId: "1",
+      businessId: '1',
       shares: 22,
       purchasePrice: 42.3,
-      purchaseDate: "2024-01-15",
+      purchaseDate: '2024-01-15',
     },
     {
-      businessId: "2",
+      businessId: '2',
       shares: 8,
       purchasePrice: 75.5,
-      purchaseDate: "2024-02-03",
+      purchaseDate: '2024-02-03',
     },
     {
-      businessId: "5",
+      businessId: '5',
       shares: 15,
       purchasePrice: 54.2,
-      purchaseDate: "2024-02-20",
+      purchaseDate: '2024-02-20',
     },
   ];
 
@@ -58,18 +58,18 @@
     totalInvested > 0 ? (totalGainLoss / totalInvested) * 100 : 0;
 
   function formatCurrency(amount) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
       minimumFractionDigits: 2,
     }).format(amount);
   }
 
   function formatDate(dateString) {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
     });
   }
 </script>
@@ -124,7 +124,7 @@
         class:text-green-600={totalGainLossPercent >= 0}
         class:text-red-600={totalGainLossPercent < 0}
       >
-        {totalGainLossPercent >= 0 ? "+" : ""}{totalGainLossPercent.toFixed(2)}%
+        {totalGainLossPercent >= 0 ? '+' : ''}{totalGainLossPercent.toFixed(2)}%
       </div>
     </div>
   </div>
@@ -231,8 +231,8 @@
                     </span>
                     <span class="text-xs text-gray-500">
                       ({holding.gainLossPercent >= 0
-                        ? "+"
-                        : ""}{holding.gainLossPercent.toFixed(2)}%)
+                        ? '+'
+                        : ''}{holding.gainLossPercent.toFixed(2)}%)
                     </span>
                   </div>
                 </td>
@@ -282,8 +282,8 @@
                   class:text-red-600={holding.gainLoss < 0}
                 >
                   {holding.gainLossPercent >= 0
-                    ? "+"
-                    : ""}{holding.gainLossPercent.toFixed(2)}%
+                    ? '+'
+                    : ''}{holding.gainLossPercent.toFixed(2)}%
                 </div>
               </div>
             </div>

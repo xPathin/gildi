@@ -1,6 +1,6 @@
 <script lang="ts">
   export let show = false;
-  export let title = "";
+  export let title = '';
 
   function handleBackdropClick(event) {
     if (event.target === event.currentTarget) {
@@ -9,7 +9,7 @@
   }
 
   function handleKeydown(event) {
-    if (event.key === "Escape") {
+    if (event.key === 'Escape') {
       show = false;
     }
   }

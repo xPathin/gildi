@@ -1,6 +1,6 @@
 <script>
-  import { page } from "$app/stores";
-  import Button from "./Button.svelte";
+  import { page } from '$app/stores';
+  import Button from './Button.svelte';
 
   $: currentPath = $page.url.pathname;
 </script>
@@ -20,24 +20,24 @@
         <a
           href="/"
           class="text-gray-700 hover:text-orange-600 px-3 py-2 text-sm font-medium transition-colors"
-          class:text-orange-600={currentPath === "/"}
-          class:font-semibold={currentPath === "/"}
+          class:text-orange-600={currentPath === '/'}
+          class:font-semibold={currentPath === '/'}
         >
           Marketplace
         </a>
         <a
           href="/portfolio"
           class="text-gray-700 hover:text-orange-600 px-3 py-2 text-sm font-medium transition-colors"
-          class:text-orange-600={currentPath === "/portfolio"}
-          class:font-semibold={currentPath === "/portfolio"}
+          class:text-orange-600={currentPath === '/portfolio'}
+          class:font-semibold={currentPath === '/portfolio'}
         >
           Portfolio
         </a>
         <a
           href="/onboarding"
           class="text-gray-700 hover:text-orange-600 px-3 py-2 text-sm font-medium transition-colors"
-          class:text-orange-600={currentPath === "/onboarding"}
-          class:font-semibold={currentPath === "/onboarding"}
+          class:text-orange-600={currentPath === '/onboarding'}
+          class:font-semibold={currentPath === '/onboarding'}
         >
           Get Started
         </a>

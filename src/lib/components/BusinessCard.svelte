@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button from "./Button.svelte";
+  import Button from './Button.svelte';
 
   export let business;
 
@@ -8,9 +8,9 @@
     100;
 
   function formatCurrency(amount) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
@@ -18,10 +18,10 @@
 
   function formatNumber(num) {
     if (num >= 1000000) {
-      return (num / 1000000).toFixed(1) + "M";
+      return (num / 1000000).toFixed(1) + 'M';
     }
     if (num >= 1000) {
-      return (num / 1000).toFixed(1) + "K";
+      return (num / 1000).toFixed(1) + 'K';
     }
     return num.toString();
   }
@@ -88,9 +88,9 @@
       </div>
       <div
         class="font-semibold"
-        class:text-green-600={business.riskLevel === "Low"}
-        class:text-yellow-600={business.riskLevel === "Medium"}
-        class:text-red-600={business.riskLevel === "High"}
+        class:text-green-600={business.riskLevel === 'Low'}
+        class:text-yellow-600={business.riskLevel === 'Medium'}
+        class:text-red-600={business.riskLevel === 'High'}
       >
         {business.riskLevel}
       </div>

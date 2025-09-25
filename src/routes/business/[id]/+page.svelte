@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { page } from "$app/stores";
-  import { businesses } from "$lib/data/businesses";
-  import Button from "$lib/components/Button.svelte";
-  import Modal from "$lib/components/Modal.svelte";
+  import { page } from '$app/stores';
+  import { businesses } from '$lib/data/businesses';
+  import Button from '$lib/components/Button.svelte';
+  import Modal from '$lib/components/Modal.svelte';
 
   let showBuyModal = false;
   let showSellModal = false;
@@ -20,15 +20,15 @@
     : 0;
 
   function formatCurrency(amount) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
       minimumFractionDigits: 2,
     }).format(amount);
   }
 
   function formatNumber(num) {
-    return new Intl.NumberFormat("en-US").format(num);
+    return new Intl.NumberFormat('en-US').format(num);
   }
 
   function handleInvestmentChange() {
@@ -45,7 +45,7 @@
 </script>
 
 <svelte:head>
-  <title>{business?.name || "Business"} - Gildi</title>
+  <title>{business?.name || 'Business'} - Gildi</title>
 </svelte:head>
 
 {#if !business}
@@ -223,9 +223,9 @@
               <span class="text-gray-600">Risk Level</span>
               <span
                 class="font-semibold"
-                class:text-green-600={business.riskLevel === "Low"}
-                class:text-yellow-600={business.riskLevel === "Medium"}
-                class:text-red-600={business.riskLevel === "High"}
+                class:text-green-600={business.riskLevel === 'Low'}
+                class:text-yellow-600={business.riskLevel === 'Medium'}
+                class:text-red-600={business.riskLevel === 'High'}
               >
                 {business.riskLevel}
               </span>

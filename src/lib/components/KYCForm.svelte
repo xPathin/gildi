@@ -1,40 +1,40 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
-  import Button from "./Button.svelte";
+  import { createEventDispatcher } from 'svelte';
+  import Button from './Button.svelte';
 
   const dispatch = createEventDispatcher();
 
   let currentKYCStep = 1;
   let personalInfo = {
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
-    ssn: "",
-    phone: "",
-    address: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    country: "US",
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    ssn: '',
+    phone: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: 'US',
   };
 
   let employmentInfo = {
-    employmentStatus: "",
-    employer: "",
-    jobTitle: "",
-    annualIncome: "",
-    investmentExperience: "",
-    riskTolerance: "",
+    employmentStatus: '',
+    employer: '',
+    jobTitle: '',
+    annualIncome: '',
+    investmentExperience: '',
+    riskTolerance: '',
   };
 
-  let documentType = "drivers_license";
+  let documentType = 'drivers_license';
   let documentsUploaded = false;
 
   function nextKYCStep() {
     if (currentKYCStep < 3) {
       currentKYCStep++;
     } else {
-      dispatch("completed");
+      dispatch('completed');
     }
   }
 
@@ -207,7 +207,7 @@
           </select>
         </div>
 
-        {#if employmentInfo.employmentStatus === "employed" || employmentInfo.employmentStatus === "self_employed"}
+        {#if employmentInfo.employmentStatus === 'employed' || employmentInfo.employmentStatus === 'self_employed'}
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1"
@@ -357,7 +357,7 @@
       on:click={nextKYCStep}
       disabled={currentKYCStep === 3 && !documentsUploaded}
     >
-      {currentKYCStep === 3 ? "Complete Verification" : "Continue"}
+      {currentKYCStep === 3 ? 'Complete Verification' : 'Continue'}
     </Button>
   </div>
 </div>

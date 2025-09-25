@@ -1,28 +1,28 @@
 <script lang="ts">
-  import Button from "$lib/components/Button.svelte";
-  import KYCForm from "$lib/components/KYCForm.svelte";
+  import Button from '$lib/components/Button.svelte';
+  import KYCForm from '$lib/components/KYCForm.svelte';
 
   let currentStep = 1;
-  let email = "";
-  let password = "";
-  let confirmPassword = "";
+  let email = '';
+  let password = '';
+  let confirmPassword = '';
   let agreedToTerms = false;
 
   const steps = [
     {
       id: 1,
-      title: "Create Account",
-      description: "Set up your Gildi account",
+      title: 'Create Account',
+      description: 'Set up your Gildi account',
     },
     {
       id: 2,
-      title: "Verify Identity",
-      description: "Complete KYC verification",
+      title: 'Verify Identity',
+      description: 'Complete KYC verification',
     },
     {
       id: 3,
-      title: "Start Investing",
-      description: "Begin your investment journey",
+      title: 'Start Investing',
+      description: 'Begin your investment journey',
     },
   ];
 
