@@ -1,0 +1,2149 @@
+[
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "AccessControlBadConfirmation",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "neededRole",
+        "type": "bytes32"
+      }
+    ],
+    "name": "AccessControlUnauthorizedAccount",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "EnforcedPause",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ExpectedPause",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "requested",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "available",
+        "type": "uint256"
+      }
+    ],
+    "name": "InsufficientQuantity",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidCaller",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidInitialization",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotAllowed",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "requested",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "available",
+        "type": "uint256"
+      }
+    ],
+    "name": "NotEnoughTokensInListings",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotInitializing",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ParamError",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PurchaseError",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ReentrancyGuardReentrantCall",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "ReleaseNotFound",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "ReleaseStateError",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "SafeERC20FailedOperation",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "SetupError",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "askDecimals",
+        "type": "uint8"
+      }
+    ],
+    "name": "AskDecimalsSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "FeesUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "releaseId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "assetQuantities",
+        "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "assetPrices",
+        "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "maxBuy",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "startTime",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "duration",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "whitelistEnabled",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "whitelistDuration",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "saleCurrency",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "payoutCurrency",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "receiverAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "payoutCurrency",
+                "type": "address"
+              },
+              {
+                "internalType": "uint16",
+                "name": "value",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct IGildiExchange.Receiver",
+            "name": "feeReceiver",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "receiverAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "payoutCurrency",
+                "type": "address"
+              },
+              {
+                "internalType": "uint16",
+                "name": "value",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct IGildiExchange.Receiver[]",
+            "name": "subFeeReceivers",
+            "type": "tuple[]"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct IGildiExchange.FeeDistribution[]",
+        "name": "saleFees",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "InitialSaleCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "InitialSaleEnded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "version",
+        "type": "uint64"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "marketplaceCurrency",
+        "type": "address"
+      }
+    ],
+    "name": "MarketplaceCurrencySet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Paused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "releaseId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "listingId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "priceInUSD",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "quantity",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "priceInAsset",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "asset",
+        "type": "address"
+      }
+    ],
+    "name": "Purchased",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "releaseId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isActive",
+        "type": "bool"
+      }
+    ],
+    "name": "ReleaseActiveStateChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "ReleaseCancellationStarted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "ReleaseCancelled",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "ReleaseInitialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "previousAdminRole",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "newAdminRole",
+        "type": "bytes32"
+      }
+    ],
+    "name": "RoleAdminChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleGranted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleRevoked",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Unpaused",
+    "type": "event"
+  },
+  {
+    "stateMutability": "payable",
+    "type": "fallback"
+  },
+  {
+    "inputs": [],
+    "name": "DEFAULT_ADMIN_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "DEFAULT_SLIPPAGE_BPS",
+    "outputs": [
+      {
+        "internalType": "uint16",
+        "name": "",
+        "type": "uint16"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_address",
+        "type": "address"
+      }
+    ],
+    "name": "canBuy",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "buyAllowed",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxBuyAmount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "_releaseIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "canSell",
+    "outputs": [
+      {
+        "internalType": "bool[]",
+        "name": "",
+        "type": "bool[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_listingId",
+        "type": "uint256"
+      }
+    ],
+    "name": "cancelListing",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_batchSize",
+        "type": "uint256"
+      }
+    ],
+    "name": "cancelRelease",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "releaseId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "assetQuantities",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "assetPrices",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "address",
+            "name": "seller",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "maxBuy",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "start",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "duration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "whitelist",
+            "type": "bool"
+          },
+          {
+            "internalType": "address[]",
+            "name": "whitelistAddresses",
+            "type": "address[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "whitelistDuration",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "initialSaleCurrency",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "payoutCurrency",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "fundsReceiver",
+            "type": "address"
+          },
+          {
+            "components": [
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "receiverAddress",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "address",
+                    "name": "payoutCurrency",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "uint16",
+                    "name": "value",
+                    "type": "uint16"
+                  }
+                ],
+                "internalType": "struct IGildiExchange.Receiver",
+                "name": "feeReceiver",
+                "type": "tuple"
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "receiverAddress",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "address",
+                    "name": "payoutCurrency",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "uint16",
+                    "name": "value",
+                    "type": "uint16"
+                  }
+                ],
+                "internalType": "struct IGildiExchange.Receiver[]",
+                "name": "subFeeReceivers",
+                "type": "tuple[]"
+              }
+            ],
+            "internalType": "struct IGildiExchange.FeeDistribution[]",
+            "name": "fees",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct GildiExchange.InitialSaleParams",
+        "name": "_params",
+        "type": "tuple"
+      }
+    ],
+    "name": "createInitialSale",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_seller",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_pricePerItem",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_quantity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_payoutCurrency",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_fundsReceiver",
+        "type": "address"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_slippageBps",
+        "type": "uint16"
+      }
+    ],
+    "name": "createListing",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_seller",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_pricePerItem",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_quantity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_payoutCurrency",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_fundsReceiver",
+        "type": "address"
+      }
+    ],
+    "name": "createListing",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getActiveMarketplaceReleaseAsset",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAppEnvironment",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "uint8",
+                "name": "priceAskDecimals",
+                "type": "uint8"
+              },
+              {
+                "components": [
+                  {
+                    "components": [
+                      {
+                        "internalType": "address",
+                        "name": "receiverAddress",
+                        "type": "address"
+                      },
+                      {
+                        "internalType": "address",
+                        "name": "payoutCurrency",
+                        "type": "address"
+                      },
+                      {
+                        "internalType": "uint16",
+                        "name": "value",
+                        "type": "uint16"
+                      }
+                    ],
+                    "internalType": "struct IGildiExchange.Receiver",
+                    "name": "feeReceiver",
+                    "type": "tuple"
+                  },
+                  {
+                    "components": [
+                      {
+                        "internalType": "address",
+                        "name": "receiverAddress",
+                        "type": "address"
+                      },
+                      {
+                        "internalType": "address",
+                        "name": "payoutCurrency",
+                        "type": "address"
+                      },
+                      {
+                        "internalType": "uint16",
+                        "name": "value",
+                        "type": "uint16"
+                      }
+                    ],
+                    "internalType": "struct IGildiExchange.Receiver[]",
+                    "name": "subFeeReceivers",
+                    "type": "tuple[]"
+                  }
+                ],
+                "internalType": "struct IGildiExchange.FeeDistribution[]",
+                "name": "fees",
+                "type": "tuple[]"
+              },
+              {
+                "internalType": "contract IERC20",
+                "name": "marketplaceCurrency",
+                "type": "address"
+              },
+              {
+                "internalType": "uint256",
+                "name": "maxBuyPerTransaction",
+                "type": "uint256"
+              },
+              {
+                "internalType": "contract IGildiManager",
+                "name": "gildiManager",
+                "type": "address"
+              },
+              {
+                "internalType": "contract IGildiExchangeOrderBook",
+                "name": "orderBook",
+                "type": "address"
+              },
+              {
+                "internalType": "contract IGildiPriceOracle",
+                "name": "gildiPriceOracle",
+                "type": "address"
+              },
+              {
+                "internalType": "contract IGildiExchangeFundManager",
+                "name": "fundManager",
+                "type": "address"
+              },
+              {
+                "internalType": "contract IGildiExchangePaymentProcessor",
+                "name": "paymentProcessor",
+                "type": "address"
+              },
+              {
+                "internalType": "contract IGildiExchangePaymentAggregator",
+                "name": "paymentAggregator",
+                "type": "address"
+              }
+            ],
+            "internalType": "struct IGildiExchange.AppSettings",
+            "name": "settings",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint16",
+            "name": "basisPoints",
+            "type": "uint16"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "adminRole",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "marketplaceManagerRole",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "claimerRole",
+            "type": "bytes32"
+          }
+        ],
+        "internalType": "struct IGildiExchange.AppEnvironment",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getInitialSaleByReleaseId",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "active",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "whitelist",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "whitelistUntil",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "maxBuy",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "saleCurrency",
+            "type": "address"
+          },
+          {
+            "components": [
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "receiverAddress",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "address",
+                    "name": "payoutCurrency",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "uint16",
+                    "name": "value",
+                    "type": "uint16"
+                  }
+                ],
+                "internalType": "struct IGildiExchange.Receiver",
+                "name": "feeReceiver",
+                "type": "tuple"
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "receiverAddress",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "address",
+                    "name": "payoutCurrency",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "uint16",
+                    "name": "value",
+                    "type": "uint16"
+                  }
+                ],
+                "internalType": "struct IGildiExchange.Receiver[]",
+                "name": "subFeeReceivers",
+                "type": "tuple[]"
+              }
+            ],
+            "internalType": "struct IGildiExchange.FeeDistribution[]",
+            "name": "fees",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct GildiExchange.InitialSale",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getReleaseById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "releaseId",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "receiverAddress",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "address",
+                    "name": "payoutCurrency",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "uint16",
+                    "name": "value",
+                    "type": "uint16"
+                  }
+                ],
+                "internalType": "struct IGildiExchange.Receiver",
+                "name": "feeReceiver",
+                "type": "tuple"
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "address",
+                    "name": "receiverAddress",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "address",
+                    "name": "payoutCurrency",
+                    "type": "address"
+                  },
+                  {
+                    "internalType": "uint16",
+                    "name": "value",
+                    "type": "uint16"
+                  }
+                ],
+                "internalType": "struct IGildiExchange.Receiver[]",
+                "name": "subFeeReceivers",
+                "type": "tuple[]"
+              }
+            ],
+            "internalType": "struct IGildiExchange.FeeDistribution[]",
+            "name": "additionalFees",
+            "type": "tuple[]"
+          },
+          {
+            "internalType": "bool",
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "active",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "isCancelling",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct GildiExchange.Release",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getReleaseFees",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "receiverAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "payoutCurrency",
+                "type": "address"
+              },
+              {
+                "internalType": "uint16",
+                "name": "value",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct IGildiExchange.Receiver",
+            "name": "feeReceiver",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "receiverAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "payoutCurrency",
+                "type": "address"
+              },
+              {
+                "internalType": "uint16",
+                "name": "value",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct IGildiExchange.Receiver[]",
+            "name": "subFeeReceivers",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct IGildiExchange.FeeDistribution[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "_activeOnly",
+        "type": "bool"
+      }
+    ],
+    "name": "getReleaseIds",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getRoleAdmin",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getWhitelist",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "grantRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "hasRole",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_initialDefaultAdmin",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_initialAdmin",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_initialMarketplaceManager",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IGildiManager",
+        "name": "_gildiManager",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IERC20",
+        "name": "_marketplaceCurrency",
+        "type": "address"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_tokenId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "receiverAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "payoutCurrency",
+                "type": "address"
+              },
+              {
+                "internalType": "uint16",
+                "name": "value",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct IGildiExchange.Receiver",
+            "name": "feeReceiver",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "receiverAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "payoutCurrency",
+                "type": "address"
+              },
+              {
+                "internalType": "uint16",
+                "name": "value",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct IGildiExchange.Receiver[]",
+            "name": "subFeeReceivers",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct IGildiExchange.FeeDistribution[]",
+        "name": "_additionalFees",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "initializeRelease",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "isInInitialSale",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "isInitialSaleWhitelistBuyer",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "isWhitelistSale",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_listingId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_newPricePerItem",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_newQuantity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_payoutCurrency",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_fundsReceiver",
+        "type": "address"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_slippageBps",
+        "type": "uint16"
+      }
+    ],
+    "name": "modifyListing",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_listingId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_newPricePerItem",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_newQuantity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_payoutCurrency",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_fundsReceiver",
+        "type": "address"
+      }
+    ],
+    "name": "modifyListing",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxTotalPrice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_beneficiary",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "_isProxyOperation",
+        "type": "bool"
+      }
+    ],
+    "name": "purchase",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "amountSpent",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountUsdSpent",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_priceInUsd",
+        "type": "uint256"
+      }
+    ],
+    "name": "quotePrice",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "activeMarketplaceReleaseAsset",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "priceInAsset",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amountToBuy",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_buyer",
+        "type": "address"
+      }
+    ],
+    "name": "quotePricePreview",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "releases",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "releaseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "initialized",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "isCancelling",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "callerConfirmation",
+        "type": "address"
+      }
+    ],
+    "name": "renounceRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "revokeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "_askDecimals",
+        "type": "uint8"
+      }
+    ],
+    "name": "setAskDecimals",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "receiverAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "payoutCurrency",
+                "type": "address"
+              },
+              {
+                "internalType": "uint16",
+                "name": "value",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct IGildiExchange.Receiver",
+            "name": "feeReceiver",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "receiverAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "payoutCurrency",
+                "type": "address"
+              },
+              {
+                "internalType": "uint16",
+                "name": "value",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct IGildiExchange.Receiver[]",
+            "name": "subFeeReceivers",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct IGildiExchange.FeeDistribution[]",
+        "name": "_fees",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "setFees",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_marketplaceCurrency",
+        "type": "address"
+      }
+    ],
+    "name": "setMarketplaceCurrency",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_maxBuyPerTransaction",
+        "type": "uint256"
+      }
+    ],
+    "name": "setMaxBuyPerTransaction",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_active",
+        "type": "bool"
+      }
+    ],
+    "name": "setReleaseActive",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      },
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "receiverAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "payoutCurrency",
+                "type": "address"
+              },
+              {
+                "internalType": "uint16",
+                "name": "value",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct IGildiExchange.Receiver",
+            "name": "feeReceiver",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "address",
+                "name": "receiverAddress",
+                "type": "address"
+              },
+              {
+                "internalType": "address",
+                "name": "payoutCurrency",
+                "type": "address"
+              },
+              {
+                "internalType": "uint16",
+                "name": "value",
+                "type": "uint16"
+              }
+            ],
+            "internalType": "struct IGildiExchange.Receiver[]",
+            "name": "subFeeReceivers",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct IGildiExchange.FeeDistribution[]",
+        "name": "_additionalFees",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "setReleaseFees",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IGildiPriceOracle",
+        "name": "_gildiPriceOracle",
+        "type": "address"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_askDecimals",
+        "type": "uint8"
+      },
+      {
+        "internalType": "contract IGildiExchangeOrderBook",
+        "name": "_orderBook",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IGildiExchangeFundManager",
+        "name": "_fundManager",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IGildiExchangePaymentProcessor",
+        "name": "_paymentProcessor",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IGildiExchangePaymentAggregator",
+        "name": "_paymentAggregator",
+        "type": "address"
+      }
+    ],
+    "name": "setup",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_amountCurrency",
+        "type": "address"
+      }
+    ],
+    "name": "transferTokenInContext",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_from",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_amountCurrency",
+        "type": "address"
+      }
+    ],
+    "name": "tryBurnTokenInContext",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_releaseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_batchSize",
+        "type": "uint256"
+      }
+    ],
+    "name": "unlistAllListings",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "unpause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "stateMutability": "payable",
+    "type": "receive"
+  }
+]

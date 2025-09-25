@@ -2,13 +2,13 @@
   export let show = false;
   export let title = '';
 
-  function handleBackdropClick(event) {
+  function handleBackdropClick(event: MouseEvent) {
     if (event.target === event.currentTarget) {
       show = false;
     }
   }
 
-  function handleKeydown(event) {
+  function handleKeydown(event: KeyboardEvent) {
     if (event.key === 'Escape') {
       show = false;
     }

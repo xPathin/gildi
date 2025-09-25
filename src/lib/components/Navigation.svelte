@@ -1,6 +1,6 @@
 <script>
   import { page } from '$app/stores';
-  import Button from './Button.svelte';
+  import ConnectWalletButton from './ConnectWalletButton.svelte';
 
   $: currentPath = $page.url.pathname;
 </script>
@@ -33,28 +33,18 @@
         >
           Portfolio
         </a>
-        <a
-          href="/onboarding"
-          class="text-gray-700 hover:text-orange-600 px-3 py-2 text-sm font-medium transition-colors"
-          class:text-orange-600={currentPath === '/onboarding'}
-          class:font-semibold={currentPath === '/onboarding'}
-        >
-          Get Started
-        </a>
       </div>
 
       <!-- Action Buttons -->
       <div class="flex items-center space-x-4">
-        <Button variant="outline" size="sm">Sign In</Button>
-        <Button variant="primary" size="sm" href="/onboarding"
-          >Start Investing</Button
-        >
+        <ConnectWalletButton />
       </div>
 
       <!-- Mobile menu button -->
       <div class="md:hidden">
         <button
           class="text-gray-700 hover:text-orange-600 focus:outline-none focus:text-orange-600"
+          aria-label="Toggle navigation menu"
         >
           <svg
             class="h-6 w-6"

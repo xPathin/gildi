@@ -38,5 +38,10 @@
     "type": "module",
     "engines": {
         "node": ">=22.0.0"
+    },
+    "dependencies": {
+        "@wagmi/connectors": "^5.11.1",
+        "@wagmi/core": "^2.21.1",
+        "viem": "^2.37.8"
     }
 }

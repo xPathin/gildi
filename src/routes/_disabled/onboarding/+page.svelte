@@ -1,18 +1,15 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
   import KYCForm from '$lib/components/KYCForm.svelte';
+  import { wallet, connectWallet } from '$lib/wagmi/walletStore';
 
   let currentStep = 1;
-  let email = '';
-  let password = '';
-  let confirmPassword = '';
-  let agreedToTerms = false;
 
   const steps = [
     {
       id: 1,
-      title: 'Create Account',
-      description: 'Set up your Gildi account',
+      title: 'Connect Wallet',
+      description: 'Link your OP Sepolia wallet to Gildi',
     },
     {
       id: 2,
@@ -38,21 +35,19 @@
     }
   }
 
-  function handleAccountCreation() {
-    if (
-      email &&
-      password &&
-      confirmPassword &&
-      password === confirmPassword &&
-      agreedToTerms
-    ) {
+  const handleConnectWallet = async () => {
+    await connectWallet();
+    if ($wallet.status === 'connected') {
       nextStep();
     }
-  }
+  };
 
   function handleKYCComplete() {
     nextStep();
   }
+
+  $: walletState = $wallet;
+  $: isConnected = walletState.status === 'connected';
 </script>
 
 <svelte:head>
