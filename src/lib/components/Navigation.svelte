@@ -15,11 +15,17 @@
   let walletState: WalletState;
   $: walletState = $wallet;
   let faucetLoading = false;
+  let mobileOpen = false;
   // toast-based UX; no inline messages
 
   async function handleFaucet() {
     // reset
-    if (!walletState || walletState.status !== 'connected' || !walletState.address) return;
+    if (
+      !walletState ||
+      walletState.status !== 'connected' ||
+      !walletState.address
+    )
+      return;
     try {
       faucetLoading = true;
       // Ensure correct chain
@@ -51,7 +57,7 @@
       <!-- Logo -->
       <div class="flex items-center">
         <a href="/" class="flex items-center space-x-3">
-          <img src="/Logo Black.png" alt="Gildi" class="h-8 w-auto" />
+          <img src="/logo-black.png" alt="Gildi" class="h-8 w-auto" />
         </a>
       </div>
 
@@ -75,10 +81,10 @@
         </a>
         <div class="flex items-center space-x-2">
           <Button
-          variant="secondary"
-          size="md"
-          on:click={handleFaucet}
-          disabled={faucetLoading || walletState?.status !== 'connected'}
+            variant="secondary"
+            size="md"
+            on:click={handleFaucet}
+            disabled={faucetLoading || walletState?.status !== 'connected'}
           >
             {faucetLoading ? 'Requesting…' : 'Get Faucet Tokens'}
           </Button>
@@ -95,22 +101,78 @@
         <button
           class="text-gray-700 hover:text-orange-600 focus:outline-none focus:text-orange-600"
           aria-label="Toggle navigation menu"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-menu"
+          on:click={() => (mobileOpen = !mobileOpen)}
         >
-          <svg
-            class="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
+          {#if !mobileOpen}
+            <svg
+              class="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          {:else}
+            <svg
+              class="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          {/if}
         </button>
       </div>
     </div>
+    {#if mobileOpen}
+      <!-- Mobile dropdown menu -->
+      <div id="mobile-menu" class="md:hidden border-t border-gray-200">
+        <div class="py-3 space-y-1">
+          <a
+            href="/"
+            class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-gray-50 rounded-md"
+            class:text-orange-600={currentPath === '/'}
+            class:font-semibold={currentPath === '/'}
+            on:click={() => (mobileOpen = false)}
+            >Marketplace</a
+          >
+          <a
+            href="/portfolio"
+            class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-orange-600 hover:bg-gray-50 rounded-md"
+            class:text-orange-600={currentPath === '/portfolio'}
+            class:font-semibold={currentPath === '/portfolio'}
+            on:click={() => (mobileOpen = false)}
+            >Portfolio</a
+          >
+          <div class="px-3 pt-1">
+            <Button
+              variant="secondary"
+              size="md"
+              class="w-full"
+              on:click={async () => {
+                await handleFaucet();
+                mobileOpen = false;
+              }}
+              disabled={faucetLoading || walletState?.status !== 'connected'}
+            >
+              {faucetLoading ? 'Requesting…' : 'Get Faucet Tokens'}
+            </Button>
+          </div>
+        </div>
+      </div>
+    {/if}
   </div>
 </nav>

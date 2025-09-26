@@ -15,7 +15,13 @@ const { subscribe, update } = writable<Toast[]>([]);
 
 let counter = 1;
 
-function push(message: string, type: ToastType = 'info', timeout = 3500, linkUrl?: string, linkLabel?: string) {
+function push(
+  message: string,
+  type: ToastType = 'info',
+  timeout = 3500,
+  linkUrl?: string,
+  linkLabel?: string
+) {
   const id = counter++;
   const toast: Toast = { id, type, message, timeout, linkUrl, linkLabel };
   update((list) => [...list, toast]);
@@ -32,11 +38,17 @@ function remove(id: number) {
 
 export const toasts = { subscribe };
 export const toast = {
-  show: (message: string, type: ToastType = 'info', timeout?: number) => push(message, type, timeout),
-  success: (message: string, timeout?: number) => push(message, 'success', timeout),
+  show: (message: string, type: ToastType = 'info', timeout?: number) =>
+    push(message, type, timeout),
+  success: (message: string, timeout?: number) =>
+    push(message, 'success', timeout),
   error: (message: string, timeout?: number) => push(message, 'error', timeout),
   info: (message: string, timeout?: number) => push(message, 'info', timeout),
-  successWithLink: (message: string, linkUrl: string, linkLabel = 'View', timeout?: number) =>
-    push(message, 'success', timeout, linkUrl, linkLabel),
+  successWithLink: (
+    message: string,
+    linkUrl: string,
+    linkLabel = 'View',
+    timeout?: number
+  ) => push(message, 'success', timeout, linkUrl, linkLabel),
   remove,
 };

@@ -14,7 +14,8 @@
         class:border-red-200={t.type === 'error'}
         class:border-gray-200={t.type === 'info'}
       >
-        <div class="mt-0.5 text-sm"
+        <div
+          class="mt-0.5 text-sm"
           class:text-green-700={t.type === 'success'}
           class:text-red-700={t.type === 'error'}
           class:text-gray-700={t.type === 'info'}
@@ -27,7 +28,8 @@
             target="_blank"
             rel="noopener noreferrer"
             class="ml-3 text-sm text-orange-700 hover:text-orange-800 underline"
-          >{t.linkLabel || 'Open'}</a>
+            >{t.linkLabel || 'Open'}</a
+          >
         {/if}
       </div>
     {/each}

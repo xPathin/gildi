@@ -1,8 +1,11 @@
 <script lang="ts">
   import { businesses } from '$lib/data/businesses';
   import BusinessCard from '$lib/components/BusinessCard.svelte';
+  import FeaturedBusinessCard from '$lib/components/FeaturedBusinessCard.svelte';
   import Button from '$lib/components/Button.svelte';
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
+  import { marketDataFor, type MarketSnapshot } from '$lib/stores/marketData';
+  import { type Readable } from 'svelte/store';
 
   let searchQuery = '';
   let selectedIndustry = '';
@@ -25,9 +28,56 @@
   $: industries = [...new Set(businesses.map((b) => b.industry))];
   $: riskLevels = [...new Set(businesses.map((b) => b.riskLevel))];
 
-  // Featured shares (top 6 by market cap)
+  // Shared market data stores per business (by id)
+  let mdStores: Record<string, Readable<MarketSnapshot>> = {};
+  let mdSnaps: Record<string, MarketSnapshot> = {};
+  let mdUnsubs: Record<string, () => void> = {};
+  $: {
+    for (const b of businesses) {
+      if (b.tokenId != null && !mdStores[b.id]) {
+        mdStores[b.id] = marketDataFor(
+          b.tokenId as bigint,
+          b.tokenisedSharesPercentageBps as bigint
+        );
+        // subscribe once per business
+        if (!mdUnsubs[b.id]) {
+          mdUnsubs[b.id] = mdStores[b.id].subscribe((snap) => {
+            mdSnaps[b.id] = snap;
+            // reassign to trigger reactivity
+            mdSnaps = { ...mdSnaps };
+          });
+        }
+      }
+    }
+  }
+
+  onDestroy(() => {
+    for (const id in mdUnsubs) {
+      try {
+        mdUnsubs[id]!();
+      } catch {}
+    }
+  });
+
+  function floorPriceCentsOf(
+    b: (typeof businesses)[number]
+  ): bigint | undefined {
+    return mdSnaps[b.id]?.floorPriceCents;
+  }
+  function marketCapCentsOf(
+    b: (typeof businesses)[number]
+  ): bigint | undefined {
+    return mdSnaps[b.id]?.marketCapCents;
+  }
+
+  // Featured shares: pick top by on-chain market cap (fallback to original order)
+  // Reference mdSnaps directly so Svelte tracks reactivity.
   $: featuredShares = [...businesses]
-    .sort((a, b) => b.marketCap - a.marketCap)
+    .sort((a, b) => {
+      const amc = Number(mdSnaps[a.id]?.marketCapCents ?? 0n);
+      const bmc = Number(mdSnaps[b.id]?.marketCapCents ?? 0n);
+      return bmc - amc;
+    })
     .slice(0, 6);
 
   // Top gainers and losers for ticker
@@ -40,7 +90,7 @@
     .slice(0, 5)
     .map((b) => ({
       ...b,
-      change: `+${b.keyMetrics.revenueGrowth}`,
+      change: `${b.keyMetrics.revenueGrowth}`,
       isGainer: true,
     }));
 
@@ -59,12 +109,23 @@
 
   $: tickerItems = [...topGainers, ...topLosers];
 
-  function formatCurrency(amount) {
+  function formatCurrency(amount: number) {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
+    }).format(amount);
+  }
+
+  // Strict 2-decimal currency for per-share/floor prices
+  function formatPrice(amount?: number) {
+    if (amount == null || Number.isNaN(amount)) return '—';
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     }).format(amount);
   }
 
@@ -79,7 +140,7 @@
         : currentSlide - 1;
   }
 
-  function goToSlide(index) {
+  function goToSlide(index: number) {
     currentSlide = index;
   }
 
@@ -122,6 +183,7 @@
           </h2>
           <div class="flex items-center space-x-2">
             <button
+              aria-label="Previous slide"
               on:click={prevSlide}
               class="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow"
             >
@@ -140,6 +202,7 @@
               </svg>
             </button>
             <button
+              aria-label="Next slide"
               on:click={nextSlide}
               class="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow"
             >
@@ -175,53 +238,7 @@
                     <div
                       class="transform hover:scale-105 transition-transform duration-200"
                     >
-                      <!-- Simplified Featured Card -->
-                      <div
-                        class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6"
-                      >
-                        <div class="flex items-start justify-between mb-4">
-                          <div class="flex items-center space-x-3">
-                            <div
-                              class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-2xl"
-                            >
-                              {business.logo}
-                            </div>
-                            <div>
-                              <h3 class="font-semibold text-gray-900">
-                                {business.name}
-                              </h3>
-                              <p class="text-sm text-gray-500">
-                                {business.industry}
-                              </p>
-                            </div>
-                          </div>
-                          <div class="text-right">
-                            <div class="text-lg font-bold text-gray-900">
-                              {formatCurrency(business.pricePerShare)}
-                            </div>
-                            <div class="text-sm text-green-600">
-                              +{business.keyMetrics.revenueGrowth}
-                            </div>
-                          </div>
-                        </div>
-
-                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">
-                          {business.description.slice(0, 100)}...
-                        </p>
-
-                        <div class="flex items-center justify-between">
-                          <div class="text-sm text-gray-500">
-                            Min: {formatCurrency(business.minimumInvestment)}
-                          </div>
-                          <Button
-                            variant="primary"
-                            size="sm"
-                            href="/business/{business.id}"
-                          >
-                            Invest Now
-                          </Button>
-                        </div>
-                      </div>
+                      <FeaturedBusinessCard {business} />
                     </div>
                   {/each}
                 </div>
@@ -234,6 +251,7 @@
         <div class="flex justify-center mt-6 space-x-2">
           {#each Array(Math.ceil(featuredShares.length / 3)) as _, index}
             <button
+              aria-label="Go to slide {index + 1}"
               on:click={() => goToSlide(index)}
               class="w-3 h-3 rounded-full transition-colors duration-200 {currentSlide ===
               index
@@ -273,7 +291,9 @@
                 {item.change}
               </span>
               <span class="text-sm text-gray-600">
-                {formatCurrency(item.pricePerShare)}
+                {mdSnaps[item.id]?.floorPriceCents != null
+                  ? formatPrice(Number(mdSnaps[item.id].floorPriceCents) / 100)
+                  : '—'}
               </span>
             </div>
           </div>
@@ -365,12 +385,5 @@
 
   .animate-scroll {
     animation: scroll 60s linear infinite;
-  }
-
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   }
 </style>

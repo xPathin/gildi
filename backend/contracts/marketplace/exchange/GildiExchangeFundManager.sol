@@ -107,8 +107,8 @@ contract GildiExchangeFundManager is Initializable, ReentrancyGuardUpgradeable, 
     }
 
     // ========== Constants ==========
-    /// @notice Default slippage tolerance in basis points (5%)
-    uint16 public constant DEFAULT_SLIPPAGE_BPS = 500;
+    /// @notice Default slippage tolerance in basis points (1%)
+    uint16 public constant DEFAULT_SLIPPAGE_BPS = 100;
 
     // ========== Storage Variables ==========
 

@@ -17,7 +17,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const contractAdmin = await getNamedSigner('contractAdmin', hre);
     const defaultAdmin = await getNamedSigner('defaultAdmin', hre);
 
-    const mockRUST = await deployments.getOrNull("MockRUSTToken");
     const mockUSDC = await deployments.getOrNull("MockUSDCToken");
     const mockWETH9 = await deployments.getOrNull("MockWETH9Token");
 
@@ -39,8 +38,8 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     });
 
     const shouldTokenAmounts = {
-        tokenAddresses: [mockRUST?.address, mockUSDC?.address, mockWETH9?.address],
-        tokenAmounts: [10000000, 1000, 500],
+        tokenAddresses: [mockUSDC?.address, mockWETH9?.address],
+        tokenAmounts: [1000, 500],
     };
 
     var contract = MockTokenFaucet__factory.connect(deployment.address, contractAdmin);

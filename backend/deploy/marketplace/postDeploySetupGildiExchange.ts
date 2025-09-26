@@ -16,8 +16,6 @@ import { AddressLike } from "ethers";
 const PRICE_ASK_DECIMALS = 2n;
 
 export const PAYMENT_AGGREGATOR_CONFIG: Record<number, string> = {
-    1075: "IotaGildiExchangePaymentAggregator",
-    8822: "IotaGildiExchangePaymentAggregator",
     11155420: "GildiExchangePaymentAggregator",
 };
 

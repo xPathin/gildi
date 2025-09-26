@@ -41,8 +41,8 @@ contract GildiExchange is
     /// @notice Basis points denominator for percentage calculations (100% = 10000)
     uint16 private constant BASIS_POINTS = 10000;
 
-    /// @notice Default slippage tolerance in basis points (5%)
-    uint16 public constant DEFAULT_SLIPPAGE_BPS = 500;
+    /// @notice Default slippage tolerance in basis points (1%)
+    uint16 public constant DEFAULT_SLIPPAGE_BPS = 100;
 
     // ========== Storage Variables ==========
     /// @notice Application settings for the exchange
@@ -492,19 +492,6 @@ contract GildiExchange is
     }
 
     /// @inheritdoc IGildiExchange
-    function createListing(
-        uint256 _releaseId,
-        address _seller,
-        uint256 _pricePerItem,
-        uint256 _quantity,
-        address _payoutCurrency,
-        address _fundsReceiver,
-        uint16 _slippageBps
-    ) external whenNotPaused {
-        _createListing(_releaseId, _seller, _pricePerItem, _quantity, _payoutCurrency, _fundsReceiver, _slippageBps);
-    }
-
-    /// @inheritdoc IGildiExchange
     function modifyListing(
         uint256 _listingId,
         uint256 _newPricePerItem,
@@ -520,18 +507,6 @@ contract GildiExchange is
             _fundsReceiver,
             DEFAULT_SLIPPAGE_BPS
         );
-    }
-
-    /// @inheritdoc IGildiExchange
-    function modifyListing(
-        uint256 _listingId,
-        uint256 _newPricePerItem,
-        uint256 _newQuantity,
-        address _payoutCurrency,
-        address _fundsReceiver,
-        uint16 _slippageBps
-    ) external whenNotPaused {
-        _modifyListing(_listingId, _newPricePerItem, _newQuantity, _payoutCurrency, _fundsReceiver, _slippageBps);
     }
 
     /// @notice Cancels a listing by ID
@@ -963,11 +938,12 @@ contract GildiExchange is
     /// @notice Checks if a user can buy a release and determines the maximum amount they can buy
     /// @dev Considers whitelist status, initial sale status, and transaction limits
     /// @param _releaseId The ID of the release
-    /// @param _address The address of the buyer
+    /// @param _buyer The address of the buyer
     /// @return buyAllowed True if the user can buy the release, false otherwise
     /// @return maxBuyAmount The maximum amount the user can buy (0 if not allowed)
-    function canBuy(uint256 _releaseId, address _address) public view returns (bool buyAllowed, uint256 maxBuyAmount) {
+    function canBuy(uint256 _releaseId, address _buyer) public view returns (bool buyAllowed, uint256 maxBuyAmount) {
         AppSettings storage $ = appSettings;
+        IGildiExchangeOrderBook orderBook = $.orderBook;
 
         // Check release is active
         if (!releases[_releaseId].active) {
@@ -976,14 +952,14 @@ contract GildiExchange is
 
         // Check whitelist requirements
         bool isWhitelist = isWhitelistSale(_releaseId);
-        if (isWhitelist && !isInitialSaleWhitelistBuyer[_releaseId][_address]) {
+        if (isWhitelist && !isInitialSaleWhitelistBuyer[_releaseId][_buyer]) {
             return (false, 0);
         }
 
         bool inInitialSale = isInInitialSale(_releaseId);
         if (!inInitialSale) {
             // Regular sale case - always allowed up to transaction limit
-            return (true, $.maxBuyPerTransaction);
+            return (true, Math.min($.maxBuyPerTransaction, orderBook.getAvailableBuyQuantity(_releaseId, _buyer)));
         }
 
         // Initial sale timing check
@@ -994,17 +970,17 @@ contract GildiExchange is
 
         // Initial sale without limit
         if (initialSale.maxBuy == 0) {
-            return (true, $.maxBuyPerTransaction);
+            return (true, Math.min($.maxBuyPerTransaction, orderBook.getAvailableBuyQuantity(_releaseId, _buyer)));
         }
 
         // Check user buy limit
-        uint256 userBought = initialSaleMaxBuyCounts[_releaseId][_address];
+        uint256 userBought = initialSaleMaxBuyCounts[_releaseId][_buyer];
         if (userBought >= initialSale.maxBuy) {
             return (false, 0);
         }
 
         // User can buy the remaining amount up to transaction limit
-        return (true, Math.min(initialSale.maxBuy - userBought, $.maxBuyPerTransaction));
+        return (true, Math.min(initialSale.maxBuy - userBought, Math.min($.maxBuyPerTransaction, orderBook.getAvailableBuyQuantity(_releaseId, _buyer))));
     }
 
     /// @notice Checks whether or not a list of releases can be sold.

@@ -1,13 +1,21 @@
 <script lang="ts">
   import Button from './Button.svelte';
+  import type { Readable } from 'svelte/store';
+  import { marketDataFor, type MarketSnapshot } from '$lib/stores/marketData';
 
-  export let business;
+  export let business: any; // receives object from data store
 
-  $: sharesSoldPercentage =
-    ((business.totalShares - business.availableShares) / business.totalShares) *
-    100;
+  // Subscribe to global market data for this business
+  let mdStore: Readable<MarketSnapshot> | undefined;
+  $: mdStore = business?.tokenId
+    ? marketDataFor(
+        business.tokenId as bigint,
+        business.tokenisedSharesPercentageBps as bigint
+      )
+    : undefined;
 
-  function formatCurrency(amount) {
+  function formatCurrency(amount?: number) {
+    if (amount == null || Number.isNaN(amount)) return '—';
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
@@ -16,14 +24,15 @@
     }).format(amount);
   }
 
-  function formatNumber(num) {
-    if (num >= 1000000) {
-      return (num / 1000000).toFixed(1) + 'M';
-    }
-    if (num >= 1000) {
-      return (num / 1000).toFixed(1) + 'K';
-    }
-    return num.toString();
+  // Strict 2-decimal currency for per-share price
+  function formatPrice(amount?: number) {
+    if (amount == null || Number.isNaN(amount)) return '—';
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(amount);
   }
 </script>
 
@@ -47,16 +56,13 @@
     </div>
     <div class="text-right">
       <div class="text-lg font-bold text-gray-900">
-        ${business.pricePerShare}
+        {$mdStore?.floorPriceCents != null
+          ? formatPrice(Number($mdStore.floorPriceCents) / 100)
+          : '—'}
       </div>
       <div class="text-xs text-gray-500">per share</div>
     </div>
   </div>
-
-  <!-- Description -->
-  <p class="text-gray-600 text-sm mb-4 line-clamp-2">
-    {business.description}
-  </p>
 
   <!-- Key Metrics -->
   <div class="grid grid-cols-2 gap-4 mb-4">
@@ -65,7 +71,9 @@
         Market Cap
       </div>
       <div class="font-semibold text-gray-900">
-        {formatCurrency(business.marketCap)}
+        {$mdStore?.marketCapCents != null
+          ? formatCurrency(Number($mdStore.marketCapCents) / 100)
+          : '—'}
       </div>
     </div>
     <div>
@@ -97,30 +105,12 @@
     </div>
   </div>
 
-  <!-- Progress Bar -->
-  <div class="mb-4">
-    <div class="flex justify-between text-xs text-gray-500 mb-1">
-      <span>Shares Sold</span>
-      <span>{sharesSoldPercentage.toFixed(1)}%</span>
-    </div>
-    <div class="w-full bg-gray-200 rounded-full h-2">
-      <div
-        class="bg-primary-600 h-2 rounded-full transition-all duration-300"
-        style="width: {sharesSoldPercentage}%"
-      />
-    </div>
-    <div class="flex justify-between text-xs text-gray-500 mt-1">
-      <span>{formatNumber(business.availableShares)} available</span>
-      <span>Min: {formatCurrency(business.minimumInvestment)}</span>
-    </div>
-  </div>
-
   <!-- Actions -->
   <div class="flex space-x-2">
     <Button
       variant="primary"
       size="sm"
-      href="/business/{business.id}"
+      href={'/business/' + business.id}
       class="flex-1"
     >
       View Details
@@ -142,12 +132,3 @@
     </Button>
   </div>
 </div>
-
-<style>
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-</style>

@@ -1,41 +1,99 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import { onMount } from 'svelte';
   import { businesses } from '$lib/data/businesses';
   import Button from '$lib/components/Button.svelte';
   import SellListingModal from '$lib/components/SellListingModal.svelte';
   import OrderBookAsks from '$lib/components/OrderBookAsks.svelte';
   import BuyModal from '$lib/components/BuyModal.svelte';
+  import {
+    getFloorPrice,
+    getTotalShareSupply,
+    getListedQuantities,
+  } from '$lib/contracts/exchange';
 
   let showBuyModal = false;
   let showSellModal = false;
   let investmentAmount = 1000;
   let shareQuantity = 1;
+  let buyPrefillQty: bigint | undefined;
 
   $: business = businesses.find((b) => b.id === $page.params.id);
 
-  function formatCurrency(amount) {
+  // On-chain derived state
+  let floorPriceCents: bigint | undefined;
+  let onchainTotalShares: bigint | undefined;
+  let listedAvailable: bigint | undefined;
+  let marketCapCents: bigint | undefined;
+
+  function effectivePricePerShare(): number | undefined {
+    if (floorPriceCents != null) return Number(floorPriceCents) / 100;
+    return undefined;
+  }
+
+  function formatCurrency(amount?: number) {
+    if (amount == null || Number.isNaN(amount)) return '—';
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     }).format(amount);
   }
 
-  function formatNumber(num) {
+  function formatNumber(num?: number) {
+    if (num == null || Number.isNaN(num)) return '—';
     return new Intl.NumberFormat('en-US').format(num);
   }
 
   function handleInvestmentChange() {
     if (business) {
-      shareQuantity = Math.floor(investmentAmount / business.pricePerShare);
+      const p = effectivePricePerShare();
+      if (p && p > 0) shareQuantity = Math.floor(investmentAmount / p);
     }
   }
 
   function handleShareQuantityChange() {
     if (business) {
-      investmentAmount = shareQuantity * business.pricePerShare;
+      const p = effectivePricePerShare();
+      if (p && p > 0) investmentAmount = shareQuantity * p;
     }
   }
+
+  async function refetchOnchain() {
+    if (!business?.tokenId) return;
+    const tokenId = business.tokenId;
+    try {
+      const [fp, total, listed] = await Promise.all([
+        getFloorPrice(tokenId),
+        getTotalShareSupply(tokenId),
+        getListedQuantities(tokenId),
+      ]);
+      floorPriceCents = fp;
+      onchainTotalShares = total;
+      listedAvailable = listed;
+
+      // Market cap: (floorPriceCents * totalShares) extrapolated to 100%
+      if (
+        floorPriceCents != null &&
+        onchainTotalShares != null &&
+        business.tokenisedSharesPercentageBps
+      ) {
+        const tokenizedValCents = floorPriceCents * onchainTotalShares;
+        const bps = business.tokenisedSharesPercentageBps; // bigint bps
+        if (bps > 0n) {
+          marketCapCents = (tokenizedValCents * 10000n) / bps;
+        }
+      }
+    } catch (e) {
+      // keep existing values on failure
+      console.error('refetchOnchain error', e);
+    }
+  }
+
+  onMount(() => {
+    refetchOnchain();
+  });
 </script>
 
 <svelte:head>
@@ -85,7 +143,9 @@
 
         <div class="text-right">
           <div class="text-4xl font-bold text-gray-900 mb-1">
-            {formatCurrency(business.pricePerShare)}
+            {floorPriceCents != null
+              ? formatCurrency(Number(floorPriceCents) / 100)
+              : '—'}
           </div>
           <div class="text-gray-500">per share</div>
           <div class="mt-4 space-y-2">
@@ -114,7 +174,16 @@
       <!-- Main Content -->
       <div class="lg:col-span-2 space-y-8">
         {#if business?.tokenId != null}
-          <OrderBookAsks releaseId={business.tokenId} />
+          <OrderBookAsks
+            releaseId={business.tokenId}
+            on:buy={(e) => {
+              buyPrefillQty = e.detail.quantity;
+              showBuyModal = true;
+            }}
+            on:updated={() => {
+              refetchOnchain();
+            }}
+          />
         {/if}
         <!-- Description -->
         <div class="bg-white rounded-xl border border-gray-200 p-8">
@@ -190,9 +259,11 @@
           <div class="space-y-4">
             <div class="flex justify-between">
               <span class="text-gray-600">Market Cap</span>
-              <span class="font-semibold"
-                >{formatCurrency(business.marketCap)}</span
-              >
+              <span class="font-semibold">
+                {marketCapCents != null
+                  ? formatCurrency(Number(marketCapCents) / 100)
+                  : '—'}
+              </span>
             </div>
             <div class="flex justify-between">
               <span class="text-gray-600">Annual Revenue</span>
@@ -202,15 +273,19 @@
             </div>
             <div class="flex justify-between">
               <span class="text-gray-600">Total Shares</span>
-              <span class="font-semibold"
-                >{formatNumber(business.totalShares)}</span
-              >
+              <span class="font-semibold">
+                {onchainTotalShares != null
+                  ? formatNumber(Number(onchainTotalShares))
+                  : '—'}
+              </span>
             </div>
             <div class="flex justify-between">
               <span class="text-gray-600">Available Shares</span>
-              <span class="font-semibold"
-                >{formatNumber(business.availableShares)}</span
-              >
+              <span class="font-semibold">
+                {listedAvailable != null
+                  ? formatNumber(Number(listedAvailable))
+                  : '—'}
+              </span>
             </div>
             <div class="flex justify-between">
               <span class="text-gray-600">Risk Level</span>
@@ -230,9 +305,22 @@
   </div>
 
   {#if business?.tokenId != null}
-    <BuyModal bind:open={showBuyModal} releaseId={business.tokenId} on:purchased={() => {}} />
+    <BuyModal
+      bind:open={showBuyModal}
+      releaseId={business.tokenId}
+      prefillQuantity={buyPrefillQty}
+      on:purchased={() => {
+        refetchOnchain();
+      }}
+    />
   {/if}
   {#if business?.tokenId != null}
-    <SellListingModal bind:open={showSellModal} releaseId={business.tokenId} on:created={() => {}} />
+    <SellListingModal
+      bind:open={showSellModal}
+      releaseId={business.tokenId}
+      on:created={() => {
+        refetchOnchain();
+      }}
+    />
   {/if}
 {/if}

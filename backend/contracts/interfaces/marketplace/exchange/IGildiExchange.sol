@@ -158,24 +158,6 @@ interface IGildiExchange is IAccessControl {
         address _fundsReceiver
     ) external;
 
-    /// @notice Creates a listing with custom slippage
-    /// @param _releaseId The ID of the release
-    /// @param _seller The address of the seller
-    /// @param _pricePerItem The price per item in USD
-    /// @param _quantity The quantity being listed
-    /// @param _payoutCurrency The currency the seller wants to receive payment in
-    /// @param _fundsReceiver The address to receive funds from the sale (if address(0), defaults to seller)
-    /// @param _slippageBps Slippage tolerance in basis points
-    function createListing(
-        uint256 _releaseId,
-        address _seller,
-        uint256 _pricePerItem,
-        uint256 _quantity,
-        address _payoutCurrency,
-        address _fundsReceiver,
-        uint16 _slippageBps
-    ) external;
-
     /// @notice Modifies a listing with default slippage
     /// @param _listingId The ID of the listing to modify
     /// @param _newPricePerItem The new price per item in USD
@@ -188,22 +170,6 @@ interface IGildiExchange is IAccessControl {
         uint256 _newQuantity,
         address _payoutCurrency,
         address _fundsReceiver
-    ) external;
-
-    /// @notice Modifies a listing with custom slippage
-    /// @param _listingId The ID of the listing to modify
-    /// @param _newPricePerItem The new price per item in USD
-    /// @param _newQuantity The new quantity (if 0, the listing will be removed)
-    /// @param _payoutCurrency The new payout currency
-    /// @param _fundsReceiver The address to receive funds from the sale (if address(0), defaults to seller)
-    /// @param _slippageBps Slippage tolerance in basis points
-    function modifyListing(
-        uint256 _listingId,
-        uint256 _newPricePerItem,
-        uint256 _newQuantity,
-        address _payoutCurrency,
-        address _fundsReceiver,
-        uint16 _slippageBps
     ) external;
 
     /// @notice Cancels a listing by ID

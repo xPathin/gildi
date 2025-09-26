@@ -34,7 +34,7 @@ interface AdapterConfig {
 
 // ------ GLOBAL SETTINGS ------
 const NETWORK_BUY_TOKENS = {
-    11155420: [Token.RUST, Token.USDC, Token.WNATIVE],
+    11155420: [Token.USDC, Token.WNATIVE],
 };
 
 const NETWORK_ALLOW_NATIVE_PURCHASE = {

@@ -1,6 +1,12 @@
 import { config, publicClient } from '$lib/wagmi/config';
 import { writeContract, waitForTransactionReceipt } from '@wagmi/core';
-import { ADDRESSES, ExchangeAbi, OrderBookAbi, ManagerAbi } from './addresses';
+import {
+  ADDRESSES,
+  ExchangeAbi,
+  OrderBookAbi,
+  ManagerAbi,
+  ShareTokenAbi,
+} from './addresses';
 import type { Address } from 'viem';
 
 export type Listing = {
@@ -19,13 +25,33 @@ export type Listing = {
 };
 
 export async function getFloorPrice(releaseId: bigint) {
-  const [ordered, _cursor] = await publicClient.readContract({
-    abi: OrderBookAbi as any,
+  const [ordered] = await publicClient.readContract({
+    abi: OrderBookAbi,
     address: ADDRESSES.orderBook,
     functionName: 'getOrderedListings',
     args: [releaseId, 0n, 1n],
-  }) as any as [Listing[], bigint];
+  });
   return ordered?.[0]?.pricePerItem as bigint | undefined;
+}
+
+export async function getListedQuantities(releaseId: bigint): Promise<bigint> {
+  const res = await publicClient.readContract({
+    abi: OrderBookAbi,
+    address: ADDRESSES.orderBook,
+    functionName: 'listedQuantities',
+    args: [releaseId],
+  });
+  return res;
+}
+
+export async function getTotalShareSupply(releaseId: bigint): Promise<bigint> {
+  const res = await publicClient.readContract({
+    abi: ShareTokenAbi,
+    address: ADDRESSES.shareToken,
+    functionName: 'totalSupply',
+    args: [releaseId],
+  });
+  return res as bigint;
 }
 
 export async function getOrderedListingsForRelease(
@@ -34,7 +60,7 @@ export async function getOrderedListingsForRelease(
   limit: bigint = 25n
 ): Promise<{ listings: Listing[]; cursor: bigint }> {
   const [ordered, nextCursor] = (await publicClient.readContract({
-    abi: OrderBookAbi as any,
+    abi: OrderBookAbi,
     address: ADDRESSES.orderBook,
     functionName: 'getOrderedListings',
     args: [releaseId, cursor, limit],
@@ -44,15 +70,13 @@ export async function getOrderedListingsForRelease(
 
 export async function getMarketplaceCurrency(): Promise<Address> {
   const env = await publicClient.readContract({
-    abi: ExchangeAbi as any,
+    abi: ExchangeAbi,
     address: ADDRESSES.exchange,
     functionName: 'getAppEnvironment',
     args: [],
   });
-  // env.settings.marketplaceCurrency is at env[0][3] if tuple order matches ABI,
-  // but to be robust, access by property when decoded by viem.
-  const settings = (env as any).settings ?? (env as any)[0];
-  const marketplaceCurrency: Address = (settings?.marketplaceCurrency ?? settings?.[3]) as Address;
+  const settings = env.settings;
+  const marketplaceCurrency = settings?.marketplaceCurrency;
   return marketplaceCurrency;
 }
 
@@ -60,7 +84,7 @@ export async function getMarketplaceCurrency(): Promise<Address> {
 
 export async function getListingsOfSeller(seller: Address): Promise<Listing[]> {
   const res = await publicClient.readContract({
-    abi: OrderBookAbi as any,
+    abi: OrderBookAbi,
     address: ADDRESSES.orderBook,
     functionName: 'getListingsOfSeller',
     args: [seller],
@@ -70,7 +94,7 @@ export async function getListingsOfSeller(seller: Address): Promise<Listing[]> {
 
 export async function getListing(listingId: bigint): Promise<Listing> {
   const res = await publicClient.readContract({
-    abi: OrderBookAbi as any,
+    abi: OrderBookAbi,
     address: ADDRESSES.orderBook,
     functionName: 'getListing',
     args: [listingId],
@@ -78,9 +102,12 @@ export async function getListing(listingId: bigint): Promise<Listing> {
   return res as unknown as Listing;
 }
 
-export async function getAvailableBalance(tokenId: bigint, account: Address): Promise<bigint> {
+export async function getAvailableBalance(
+  tokenId: bigint,
+  account: Address
+): Promise<bigint> {
   const res = await publicClient.readContract({
-    abi: ManagerAbi as any,
+    abi: ManagerAbi,
     address: ADDRESSES.manager,
     functionName: 'getAvailableBalance',
     args: [tokenId, account],
@@ -96,12 +123,26 @@ export async function createListing(params: {
   payoutCurrency: Address;
   fundsReceiver: Address;
 }) {
-  const { releaseId, seller, pricePerItem, quantity, payoutCurrency, fundsReceiver } = params;
+  const {
+    releaseId,
+    seller,
+    pricePerItem,
+    quantity,
+    payoutCurrency,
+    fundsReceiver,
+  } = params;
   const hash = await writeContract(config, {
-    abi: ExchangeAbi as any,
+    abi: ExchangeAbi,
     address: ADDRESSES.exchange,
     functionName: 'createListing',
-    args: [releaseId, seller, pricePerItem, quantity, payoutCurrency, fundsReceiver],
+    args: [
+      releaseId,
+      seller,
+      pricePerItem,
+      quantity,
+      payoutCurrency,
+      fundsReceiver,
+    ],
   });
   const receipt = await waitForTransactionReceipt(config, { hash });
   return receipt;
@@ -114,12 +155,24 @@ export async function modifyListing(params: {
   payoutCurrency: Address;
   fundsReceiver: Address;
 }) {
-  const { listingId, newPricePerItem, newQuantity, payoutCurrency, fundsReceiver } = params;
+  const {
+    listingId,
+    newPricePerItem,
+    newQuantity,
+    payoutCurrency,
+    fundsReceiver,
+  } = params;
   const hash = await writeContract(config, {
-    abi: ExchangeAbi as any,
+    abi: ExchangeAbi,
     address: ADDRESSES.exchange,
     functionName: 'modifyListing',
-    args: [listingId, newPricePerItem, newQuantity, payoutCurrency, fundsReceiver],
+    args: [
+      listingId,
+      newPricePerItem,
+      newQuantity,
+      payoutCurrency,
+      fundsReceiver,
+    ],
   });
   const receipt = await waitForTransactionReceipt(config, { hash });
   return receipt;
@@ -127,7 +180,7 @@ export async function modifyListing(params: {
 
 export async function cancelListing(listingId: bigint) {
   const hash = await writeContract(config, {
-    abi: ExchangeAbi as any,
+    abi: ExchangeAbi,
     address: ADDRESSES.exchange,
     functionName: 'cancelListing',
     args: [listingId],

@@ -35,6 +35,7 @@
       >
         <h2 class="text-xl font-semibold text-gray-900">{title}</h2>
         <button
+          aria-label="Close modal"
           on:click={() => (show = false)}
           class="text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600"
         >

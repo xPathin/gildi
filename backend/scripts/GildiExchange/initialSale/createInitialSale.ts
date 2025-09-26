@@ -233,7 +233,8 @@ Initial Sale Fees: ${JSON.stringify(initialSaleFees, (key, value) => typeof valu
         whitelistDuration: WHITELIST_DURATION,
         initialSaleCurrency: saleTokenAddress,
         payoutCurrency,
-        fees: initialSaleFees
+        fees: initialSaleFees,
+        fundsReceiver: ethers.ZeroAddress
     });
 
     console.log(`Initial Sale for Release ${RELEASE_ID} created`);

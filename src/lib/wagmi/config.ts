@@ -1,43 +1,77 @@
-import { createConfig, http, type CreateConnectorFn } from '@wagmi/core';
-import { injected, metaMask, walletConnect } from '@wagmi/connectors';
 import { optimismSepolia, type Chain } from '@wagmi/core/chains';
-import { http as viemHttp, createPublicClient } from 'viem';
+import {
+  http as viemHttp,
+  webSocket as viemWebSocket,
+  createPublicClient,
+} from 'viem';
+import { createAppKit } from '@reown/appkit';
+import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 
-const dappMetadata = {
-  name: 'Gildi',
-  description: 'Tokenization marketplace for fractional business ownership.',
-  url: 'https://gildi.app',
-  icons: ['https://gildi.app/favicon.png'],
-};
+declare global {
+  interface Window {
+    __appkitInitialized?: boolean;
+    __appkit?: ReturnType<typeof createAppKit>;
+  }
+}
 
-const walletConnectProjectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID;
+const walletConnectProjectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID as
+  | string
+  | undefined;
 
 export const chains = [optimismSepolia] satisfies readonly [Chain, ...Chain[]];
 
-const connectors = [
-  metaMask({ dappMetadata }),
-  injected({ shimDisconnect: true }),
-  ...(walletConnectProjectId
-    ? [
-        walletConnect({
-          projectId: walletConnectProjectId,
-          metadata: dappMetadata,
-          showQrModal: true,
-        }),
-      ]
-    : []),
-] satisfies readonly CreateConnectorFn[];
-
-export const config = createConfig({
-  chains,
-  connectors,
+const wagmiAdapter = new WagmiAdapter({
+  projectId: walletConnectProjectId ?? '',
+  networks: chains,
   transports: {
-    [optimismSepolia.id]: http('https://sepolia.optimism.io'),
+    [optimismSepolia.id]: viemHttp(
+      import.meta.env.VITE_OP_SEPOLIA_HTTP || 'https://sepolia.optimism.io'
+    ),
   },
   multiInjectedProviderDiscovery: true,
+  ssr: true,
 });
+
+// Export wagmi config for the rest of the app
+export const config = wagmiAdapter.wagmiConfig;
 
 export const publicClient = createPublicClient({
   chain: optimismSepolia,
-  transport: viemHttp('https://sepolia.optimism.io'),
+  transport: import.meta.env.VITE_OP_SEPOLIA_WS
+    ? viemWebSocket(import.meta.env.VITE_OP_SEPOLIA_WS)
+    : viemHttp(
+        import.meta.env.VITE_OP_SEPOLIA_HTTP || 'https://sepolia.optimism.io'
+      ),
 });
+
+// Initialize Web3Modal once on the client. Safe to call multiple times.
+let appKitInstance: ReturnType<typeof createAppKit> | undefined;
+
+export function initAppKit() {
+  if (typeof window === 'undefined') return;
+  if (window.__appkitInitialized) return;
+  const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID as
+    | string
+    | undefined;
+  if (!projectId) return; // no-op if not configured; we handle UX via toasts elsewhere
+  appKitInstance = createAppKit({
+    adapters: [wagmiAdapter],
+    projectId,
+    networks: chains,
+  });
+  window.__appkitInitialized = true;
+  window.__appkit = appKitInstance;
+}
+
+export function openAppKit(): boolean {
+  if (typeof window === 'undefined') return false;
+  if (!window.__appkitInitialized) {
+    initAppKit();
+  }
+  const inst = window.__appkit ?? appKitInstance;
+  if (inst && typeof inst.open === 'function') {
+    inst.open();
+    return true;
+  }
+  return false;
+}

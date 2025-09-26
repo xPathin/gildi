@@ -3,11 +3,7 @@ export interface Business {
   name: string;
   description: string;
   industry: string;
-  totalShares: number;
-  availableShares?: number;
   tokenisedSharesPercentageBps: bigint;
-  pricePerShare?: number;
-  marketCap: number;
   yearlyRevenue: number;
   founded: number;
   employees: string;
@@ -21,7 +17,7 @@ export interface Business {
     returnOnEquity: string;
   };
   riskLevel: 'Low' | 'Medium' | 'High';
-  tokenId?: bigint;
+  tokenId: bigint;
 }
 
 export const businesses: Business[] = [
@@ -31,11 +27,7 @@ export const businesses: Business[] = [
     description:
       'Leading provider of sustainable energy solutions for commercial buildings. Specializing in solar panel installations, energy management systems, and green building certifications.',
     industry: 'Clean Energy',
-    totalShares: 1000000,
-    availableShares: 250000,
     tokenisedSharesPercentageBps: 900n,
-    pricePerShare: 45.5,
-    marketCap: 45500000,
     yearlyRevenue: 12500000,
     founded: 2018,
     employees: '150-200',
@@ -60,11 +52,7 @@ export const businesses: Business[] = [
     description:
       'Revolutionary payment processing platform serving small and medium businesses. Offering seamless integration, competitive rates, and advanced fraud protection.',
     industry: 'Financial Technology',
-    totalShares: 800000,
-    availableShares: 120000,
     tokenisedSharesPercentageBps: 900n,
-    pricePerShare: 78.25,
-    marketCap: 62600000,
     yearlyRevenue: 18200000,
     founded: 2019,
     employees: '200-250',
@@ -89,11 +77,7 @@ export const businesses: Business[] = [
     description:
       'AI-powered healthcare data analytics platform helping hospitals and clinics optimize patient care and reduce costs through predictive insights.',
     industry: 'Healthcare Technology',
-    totalShares: 600000,
-    availableShares: 180000,
     tokenisedSharesPercentageBps: 900n,
-    pricePerShare: 92.75,
-    marketCap: 55650000,
     yearlyRevenue: 8900000,
     founded: 2020,
     employees: '75-100',
@@ -118,11 +102,7 @@ export const businesses: Business[] = [
     description:
       'Last-mile delivery optimization platform serving e-commerce businesses. Reducing delivery costs by 30% through AI-powered route optimization.',
     industry: 'Logistics & Supply Chain',
-    totalShares: 1200000,
-    availableShares: 300000,
     tokenisedSharesPercentageBps: 900n,
-    pricePerShare: 32.1,
-    marketCap: 38520000,
     yearlyRevenue: 15600000,
     founded: 2017,
     employees: '300-400',
@@ -139,6 +119,7 @@ export const businesses: Business[] = [
       returnOnEquity: '16%',
     },
     riskLevel: 'Low',
+    tokenId: 4n,
   },
   {
     id: '5',
@@ -146,11 +127,7 @@ export const businesses: Business[] = [
     description:
       'Online learning platform specializing in professional development and certification courses. Serving over 100,000 active learners globally.',
     industry: 'Education Technology',
-    totalShares: 900000,
-    availableShares: 200000,
     tokenisedSharesPercentageBps: 900n,
-    pricePerShare: 56.8,
-    marketCap: 51120000,
     yearlyRevenue: 9800000,
     founded: 2019,
     employees: '100-150',
@@ -167,6 +144,7 @@ export const businesses: Business[] = [
       returnOnEquity: '24%',
     },
     riskLevel: 'Medium',
+    tokenId: 5n,
   },
   {
     id: '6',
@@ -174,11 +152,7 @@ export const businesses: Business[] = [
     description:
       'Precision agriculture technology helping farmers increase crop yields through IoT sensors, drone monitoring, and data analytics.',
     industry: 'Agricultural Technology',
-    totalShares: 750000,
-    availableShares: 225000,
     tokenisedSharesPercentageBps: 900n,
-    pricePerShare: 41.9,
-    marketCap: 31425000,
     yearlyRevenue: 6700000,
     founded: 2018,
     employees: '50-75',
@@ -195,5 +169,6 @@ export const businesses: Business[] = [
       returnOnEquity: '20%',
     },
     riskLevel: 'Medium',
+    tokenId: 6n,
   },
 ];

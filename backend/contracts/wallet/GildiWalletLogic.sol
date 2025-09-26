@@ -139,35 +139,6 @@ contract GildiWalletLogic is Initializable, AccessControlUpgradeable {
 
     // ========== Marketplace Functions ==========
 
-    /// @notice Creates a listing on the marketplace
-    /// @dev Only callable by accounts with OPERATOR_ROLE
-    /// @param _releaseId The ID of the release
-    /// @param _pricePerItem The price per item in USD
-    /// @param _quantity The quantity being listed
-    /// @param _payoutCurrency The currency the seller wants to receive payment in
-    /// @param _fundsReceiver The address to receive funds from the sale (if address(0), defaults to seller)
-    /// @param _slippageBps Slippage protection in basis points (100 = 1%, 500 = 5%)
-    function createListing(
-        uint256 _releaseId,
-        uint256 _pricePerItem,
-        uint256 _quantity,
-        address _payoutCurrency,
-        address _fundsReceiver,
-        uint16 _slippageBps
-    ) external onlyRole(OPERATOR_ROLE) {
-        IGildiExchange exchange = _getGildiExchange();
-
-        exchange.createListing(
-            _releaseId,
-            address(this),
-            _pricePerItem,
-            _quantity,
-            _payoutCurrency,
-            _fundsReceiver,
-            _slippageBps
-        );
-    }
-
     /// @notice Creates a listing with default slippage on the marketplace
     /// @dev Only callable by accounts with OPERATOR_ROLE
     /// @param _releaseId The ID of the release
@@ -185,27 +156,6 @@ contract GildiWalletLogic is Initializable, AccessControlUpgradeable {
         IGildiExchange exchange = _getGildiExchange();
 
         exchange.createListing(_releaseId, address(this), _pricePerItem, _quantity, _payoutCurrency, _fundsReceiver);
-    }
-
-    /// @notice Modifies an existing listing on the marketplace
-    /// @dev Only callable by accounts with OPERATOR_ROLE
-    /// @param _listingId The ID of the listing to modify
-    /// @param _pricePerItem The new price per item in USD
-    /// @param _quantity The new quantity (if 0, the listing will be removed)
-    /// @param _payoutCurrency The new payout currency
-    /// @param _fundsReceiver The address to receive funds from the sale (if address(0), defaults to seller)
-    /// @param _slippageBps New slippage protection in basis points
-    function modifyListing(
-        uint256 _listingId,
-        uint256 _pricePerItem,
-        uint256 _quantity,
-        address _payoutCurrency,
-        address _fundsReceiver,
-        uint16 _slippageBps
-    ) external onlyRole(OPERATOR_ROLE) {
-        IGildiExchange exchange = _getGildiExchange();
-
-        exchange.modifyListing(_listingId, _pricePerItem, _quantity, _payoutCurrency, _fundsReceiver, _slippageBps);
     }
 
     /// @notice Modifies an existing listing with default slippage on the marketplace

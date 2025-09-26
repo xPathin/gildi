@@ -1,9 +1,10 @@
 <script lang="ts">
-  export let variant = 'primary';
-  export let size = 'md';
-  export let href = undefined;
-  export let disabled = false;
-  export let type = 'button';
+  export let variant: 'primary' | 'secondary' | 'outline' | 'danger' =
+    'primary';
+  export let size: 'sm' | 'md' | 'lg' = 'md';
+  export let href: string | undefined = undefined;
+  export let disabled: boolean = false;
+  export let type: 'button' | 'submit' | 'reset' = 'button';
 
   let className = '';
   export { className as class };
@@ -18,6 +19,7 @@
       'bg-gray-100 hover:bg-gray-200 text-gray-900 focus:ring-gray-500',
     outline:
       'border border-gray-300 hover:bg-gray-50 text-gray-700 focus:ring-gray-500',
+    danger: 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500',
   };
 
   $: sizeClasses = {

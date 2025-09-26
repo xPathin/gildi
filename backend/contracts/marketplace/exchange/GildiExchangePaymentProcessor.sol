@@ -28,8 +28,8 @@ contract GildiExchangePaymentProcessor is Initializable, IGildiExchangePaymentPr
     /// @dev Dead address for burning tokens
     address private constant DEAD_ADDRESS = address(0x000000000000000000000000000000000000dEaD);
 
-    /// @dev Default slippage tolerance in basis points (5%)
-    uint16 private constant DEFAULT_SLIPPAGE_BPS = 500;
+    /// @dev Default slippage tolerance in basis points (1%)
+    uint16 private constant DEFAULT_SLIPPAGE_BPS = 100;
 
     // ========== Storage Variables ==========
     /// @notice The GildiExchange contract that calls this contract

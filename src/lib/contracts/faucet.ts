@@ -5,7 +5,7 @@ import type { Address } from 'viem';
 
 export async function requestAllTokens(receiver: Address) {
   const hash = await writeContract(config, {
-    abi: FaucetAbi as any,
+    abi: FaucetAbi,
     address: ADDRESSES.faucet,
     functionName: 'requestAllTokens',
     args: [receiver],
