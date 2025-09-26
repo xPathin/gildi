@@ -97,7 +97,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     // address _initialMarketplaceManager,
     // IGildiManager _gildiManager,
     // IERC20 _marketplaceCurrency
-    const gildiExchangeV2Deployment = await deploy("GildiExchange", {
+    const gildiExchangeDeployment = await deploy("GildiExchange", {
         from: deployer,
         log: true,
         proxy: {
@@ -131,7 +131,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
                     init: {
                         methodName: "initialize",
                         args: [
-                            gildiExchangeV2Deployment.address,
+                            gildiExchangeDeployment.address,
                             gildiManagerDeployment.address,
                         ],
                     },
@@ -152,7 +152,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
                 execute: {
                     init: {
                         methodName: "initialize",
-                        args: [gildiExchangeV2Deployment.address],
+                        args: [gildiExchangeDeployment.address],
                     },
                 },
             },
@@ -171,7 +171,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
                 execute: {
                     init: {
                         methodName: "initialize",
-                        args: [gildiExchangeV2Deployment.address],
+                        args: [gildiExchangeDeployment.address],
                     },
                 },
             },
@@ -182,8 +182,8 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
         gildiManagerDeployment.address,
         defaultAdminSigner,
     );
-    const gildiExchangeV2Contract = GildiExchange__factory.connect(
-        gildiExchangeV2Deployment.address,
+    const gildiExchangeContract = GildiExchange__factory.connect(
+        gildiExchangeDeployment.address,
         contractAdminSigner,
     );
     const gildiPriceOracleContract = GildiPriceOracle__factory.connect(
@@ -201,13 +201,13 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     if (
         !(await gildiManagerContract.hasRole(
             gildiManagerMarketplaceRole,
-            gildiExchangeV2Deployment.address,
+            gildiExchangeDeployment.address,
         ))
     ) {
         console.log(`Granting MARKETPLACE_ROLE to GildiExchange...`);
         await gildiManagerContract.grantRole(
             gildiManagerMarketplaceRole,
-            gildiExchangeV2Deployment.address,
+            gildiExchangeDeployment.address,
         );
         console.log(`Granted MARKETPLACE_ROLE to GildiExchange`);
     }
@@ -242,7 +242,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
             ],
         },
     ];
-    const existingFees = (await gildiExchangeV2Contract.getAppEnvironment())
+    const existingFees = (await gildiExchangeContract.getAppEnvironment())
         .settings.fees;
     if (
         existingFees.length == 0 ||
@@ -262,7 +262,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
             fees[0].subFeeReceivers[0].payoutCurrency
     ) {
         console.log(`Fees changed, setting fees...`);
-        await gildiExchangeV2Contract.setFees(fees);
+        await gildiExchangeContract.setFees(fees);
     }
 
     // Get the feed id's for RUST/USD and USDC/USD pairs from gildi oracle.
@@ -324,12 +324,12 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     // Fix any potential marketplace currency mismatch.
     if (
         (
-            await gildiExchangeV2Contract.getAppEnvironment()
+            await gildiExchangeContract.getAppEnvironment()
         ).settings.marketplaceCurrency.toLowerCase() !=
         usdcTokenAddress.toLowerCase()
     ) {
         console.log(`Setting marketplace currency to ${usdcTokenAddress}...`);
-        await gildiExchangeV2Contract.setMarketplaceCurrency(usdcTokenAddress);
+        await gildiExchangeContract.setMarketplaceCurrency(usdcTokenAddress);
     }
 };
 

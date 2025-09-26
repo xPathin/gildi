@@ -1,50 +1,100 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
   import { businesses } from '$lib/data/businesses';
   import Button from '$lib/components/Button.svelte';
   import { wallet, connectWallet } from '$lib/wagmi/walletStore';
+  import type { WalletState } from '$lib/wagmi/walletStore';
+  import { publicClient } from '$lib/wagmi/config';
+  import GildiManagerAbi from '../../abi/GildiManager.json';
+  import SellListingModal from '$lib/components/SellListingModal.svelte';
+  import MyListings from '$lib/components/MyListings.svelte';
 
-  // Mock portfolio data - in real app this would come from user's account
-  const portfolioHoldings = [
-    {
-      businessId: '1',
-      shares: 22,
-      purchasePrice: 42.3,
-      purchaseDate: '2024-01-15',
-    },
-    {
-      businessId: '2',
-      shares: 8,
-      purchasePrice: 75.5,
-      purchaseDate: '2024-02-03',
-    },
-    {
-      businessId: '5',
-      shares: 15,
-      purchasePrice: 54.2,
-      purchaseDate: '2024-02-20',
-    },
-  ];
+  const GILDI_MANAGER = '0xa90A0E02c84B351cAa255EA089865B31AEe569Fb' as const;
 
-  $: portfolioWithDetails = portfolioHoldings
-    .map((holding) => {
-      const business = businesses.find((b) => b.id === holding.businessId);
-      if (!business) return null;
+  // On-chain balances fetched from GildiManager
+  let balances: { tokenId: bigint; amount: bigint; lockedAmount: bigint }[] =
+    [];
+  let loadingBalances = false;
+  let loadError: string | undefined;
+  let lastLoadedAddress: string | undefined;
+  let walletState: WalletState | undefined;
 
-      const currentValue = holding.shares * business.pricePerShare;
-      const investedAmount = holding.shares * holding.purchasePrice;
-      const gainLoss = currentValue - investedAmount;
-      const gainLossPercent = (gainLoss / investedAmount) * 100;
+  type PortfolioHoldingVM = {
+    businessId: string;
+    shares: number;
+    purchasePrice: number;
+    purchaseDate?: string;
+    business: (typeof businesses)[number];
+    currentValue: number;
+    investedAmount: number;
+    gainLoss: number;
+    gainLossPercent: number;
+  };
+  let portfolioWithDetails: PortfolioHoldingVM[] = [];
 
+  async function loadPortfolio(address: string) {
+    if (!address) return;
+    if (lastLoadedAddress === address && balances.length) return;
+    loadingBalances = true;
+    loadError = undefined;
+    try {
+      const result = await publicClient.readContract({
+        abi: GildiManagerAbi,
+        address: GILDI_MANAGER,
+        functionName: 'balanceOf',
+        args: [address],
+      });
+      // Expecting: Array<{ tokenId: bigint; amount: bigint; lockedAmount: bigint }>
+      balances = (result as any[]).filter(
+        (b) => b && typeof b.amount === 'bigint'
+      );
+      lastLoadedAddress = address;
+    } catch (err) {
+      loadError =
+        err instanceof Error ? err.message : 'Failed to load portfolio';
+      balances = [];
+    } finally {
+      loadingBalances = false;
+    }
+  }
+
+  // When wallet connects, fetch balances
+  $: if (
+    browser &&
+    walletState?.status === 'connected' &&
+    walletState?.address
+  ) {
+    // Fire and forget
+    loadPortfolio(walletState.address);
+  }
+
+  // Build portfolio view model from balances and static business data (by tokenId)
+  $: portfolioWithDetails = balances
+    .filter((b) => (b?.amount ?? 0n) > 0n)
+    .map((b) => {
+      const business = businesses.find((item) => item.tokenId === b.tokenId);
+      if (!business) return null; // Ignore unknown tokenIds for now
+      const shares = Number(b.amount);
+      const currentPrice = business.pricePerShare ?? 0;
+      const currentValue = shares * currentPrice;
+      // Placeholder: without purchase history, use current price as purchase price so gain/loss = 0
+      const purchasePrice = currentPrice;
+      const investedAmount = shares * purchasePrice;
+      const gainLoss = 0;
+      const gainLossPercent = 0;
       return {
-        ...holding,
+        businessId: business.id,
+        shares,
+        purchasePrice,
+        purchaseDate: undefined,
         business,
         currentValue,
         investedAmount,
         gainLoss,
         gainLossPercent,
-      };
+      } as PortfolioHoldingVM;
     })
-    .filter(Boolean);
+    .filter((x): x is PortfolioHoldingVM => x !== null);
 
   $: totalInvested = portfolioWithDetails.reduce(
     (sum, item) => sum + item.investedAmount,
@@ -58,7 +108,7 @@
   $: totalGainLossPercent =
     totalInvested > 0 ? (totalGainLoss / totalInvested) * 100 : 0;
 
-  function formatCurrency(amount) {
+  function formatCurrency(amount: number): string {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
@@ -66,7 +116,7 @@
     }).format(amount);
   }
 
-  function formatDate(dateString) {
+  function formatDate(dateString: string): string {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
@@ -78,8 +128,15 @@
     await connectWallet();
   };
 
-  $: walletState = $wallet;
+  $: walletState = $wallet as WalletState;
   $: isConnected = walletState?.status === 'connected';
+  let activeTab: 'holdings' | 'listings' = 'holdings';
+  let sellOpen = false;
+  let sellReleaseId: bigint | undefined;
+  function openSellModal(releaseId: bigint) {
+    sellReleaseId = releaseId;
+    sellOpen = true;
+  }
   $: walletError =
     walletState?.status === 'error' ? walletState.errorMessage : undefined;
 </script>
@@ -142,7 +199,33 @@
       </div>
     </div>
 
-    {#if portfolioWithDetails.length === 0}
+    <div class="mb-4 border-b border-gray-200">
+      <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+        <button
+          class="whitespace-nowrap border-b-2 px-3 py-2 text-sm font-medium"
+          class:border-orange-600={activeTab === 'holdings'}
+          class:text-orange-600={activeTab === 'holdings'}
+          class:border-transparent={activeTab !== 'holdings'}
+          class:text-gray-500={activeTab !== 'holdings'}
+          on:click={() => (activeTab = 'holdings')}
+        >
+          Holdings
+        </button>
+        <button
+          class="whitespace-nowrap border-b-2 px-3 py-2 text-sm font-medium"
+          class:border-orange-600={activeTab === 'listings'}
+          class:text-orange-600={activeTab === 'listings'}
+          class:border-transparent={activeTab !== 'listings'}
+          class:text-gray-500={activeTab !== 'listings'}
+          on:click={() => (activeTab = 'listings')}
+        >
+          My Listings
+        </button>
+      </nav>
+    </div>
+
+    {#if activeTab === 'holdings'}
+      {#if portfolioWithDetails.length === 0}
       <!-- Empty State -->
       <div class="bg-white rounded-xl border border-gray-200 p-12 text-center">
         <div class="flex justify-center mb-6">
@@ -161,7 +244,7 @@
         </p>
         <Button variant="primary" href="/">Browse Marketplace</Button>
       </div>
-    {:else}
+      {:else}
       <!-- Holdings Table -->
       <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-200">
@@ -257,7 +340,9 @@
                         size="sm"
                         href="/business/{holding.business.id}">View</Button
                       >
-                      <Button variant="primary" size="sm">Trade</Button>
+                      {#if holding.business.tokenId != null}
+                        <Button variant="primary" size="sm" on:click={() => openSellModal(holding.business.tokenId!)}>Sell</Button>
+                      {/if}
                     </div>
                   </td>
                 </tr>
@@ -316,13 +401,21 @@
                   href="/business/{holding.business.id}"
                   class="flex-1">View</Button
                 >
-                <Button variant="primary" size="sm" class="flex-1">Trade</Button
-                >
+                {#if holding.business.tokenId != null}
+                  <Button variant="primary" size="sm" class="flex-1" on:click={() => openSellModal(holding.business.tokenId!)}>Sell</Button>
+                {/if}
               </div>
             </div>
           {/each}
         </div>
       </div>
+      {/if}
+    {:else}
+      <MyListings />
+    {/if}
+
+    {#if sellOpen && sellReleaseId != null}
+      <SellListingModal bind:open={sellOpen} releaseId={sellReleaseId!} on:created={() => {}} />
     {/if}
   </div>
 {:else}

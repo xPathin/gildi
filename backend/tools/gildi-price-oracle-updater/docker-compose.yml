@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  gildi-oracle-price-updater:
+    image: gildi-oracle-price-updater
+    restart: always
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production

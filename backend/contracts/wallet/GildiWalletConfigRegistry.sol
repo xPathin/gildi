@@ -52,7 +52,7 @@ contract GildiWalletConfigRegistry is Initializable, AccessControlUpgradeable, I
         address _configManager,
         WalletConfig calldata _defaultConfig
     ) public initializer {
-        if (_defaultConfig.gildiExchangeV2 == address(0)) {
+        if (_defaultConfig.gildiExchange == address(0)) {
             revert InvalidGildiExchangeAddress();
         }
         if (_defaultConfig.royaltyDistributor == address(0)) {
@@ -83,7 +83,7 @@ contract GildiWalletConfigRegistry is Initializable, AccessControlUpgradeable, I
         uint256 _version,
         WalletConfig calldata _config
     ) external onlyRole(CONFIG_MANAGER_ROLE) {
-        if (_config.gildiExchangeV2 == address(0)) {
+        if (_config.gildiExchange == address(0)) {
             revert InvalidGildiExchangeAddress();
         }
         if (_config.royaltyDistributor == address(0)) {
@@ -94,7 +94,7 @@ contract GildiWalletConfigRegistry is Initializable, AccessControlUpgradeable, I
         }
 
         // Check if this is a new version
-        bool isNewVersion = configByVersion[_version].gildiExchangeV2 == address(0);
+        bool isNewVersion = configByVersion[_version].gildiExchange == address(0);
 
         configByVersion[_version] = _config;
 
@@ -114,7 +114,7 @@ contract GildiWalletConfigRegistry is Initializable, AccessControlUpgradeable, I
     function getConfigForVersion(uint256 _version) external view returns (WalletConfig memory) {
         // First try exact match
         WalletConfig memory config = configByVersion[_version];
-        if (config.gildiExchangeV2 != address(0)) {
+        if (config.gildiExchange != address(0)) {
             return config;
         }
 
@@ -144,7 +144,7 @@ contract GildiWalletConfigRegistry is Initializable, AccessControlUpgradeable, I
     /// @param _version The version to check
     /// @return exists Whether configuration exists for this version
     function hasConfigForVersion(uint256 _version) external view returns (bool exists) {
-        return configByVersion[_version].gildiExchangeV2 != address(0);
+        return configByVersion[_version].gildiExchange != address(0);
     }
 
     /// @notice Gets all configured versions

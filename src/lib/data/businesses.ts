@@ -5,6 +5,7 @@ export interface Business {
   industry: string;
   totalShares: number;
   availableShares?: number;
+  tokenisedSharesPercentageBps: bigint;
   pricePerShare?: number;
   marketCap: number;
   yearlyRevenue: number;
@@ -20,7 +21,6 @@ export interface Business {
     returnOnEquity: string;
   };
   riskLevel: 'Low' | 'Medium' | 'High';
-  minimumInvestment: number;
   tokenId?: bigint;
 }
 
@@ -33,6 +33,7 @@ export const businesses: Business[] = [
     industry: 'Clean Energy',
     totalShares: 1000000,
     availableShares: 250000,
+    tokenisedSharesPercentageBps: 900n,
     pricePerShare: 45.5,
     marketCap: 45500000,
     yearlyRevenue: 12500000,
@@ -51,7 +52,6 @@ export const businesses: Business[] = [
       returnOnEquity: '22%',
     },
     riskLevel: 'Medium',
-    minimumInvestment: 500,
     tokenId: 1n,
   },
   {
@@ -62,6 +62,7 @@ export const businesses: Business[] = [
     industry: 'Financial Technology',
     totalShares: 800000,
     availableShares: 120000,
+    tokenisedSharesPercentageBps: 900n,
     pricePerShare: 78.25,
     marketCap: 62600000,
     yearlyRevenue: 18200000,
@@ -80,7 +81,7 @@ export const businesses: Business[] = [
       returnOnEquity: '28%',
     },
     riskLevel: 'Medium',
-    minimumInvestment: 1000,
+    tokenId: 2n,
   },
   {
     id: '3',
@@ -90,6 +91,7 @@ export const businesses: Business[] = [
     industry: 'Healthcare Technology',
     totalShares: 600000,
     availableShares: 180000,
+    tokenisedSharesPercentageBps: 900n,
     pricePerShare: 92.75,
     marketCap: 55650000,
     yearlyRevenue: 8900000,
@@ -108,7 +110,7 @@ export const businesses: Business[] = [
       returnOnEquity: '19%',
     },
     riskLevel: 'High',
-    minimumInvestment: 2500,
+    tokenId: 3n,
   },
   {
     id: '4',
@@ -118,6 +120,7 @@ export const businesses: Business[] = [
     industry: 'Logistics & Supply Chain',
     totalShares: 1200000,
     availableShares: 300000,
+    tokenisedSharesPercentageBps: 900n,
     pricePerShare: 32.1,
     marketCap: 38520000,
     yearlyRevenue: 15600000,
@@ -136,7 +139,6 @@ export const businesses: Business[] = [
       returnOnEquity: '16%',
     },
     riskLevel: 'Low',
-    minimumInvestment: 250,
   },
   {
     id: '5',
@@ -146,6 +148,7 @@ export const businesses: Business[] = [
     industry: 'Education Technology',
     totalShares: 900000,
     availableShares: 200000,
+    tokenisedSharesPercentageBps: 900n,
     pricePerShare: 56.8,
     marketCap: 51120000,
     yearlyRevenue: 9800000,
@@ -164,7 +167,6 @@ export const businesses: Business[] = [
       returnOnEquity: '24%',
     },
     riskLevel: 'Medium',
-    minimumInvestment: 500,
   },
   {
     id: '6',
@@ -174,6 +176,7 @@ export const businesses: Business[] = [
     industry: 'Agricultural Technology',
     totalShares: 750000,
     availableShares: 225000,
+    tokenisedSharesPercentageBps: 900n,
     pricePerShare: 41.9,
     marketCap: 31425000,
     yearlyRevenue: 6700000,
@@ -192,6 +195,5 @@ export const businesses: Business[] = [
       returnOnEquity: '20%',
     },
     riskLevel: 'Medium',
-    minimumInvestment: 750,
   },
 ];

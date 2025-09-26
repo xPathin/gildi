@@ -1,5 +1,5 @@
 {
-  "name": "coda-univ3-price-mirror",
+  "name": "gildi-univ3-price-mirror",
   "version": "1.0.0",
   "description": "A TypeScript application that fetches price data from APIs and manages Uniswap V3 liquidity on-chain",
   "main": "dist/index.js",
@@ -13,8 +13,8 @@
     "clean": "rimraf dist src/typechain-types",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
-    "docker:build": "docker build -t coda-univ3-price-mirror .",
-    "docker:run": "docker run -p 3000:3000 coda-univ3-price-mirror",
+    "docker:build": "docker build -t gildi-univ3-price-mirror .",
+    "docker:run": "docker run -p 3000:3000 gildi-univ3-price-mirror",
     "docker:compose": "docker-compose up --build"
   },
   "keywords": [

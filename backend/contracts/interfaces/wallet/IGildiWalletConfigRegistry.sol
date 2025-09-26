@@ -12,7 +12,7 @@ interface IGildiWalletConfigRegistry {
     /// @notice Wallet configuration for marketplace integration
     struct WalletConfig {
         /// @dev Address of the GildiExchange contract
-        address gildiExchangeV2;
+        address gildiExchange;
         /// @dev Address of the RoyaltyDistributor contract
         address royaltyDistributor;
         /// @dev Address of the GildiManager contract

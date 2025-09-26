@@ -1,8 +1,48 @@
-<script>
+<script lang="ts">
   import { page } from '$app/stores';
   import ConnectWalletButton from './ConnectWalletButton.svelte';
+  import Button from '$lib/components/Button.svelte';
+  import { wallet } from '$lib/wagmi/walletStore';
+  import { requestAllTokens } from '$lib/contracts/faucet';
+  import type { Address } from 'viem';
+  import type { WalletState } from '$lib/wagmi/walletStore';
+  import { config } from '$lib/wagmi/config';
+  import { switchChain } from '@wagmi/core';
+  import { optimismSepolia } from 'viem/chains';
+  import { toast } from '$lib/stores/toast';
 
   $: currentPath = $page.url.pathname;
+  let walletState: WalletState;
+  $: walletState = $wallet;
+  let faucetLoading = false;
+  // toast-based UX; no inline messages
+
+  async function handleFaucet() {
+    // reset
+    if (!walletState || walletState.status !== 'connected' || !walletState.address) return;
+    try {
+      faucetLoading = true;
+      // Ensure correct chain
+      if (walletState.chainId !== optimismSepolia.id) {
+        console.log('Switching chain to Optimism Sepolia...');
+        await switchChain(config, { chainId: optimismSepolia.id });
+      }
+      console.log('Requesting faucet tokens for', walletState.address);
+      const receipt = await requestAllTokens(walletState.address as Address);
+      const url = `https://sepolia-optimism.etherscan.io/tx/${receipt.transactionHash}`;
+      toast.successWithLink('Faucet tokens requested.', url, 'View tx');
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : 'Faucet request failed';
+      // Treat user rejection as non-error informational toast
+      if (msg.toLowerCase().includes('user rejected')) {
+        toast.info('Request cancelled');
+      } else {
+        toast.error(`Faucet request failed: ${msg}`);
+      }
+    } finally {
+      faucetLoading = false;
+    }
+  }
 </script>
 
 <nav class="bg-white border-b border-gray-200 sticky top-0 z-40">
@@ -33,6 +73,16 @@
         >
           Portfolio
         </a>
+        <div class="flex items-center space-x-2">
+          <Button
+          variant="secondary"
+          size="md"
+          on:click={handleFaucet}
+          disabled={faucetLoading || walletState?.status !== 'connected'}
+          >
+            {faucetLoading ? 'Requesting…' : 'Get Faucet Tokens'}
+          </Button>
+        </div>
       </div>
 
       <!-- Action Buttons -->

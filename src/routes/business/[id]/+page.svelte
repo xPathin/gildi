@@ -2,7 +2,9 @@
   import { page } from '$app/stores';
   import { businesses } from '$lib/data/businesses';
   import Button from '$lib/components/Button.svelte';
-  import Modal from '$lib/components/Modal.svelte';
+  import SellListingModal from '$lib/components/SellListingModal.svelte';
+  import OrderBookAsks from '$lib/components/OrderBookAsks.svelte';
+  import BuyModal from '$lib/components/BuyModal.svelte';
 
   let showBuyModal = false;
   let showSellModal = false;
@@ -10,14 +12,6 @@
   let shareQuantity = 1;
 
   $: business = businesses.find((b) => b.id === $page.params.id);
-  $: sharesSoldPercentage = business
-    ? ((business.totalShares - business.availableShares) /
-        business.totalShares) *
-      100
-    : 0;
-  $: maxShares = business
-    ? Math.floor(investmentAmount / business.pricePerShare)
-    : 0;
 
   function formatCurrency(amount) {
     return new Intl.NumberFormat('en-US', {
@@ -99,6 +93,7 @@
               variant="primary"
               size="lg"
               on:click={() => (showBuyModal = true)}
+              disabled={!business?.tokenId}
             >
               Buy Shares
             </Button>
@@ -106,6 +101,7 @@
               variant="outline"
               size="lg"
               on:click={() => (showSellModal = true)}
+              disabled={!business?.tokenId}
             >
               Sell Shares
             </Button>
@@ -117,6 +113,9 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- Main Content -->
       <div class="lg:col-span-2 space-y-8">
+        {#if business?.tokenId != null}
+          <OrderBookAsks releaseId={business.tokenId} />
+        {/if}
         <!-- Description -->
         <div class="bg-white rounded-xl border border-gray-200 p-8">
           <h2 class="text-2xl font-bold text-gray-900 mb-4">
@@ -214,12 +213,6 @@
               >
             </div>
             <div class="flex justify-between">
-              <span class="text-gray-600">Minimum Investment</span>
-              <span class="font-semibold"
-                >{formatCurrency(business.minimumInvestment)}</span
-              >
-            </div>
-            <div class="flex justify-between">
               <span class="text-gray-600">Risk Level</span>
               <span
                 class="font-semibold"
@@ -232,114 +225,14 @@
             </div>
           </div>
         </div>
-
-        <!-- Share Progress -->
-        <div class="bg-white rounded-xl border border-gray-200 p-6">
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">
-            Share Distribution
-          </h3>
-          <div class="mb-3">
-            <div class="flex justify-between text-sm text-gray-600 mb-1">
-              <span>Shares Sold</span>
-              <span>{sharesSoldPercentage.toFixed(1)}%</span>
-            </div>
-            <div class="w-full bg-gray-200 rounded-full h-3">
-              <div
-                class="bg-orange-600 h-3 rounded-full transition-all duration-300"
-                style="width: {sharesSoldPercentage}%"
-              />
-            </div>
-          </div>
-          <div class="text-sm text-gray-600">
-            {formatNumber(business.totalShares - business.availableShares)} of {formatNumber(
-              business.totalShares
-            )} shares sold
-          </div>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- Buy Modal -->
-  <Modal bind:show={showBuyModal} title="Buy Shares - {business.name}">
-    <div class="space-y-6">
-      <div>
-        <label
-          for="investment-amount"
-          class="block text-sm font-medium text-gray-700 mb-2"
-          >Investment Amount</label
-        >
-        <input
-          id="investment-amount"
-          type="number"
-          bind:value={investmentAmount}
-          on:input={handleInvestmentChange}
-          min={business.minimumInvestment}
-          class="input"
-          placeholder="Enter amount"
-        />
-        <p class="text-sm text-gray-500 mt-1">
-          Minimum: {formatCurrency(business.minimumInvestment)}
-        </p>
-      </div>
-
-      <div>
-        <label
-          for="share-quantity"
-          class="block text-sm font-medium text-gray-700 mb-2"
-          >Number of Shares</label
-        >
-        <input
-          id="share-quantity"
-          type="number"
-          bind:value={shareQuantity}
-          on:input={handleShareQuantityChange}
-          min="1"
-          max={business.availableShares}
-          class="input"
-        />
-        <p class="text-sm text-gray-500 mt-1">
-          Max available: {formatNumber(business.availableShares)}
-        </p>
-      </div>
-
-      <div class="bg-gray-50 p-4 rounded-lg">
-        <div class="flex justify-between mb-2">
-          <span>Share Price:</span>
-          <span>{formatCurrency(business.pricePerShare)}</span>
-        </div>
-        <div class="flex justify-between mb-2">
-          <span>Quantity:</span>
-          <span>{shareQuantity}</span>
-        </div>
-        <div class="flex justify-between font-semibold text-lg border-t pt-2">
-          <span>Total:</span>
-          <span>{formatCurrency(shareQuantity * business.pricePerShare)}</span>
-        </div>
-      </div>
-
-      <div class="flex space-x-3">
-        <Button variant="primary" class="flex-1">Pay with Card</Button>
-        <Button variant="outline" class="flex-1">Pay with Crypto</Button>
-      </div>
-    </div>
-  </Modal>
-
-  <!-- Sell Modal -->
-  <Modal bind:show={showSellModal} title="Sell Shares - {business.name}">
-    <div class="space-y-6">
-      <p class="text-gray-600">
-        You don't own any shares of {business.name} yet.
-      </p>
-      <Button
-        variant="primary"
-        on:click={() => {
-          showSellModal = false;
-          showBuyModal = true;
-        }}
-      >
-        Buy Shares First
-      </Button>
-    </div>
-  </Modal>
+  {#if business?.tokenId != null}
+    <BuyModal bind:open={showBuyModal} releaseId={business.tokenId} on:purchased={() => {}} />
+  {/if}
+  {#if business?.tokenId != null}
+    <SellListingModal bind:open={showSellModal} releaseId={business.tokenId} on:created={() => {}} />
+  {/if}
 {/if}

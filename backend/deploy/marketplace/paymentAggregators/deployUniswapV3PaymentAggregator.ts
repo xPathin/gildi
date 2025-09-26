@@ -336,9 +336,9 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     console.log("UniswapV3SwapAdapter configured");
 
     // ------ GILDI EXCHANGE MARKETPLACE AGGREGATOR ------
-    const gildiExchangeV2Deployment =
+    const gildiExchangeDeployment =
         await deployments.getOrNull("GildiExchange");
-    if (!gildiExchangeV2Deployment) {
+    if (!gildiExchangeDeployment) {
         throw new Error("GildiExchange deployment not found");
     }
 
@@ -364,7 +364,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
                     init: {
                         methodName: "initialize",
                         args: [
-                            gildiExchangeV2Deployment.address,
+                            gildiExchangeDeployment.address,
                             wNativeToken,
                             defaultAdmin,
                             contractAdmin,

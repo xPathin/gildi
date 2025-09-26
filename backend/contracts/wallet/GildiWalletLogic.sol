@@ -451,10 +451,10 @@ contract GildiWalletLogic is Initializable, AccessControlUpgradeable {
 
     function _getGildiExchange() internal returns (IGildiExchange) {
         IGildiWalletConfigRegistry.WalletConfig memory config = _getWalletConfig();
-        if (config.gildiExchangeV2 == address(0)) {
+        if (config.gildiExchange == address(0)) {
             revert GildiExchangeNotConfigured();
         }
-        return IGildiExchange(config.gildiExchangeV2);
+        return IGildiExchange(config.gildiExchange);
     }
 
     function _getPaymentAggregator() internal returns (IGildiExchangePaymentAggregator) {
