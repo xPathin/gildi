@@ -16,7 +16,7 @@ import '@openzeppelin/contracts/utils/Strings.sol';
 import '../interfaces/token/IGildiToken.sol';
 
 /// @title Gilde Company Share Token
-/// @notice ERC1155 token that represents company shares.
+/// @notice ERC1155 token that represents company shares on the Gildi platform.
 /// @custom:security-contact security@gildi.io
 /// @author Patrick Fischer (Pathin) > https://pathin.me
 contract GildiShareToken is

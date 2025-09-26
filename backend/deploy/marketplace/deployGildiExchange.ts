@@ -13,6 +13,8 @@ import { fetchTokenAddressOrNull } from "../../utils/fetchTokenInfo";
 const GLOBAL_FEE_PERCENTAGE = 300; // 3%
 const GLOBAL_FEE_BURN_PERCENTAGE = 1000; // 10%
 
+const MAX_BUY_PER_TX = 100n;
+
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     const { deployments, ethers, getNamedAccounts } = hre;
     const { deploy } = deployments;
@@ -263,6 +265,13 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     ) {
         console.log(`Fees changed, setting fees...`);
         await gildiExchangeContract.setFees(fees);
+    }
+
+    const existingMaxBuyPerTx = (await gildiExchangeContract.getAppEnvironment())
+        .settings.maxBuyPerTransaction;
+    if (existingMaxBuyPerTx != MAX_BUY_PER_TX) {
+        console.log(`Max buy per tx changed, setting max buy per tx...`);
+        await gildiExchangeContract.setMaxBuyPerTransaction(MAX_BUY_PER_TX);
     }
 
     // Get the feed id's for RUST/USD and USDC/USD pairs from gildi oracle.

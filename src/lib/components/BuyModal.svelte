@@ -280,7 +280,7 @@
       // Slippage buffer from user selection
       toast.info('Submitting purchase…');
       const receipt = await purchaseFn(releaseId, qty, selectedToken, buffer);
-      const url = `https://sepolia-optimism.etherscan.io/tx/${receipt.transactionHash}`;
+      const url = `https://testnet-explorer.optimism.io/tx/${receipt.transactionHash}`;
       toast.successWithLink('Purchase confirmed', url, 'View tx');
       close();
       dispatch('purchased');
