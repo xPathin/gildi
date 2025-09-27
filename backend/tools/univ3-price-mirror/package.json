@@ -29,7 +29,6 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
-        "@typechain/ethers-v6": "^0.5.1",
         "@types/node": "^20.14.10",
         "@typescript-eslint/eslint-plugin": "^7.16.0",
         "@typescript-eslint/parser": "^7.16.0",
@@ -42,6 +41,7 @@
         "typechain": "^8.3.2"
     },
     "dependencies": {
+        "@typechain/ethers-v6": "^0.5.1",
         "dotenv": "^16.4.5",
         "axios": "^1.7.2",
         "tsx": "^4.16.2",
