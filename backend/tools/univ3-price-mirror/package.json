@@ -5,8 +5,8 @@
     "main": "dist/index.js",
     "scripts": {
         "typechain": "typechain --target ethers-v6 --out-dir src/typechain-types 'abi/**/*.json'",
-        "prebuild": "pnpm run typechain",
-        "predev": "pnpm run typechain",
+        "prebuild": "npm run typechain",
+        "predev": "npm run typechain",
         "dev": "tsx watch src/index.ts",
         "build": "tsc",
         "start": "node dist/index.js",
