@@ -32,8 +32,6 @@
         "@types/node": "^20.14.10",
         "@typescript-eslint/eslint-plugin": "^7.16.0",
         "@typescript-eslint/parser": "^7.16.0",
-        "@uniswap/sdk-core": "^7.7.2",
-        "@uniswap/v3-sdk": "^3.25.2",
         "eslint": "^8.57.0",
         "ethers": "^6.15.0",
         "jsbi": "3.2.5",
@@ -45,7 +43,9 @@
         "dotenv": "^16.4.5",
         "axios": "^1.7.2",
         "tsx": "^4.16.2",
-        "typescript": "^5.5.3"
+        "typescript": "^5.5.3",
+        "@uniswap/sdk-core": "^7.7.2",
+        "@uniswap/v3-sdk": "^3.25.2"
     },
     "engines": {
         "node": ">=22.0.0",
