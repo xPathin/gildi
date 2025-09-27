@@ -73,10 +73,6 @@ function validateConfig(): Config {
     throw new Error('LIQUIDITY_USD must be a valid positive number');
   }
 
-  if (nodeEnv === 'production' && !databaseUrl) {
-    throw new Error('DATABASE_URL is required in production environment');
-  }
-
   const config: Config = {
     nodeEnv,
     port,
