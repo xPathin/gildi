@@ -19,9 +19,6 @@ COPY . .
 # Build stage
 FROM base AS build
 
-# Generate TypeChain types and build the TypeScript code
-RUN pnpm run build
-
 # Production stage
 FROM node:20-alpine AS production
 
@@ -36,6 +33,9 @@ COPY package.json pnpm-lock.yaml* ./
 
 # Install only production dependencies
 RUN pnpm install --frozen-lockfile --prod
+
+# Generate TypeChain types and build the TypeScript code
+RUN pnpm run build
 
 # Copy built application
 COPY --from=build /app/dist ./dist
@@ -53,7 +53,7 @@ EXPOSE 3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "process.exit(0)" || exit 1
+    CMD node -e "process.exit(0)" || exit 1
 
 # Start the application
 CMD ["node", "dist/index.js"]
