@@ -37,7 +37,7 @@ const config: HardhatUserConfig = {
     },
     networks: {
         OPTIMISM_TESTNET: {
-            url: "https://optimism-sepolia.core.chainstack.com/c1d29d170ab9f4b5a196892eb755d55b",
+            url: "https://sepolia.optimism.io",
             chainId: 11155420,
             accounts: {
                 mnemonic: getMnemonic("TESTNET"),

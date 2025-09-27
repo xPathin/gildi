@@ -35,7 +35,7 @@ function validateConfig(): Config {
   const corsOrigin = process.env['CORS_ORIGIN'] || '*';
 
   // Blockchain configuration
-  const rpcUrl = process.env['RPC_URL'] || 'https://optimism-sepolia.core.chainstack.com/c1d29d170ab9f4b5a196892eb755d55b';
+  const rpcUrl = process.env['RPC_URL'] || 'https://sepolia.optimism.io';
   const chainId = parseInt(process.env['CHAIN_ID'] || '11155420', 10);
   const privateKey = process.env['PRIVATE_KEY'] || '';
 
