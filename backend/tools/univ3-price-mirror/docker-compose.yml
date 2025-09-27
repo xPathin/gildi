@@ -1,0 +1,13 @@
+version: "3.4"
+
+services:
+  gildi-univ3-price-mirror:
+    image: gildi-univ3-price-mirror:latest
+    restart: always
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
