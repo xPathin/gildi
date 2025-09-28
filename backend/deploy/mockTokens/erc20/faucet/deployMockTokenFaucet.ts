@@ -39,7 +39,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
     const shouldTokenAmounts = {
         tokenAddresses: [mockUSDC?.address, mockWETH9?.address],
-        tokenAmounts: [1000, 500],
+        tokenAmounts: [1000, 0.25],
     };
 
     var contract = MockTokenFaucet__factory.connect(deployment.address, contractAdmin);
